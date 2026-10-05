@@ -32,3 +32,20 @@ Landing → captura comercial → localStorage (fallback) / Supabase → CRM →
 - métricas de conversión;
 - auditoría;
 - políticas de retención y privacidad.
+
+## Configuración aplicada — Producción Supabase
+
+El CRM queda configurado para el proyecto Supabase de Somos Software mediante una **publishable/anon key**. No se incorpora ninguna `service_role`/secret key.
+
+### Sesión persistente
+
+El cliente Supabase usa `persistSession:true` + `autoRefreshToken:true` y un almacenamiento persistente basado en IndexedDB, con fallback a `localStorage`.
+
+Comportamiento esperado:
+- cerrar el navegador: **no obliga a iniciar sesión nuevamente**;
+- abrir nuevamente el CRM en el mismo navegador/perfil: **recupera la sesión automáticamente** mientras siga válida;
+- borrar el historial de navegación normal: la sesión de autenticación se mantiene porque no depende del historial;
+- usar "borrar cookies/datos del sitio" o borrar almacenamiento de la aplicación: **sí puede eliminar la sesión**, por seguridad y por las reglas del navegador;
+- cerrar sesión desde el CRM: elimina la sesión local y exige autenticación nuevamente.
+
+La contraseña del usuario **no se guarda** en el código ni en el almacenamiento del navegador. El navegador conserva la sesión/token administrado por Supabase.
