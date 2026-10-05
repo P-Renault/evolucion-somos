@@ -112,8 +112,10 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 
 <section class="view" id="view-social">
  <div class="social-actions">
-  <button class="btnx primary" id="socialRefresh">Actualizar datos guardados</button>
+  <button class="btnx primary" id="socialSync">Sincronizar Meta</button>
+  <button class="btnx" id="socialRefresh">Actualizar datos guardados</button>
   <button class="btnx" id="socialSeed">Cargar métrica de prueba</button>
+  <span id="socialSyncStatus" class="tag">API pendiente</span>
  </div>
  <div class="social-grid" id="socialCards"></div>
  <section class="intel-panel"><h3>Estado de conexión</h3><div id="socialAccounts"></div><p class="muted-note">La conexión real con Meta/Instagram se ejecutará mediante una Edge Function de Supabase. Los tokens nunca deben estar en GitHub Pages ni en este CRM.</p></section>
@@ -177,6 +179,7 @@ $('#export').onclick=()=>{let c=['id','name','business','contact','need','state'
 $('#importLocal').onclick=async()=>{const local=localLeads();if(!local.length)return alert('No hay leads locales para importar.');const ok=await CRMStore.importMany(local);if(ok){alert(`${local.length} lead(s) enviados al CRM central.`);await load()}else alert('No fue posible importar al backend.')};$('#logout').onclick=async()=>{await CRMStore.logout();location.reload()};
 $$('[data-tab]').forEach(btn=>btn.onclick=async()=>{const tab=btn.dataset.tab;$$('[data-tab]').forEach(x=>x.classList.toggle('active',x===btn));$$('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+tab));if(tab==='intelligence')renderIntelligence();if(tab==='social')await renderSocial()});
 $('#socialRefresh').onclick=renderSocial;
+$('#socialSync').onclick=async()=>{const b=$('#socialSync');const s=$('#socialSyncStatus');b.disabled=true;b.textContent='Sincronizando…';s.textContent='Conectando con Meta…';try{const r=await CRMStore.syncMeta();if(r?.ok){s.textContent='Sincronización OK';await renderSocial();alert('Meta sincronizado correctamente.')}else{s.textContent='Error de sincronización';alert(r?.error||'No fue posible sincronizar Meta.')}}finally{b.disabled=false;b.textContent='Sincronizar Meta'}};
 $('#socialSeed').onclick=async()=>{const today=new Date().toISOString().slice(0,10);for(const p of ['facebook','instagram'])await CRMStore.saveSocialMetric({platform:p,account_id:'demo',metric_date:today,followers:p==='facebook'?100:120,followers_gained:0,followers_lost:0,reach:0,impressions:0,engagement:0,profile_visits:0,website_clicks:0,whatsapp_clicks:0,messages:0,leads:0,revenue:0,raw:{demo:true}});await renderSocial()};
 CRMStore.onStateChange=({authenticated,email,mode})=>{$('#logout').style.display=authenticated?'inline-block':'none';$('#session').innerHTML=authenticated?`<span>Sesión:</span> <b>${esc(email||'usuario')}</b>`:`<span>Modo:</span> <b>${mode==='supabase'?'Supabase':'local'}</b>`;if(authenticated){$('#loginError').classList.remove('show');$('#modeNote').textContent='Sesión activa. CRM + inteligencia comercial disponibles.'}else if(mode==='supabase')$('#modeNote').textContent='Supabase conectado. Inicia sesión o crea una cuenta.';else $('#modeNote').textContent='No se pudo conectar con Supabase.'};
 function showAuthError(message){const el=$('#loginError');el.textContent=message;el.classList.add('show')}function clearAuthError(){const el=$('#loginError');el.textContent='';el.classList.remove('show')}
