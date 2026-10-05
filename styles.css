@@ -328,3 +328,24 @@ footer{display:grid!important;grid-template-columns:1.4fr .7fr .9fr auto auto;ga
 }
 
 .lead-modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:18px;opacity:0;visibility:hidden;pointer-events:none;transition:.25s}.lead-modal.is-open{opacity:1;visibility:visible;pointer-events:auto}.lead-modal-backdrop{position:absolute;inset:0;background:rgba(1,5,10,.78);backdrop-filter:blur(14px)}.lead-modal-panel{position:relative;width:min(740px,100%);max-height:92vh;overflow:auto;padding:30px;border:1px solid rgba(24,200,244,.25);border-radius:28px;background:linear-gradient(145deg,#0a1420,#050a11);box-shadow:0 40px 120px #000;transform:translateY(15px);transition:.3s}.lead-modal.is-open .lead-modal-panel{transform:none}.lead-modal-close{position:absolute;right:16px;top:12px;background:none;border:0;color:#8c9aac;font-size:26px}.lead-modal-panel h2{font-size:clamp(32px,5vw,52px);line-height:.98;letter-spacing:-.06em;margin:15px 40px 10px 0}.lead-modal-intro{color:#8796a9;font-size:12px;line-height:1.6}.lead-grid,.lead-agenda{display:grid;grid-template-columns:1fr 1fr;gap:10px}.lead-modal-panel label{display:grid;gap:6px;color:#8d9caf;font-size:9px;font-weight:900;margin-top:10px}.lead-modal-panel input,.lead-modal-panel select,.lead-modal-panel textarea{box-sizing:border-box;width:100%;border:1px solid rgba(255,255,255,.09);border-radius:10px;background:#07111d;color:#e8f1f8;padding:11px;font:inherit;font-size:10px}.lead-modal-panel>form>label{margin-top:10px}.lead-consent{display:flex!important;align-items:flex-start;gap:8px;font-weight:500!important;letter-spacing:0}.lead-consent input{width:15px!important;flex:0 0 auto}.lead-submit{width:100%;margin-top:14px;justify-content:center}.lead-note{display:block;color:#64758b;font-size:8px;margin-top:9px}@media(max-width:780px){.lead-grid,.lead-agenda{grid-template-columns:1fr}.lead-modal-panel{padding:22px 17px}.lead-modal-panel h2{font-size:34px}}
+
+/* SOMOS SOFTWARE — OFERTA COMERCIAL / 6 TARJETAS
+   B9.1 — Mantiene el carrusel horizontal automático y muestra 2 tarjetas
+   en el ancho móvil premium utilizado por la versión aprobada.
+*/
+.offer-carousel .offer-track{
+  will-change:transform;
+}
+.offer-carousel .offer{
+  min-width:0;
+}
+@media (min-width:521px) and (max-width:780px){
+  .offer-carousel .offer{
+    flex:0 0 calc((100% - 16px)/2);
+  }
+}
+@media (max-width:520px){
+  .offer-carousel .offer{
+    flex:0 0 100%;
+  }
+}
