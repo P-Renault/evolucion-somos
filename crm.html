@@ -49,6 +49,23 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
  </div>
 </div>
 
+<div class="login" id="signup" style="display:none;z-index:110">
+ <div class="login-card">
+  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B9.4</div>
+  <h1>Crear cuenta</h1>
+  <p>Crea tu usuario de acceso al CRM. Supabase enviará un correo de confirmación si las confirmaciones de email están activadas.</p>
+  <form id="signupForm">
+   <label>CORREO</label><input id="signupEmail" type="email" autocomplete="email" required>
+   <label>CONTRASEÑA</label><input id="signupPassword" type="password" autocomplete="new-password" minlength="6" required>
+   <label>CONFIRMAR CONTRASEÑA</label><input id="signupPassword2" type="password" autocomplete="new-password" minlength="6" required>
+   <div class="login-error" id="signupError"></div>
+   <button class="btnx primary" type="submit">Crear cuenta</button>
+  </form>
+  <button class="btnx" id="backToLogin" type="button" style="width:100%;margin-top:8px">Volver a iniciar sesión</button>
+  <div class="mode-note" id="signupNote">Supabase conectado.</div>
+ </div>
+</div>
+
 <main class="crm">
 <header class="top">
  <div class="brand"><img src="assets/logo-somos-software.png" alt="Somos Software"><small>CRM COMERCIAL · B9.4</small><div class="session" id="session"></div></div>
@@ -169,7 +186,49 @@ await CRMStore.init();
 if(CRMStore.authenticated){$('#login').classList.remove('open')}else{$('#login').classList.add('open')}
 if(!CRMStore.requiresLogin){showAuthError('No se pudo conectar con Supabase. Revisa la URL, la publishable key y la conexión a Internet.');}
 $('#loginForm').onsubmit=async e=>{e.preventDefault();clearAuthError();const d=Object.fromEntries(new FormData(e.currentTarget).entries());const btn=e.currentTarget.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Validando…';try{const r=await CRMStore.login(d.email.trim(),d.password);if(!r.ok){let msg=r.error||'No fue posible iniciar sesión.';if(/email not confirmed|email_not_confirmed/i.test(msg))msg='El correo todavía no está confirmado. Revisa tu correo y confirma la cuenta antes de iniciar sesión.';if(/invalid login credentials/i.test(msg))msg='Correo o contraseña incorrectos. Si acabas de crear la cuenta, confirma primero el correo.';showAuthError(msg);}else{$('#login').classList.remove('open');await load()}}catch(err){showAuthError(err?.message||'Error inesperado al iniciar sesión.')}finally{btn.disabled=false;btn.textContent='Iniciar sesión'}};
-$('#createAccount').onclick=async()=>{clearAuthError();const email=$('#loginForm input[name=email]').value.trim();const password=$('#loginForm input[name=password]').value;if(!email||password.length<6){showAuthError('Ingresa un correo válido y una contraseña de al menos 6 caracteres.');return}const btn=$('#createAccount');btn.disabled=true;btn.textContent='Creando cuenta…';try{const r=await CRMStore.signUp(email,password);if(!r.ok){showAuthError(r.error||'No fue posible crear la cuenta.');return}if(r.confirmed){$('#login').classList.remove('open');await load();alert('Cuenta creada y sesión iniciada correctamente.')}else{showAuthError('Cuenta creada correctamente. Supabase requiere confirmar el correo antes de iniciar sesión. Revisa tu bandeja de entrada y spam. Si no llega el mensaje, revisa la configuración SMTP de Supabase.')}}catch(err){showAuthError(err?.message||'Error inesperado al crear la cuenta.')}finally{btn.disabled=false;btn.textContent='Crear cuenta'}};
+$('#createAccount').onclick=()=>{
+ clearAuthError();
+ const email=$('#loginForm input[name=email]').value.trim();
+ const password=$('#loginForm input[name=password]').value;
+ $('#signupEmail').value=email;
+ $('#signupPassword').value=password;
+ $('#signupPassword2').value='';
+ $('#signupError').classList.remove('show');
+ $('#signupError').textContent='';
+ $('#signup').style.display='grid';
+};
+$('#backToLogin').onclick=()=>{
+ $('#signup').style.display='none';
+ $('#signupError').classList.remove('show');
+};
+$('#signupForm').onsubmit=async e=>{
+ e.preventDefault();
+ const email=$('#signupEmail').value.trim();
+ const password=$('#signupPassword').value;
+ const password2=$('#signupPassword2').value;
+ const err=$('#signupError');
+ err.classList.remove('show');err.textContent='';
+ if(!email){err.textContent='Ingresa un correo válido.';err.classList.add('show');return}
+ if(password.length<6){err.textContent='La contraseña debe tener al menos 6 caracteres.';err.classList.add('show');return}
+ if(password!==password2){err.textContent='Las contraseñas no coinciden.';err.classList.add('show');return}
+ const btn=e.currentTarget.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Creando cuenta…';
+ try{
+  const r=await CRMStore.signUp(email,password);
+  if(!r.ok){err.textContent=r.error||'No fue posible crear la cuenta.';err.classList.add('show');return}
+  if(r.confirmed){
+   $('#signup').style.display='none';
+   $('#login').classList.remove('open');
+   await load();
+   alert('Cuenta creada y sesión iniciada correctamente.');
+  }else{
+   $('#signupNote').textContent='Cuenta creada. Revisa tu correo y confirma la cuenta antes de iniciar sesión.';
+   err.textContent='Te enviamos el correo de confirmación. Revisa bandeja de entrada y spam. Si no llega, revisaremos SMTP y la URL de redirección de Supabase.';
+   err.classList.add('show');
+  }
+ }catch(errx){
+  err.textContent=errx?.message||'Error inesperado al crear la cuenta.';err.classList.add('show');
+ }finally{btn.disabled=false;btn.textContent='Crear cuenta'}
+};
 $('#resetPassword').onclick=async()=>{clearAuthError();const email=$('#loginForm input[name=email]').value.trim();if(!email){showAuthError('Escribe primero tu correo para recuperar la contraseña.');return}try{const client=window.__SOMOS_SUPABASE_CLIENT__;if(!client){showAuthError('El motor de Supabase todavía no está disponible.');return}const {error}=await client.auth.resetPasswordForEmail(email,{redirectTo:window.location.href.split('#')[0]});if(error)showAuthError(error.message);else showAuthError('Te enviamos un enlace para restablecer la contraseña. Revisa tu correo y spam.')}catch(err){showAuthError(err?.message||'No fue posible solicitar la recuperación.')}};
 await load();
 </script>
