@@ -34,7 +34,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 <body>
 <div class="login open" id="login">
  <div class="login-card">
-  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B9.4</div>
+  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B9.4.9</div>
   <h1>Acceso al CRM</h1>
   <p>CRM privado de Somos Software. Inicia sesión con tu usuario de Supabase. La sesión queda persistente en este dispositivo.</p>
   <form id="loginForm">
@@ -51,7 +51,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 
 <div class="login" id="signup" style="display:none;z-index:110">
  <div class="login-card">
-  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B9.4</div>
+  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B9.4.9</div>
   <h1>Crear cuenta</h1>
   <p>Crea tu usuario de acceso al CRM. Supabase enviará un correo de confirmación si las confirmaciones de email están activadas.</p>
   <form id="signupForm">
@@ -68,7 +68,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 
 <main class="crm">
 <header class="top">
- <div class="brand"><img src="assets/logo-somos-software.png" alt="Somos Software"><small>CRM COMERCIAL · B9.4</small><div class="session" id="session"></div></div>
+ <div class="brand"><img src="assets/logo-somos-software.png" alt="Somos Software"><small>CRM COMERCIAL · B9.4.9</small><div class="session" id="session"></div></div>
  <div class="actions">
   <button class="btnx" id="export">Exportar CSV</button>
   <button class="btnx" id="importLocal">Importar locales</button>
@@ -117,10 +117,10 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
  </div>
 </div>
 
-<script src="supabase-config.js"></script>
+<script src="supabase-config.js?v=B9.4.9"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script type="module">
-import { CRMStore } from './crm-data.js';
+import { CRMStore } from './crm-data.js?v=B9.4.9';
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const states=['Nuevo','Contactado','Calificado','Diagnóstico','Agenda','Cotización enviada','Negociación','Ganado','Perdido','Postventa'];

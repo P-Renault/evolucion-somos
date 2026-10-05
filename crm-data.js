@@ -1,4 +1,4 @@
-// Somos Software CRM B9.4.7 — Supabase Auth + sesión persistente.
+// Somos Software CRM B9.4.9 — Supabase Auth + sesión persistente.
 // Nunca usar service_role/secret key en frontend.
 const localKey = 'somos_leads_pending';
 const cfg = window.SOMOS_SUPABASE || {enabled:false};
@@ -45,6 +45,7 @@ async function initSupabase(){
     });
 
     window.__SOMOS_SUPABASE_CLIENT__ = sb;
+    CRMStore.mode = 'supabase';
 
     const {data, error} = await sb.auth.getSession();
     if(error) throw error;
@@ -62,6 +63,7 @@ async function initSupabase(){
     console.error('Supabase init error:', e);
     sb = null;
     authReady = false;
+    CRMStore.mode = 'local';
     notify();
     return false;
   }
@@ -145,7 +147,7 @@ export const CRMStore = {
 
   get authenticated(){ return !!authUser; },
   get requiresLogin(){ return !!sb; },
-  get mode(){ return sb ? 'supabase' : 'local'; },
+  mode: 'local',
   get ready(){ return authReady; },
   onStateChange:null
 };
