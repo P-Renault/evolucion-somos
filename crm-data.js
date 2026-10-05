@@ -33,6 +33,7 @@ async function initSupabase(){
       createClient = mod.createClient;
     }
     sb = createClient(cfg.url,cfg.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:makePersistentStorage()}});
+    window.__SOMOS_SUPABASE_CLIENT__ = sb;
     const {data}=await sb.auth.getSession();
     authUser=data.session?.user||null;
     sb.auth.onAuthStateChange((_event,session)=>{authUser=session?.user||null;notify();});
@@ -46,15 +47,16 @@ export const CRMStore={
   async login(email,password){
     if(!sb) return {ok:true};
     const {data,error}=await sb.auth.signInWithPassword({email,password});
-    if(error)return {ok:false,error:error.message};
+    if(error)return {ok:false,error:error.message,code:error.code||'',status:error.status||0};
     authUser=data.user;this.authenticated=true;notify();return {ok:true};
   },
   async signUp(email,password){
     if(!sb) return {ok:false,error:'Supabase no está disponible.'};
-    const {data,error}=await sb.auth.signUp({email,password});
-    if(error)return {ok:false,error:error.message};
+    const redirectTo = window.location.href.split('#')[0];
+    const {data,error}=await sb.auth.signUp({email,password,options:{emailRedirectTo:redirectTo}});
+    if(error)return {ok:false,error:error.message,code:error.code||'',status:error.status||0};
     authUser=data.session?.user||null; this.authenticated=!!authUser; notify();
-    return {ok:true,confirmed:!!data.session,user:data.user};
+    return {ok:true,confirmed:!!data.session,user:data.user,emailConfirmationRequired:!data.session&&!!data.user,confirmationSentAt:data.user?.confirmation_sent_at||null};
   },
   async logout(){if(sb)await sb.auth.signOut({scope:'local'});authUser=null;this.authenticated=false;notify();},
   async list(){

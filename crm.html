@@ -44,7 +44,8 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
    <button class="btnx primary" type="submit">Iniciar sesión</button>
   </form>
   <button class="btnx" id="createAccount" type="button" style="width:100%;margin-top:8px">Crear cuenta</button>
-  <div class="mode-note" id="modeNote">La primera cuenta debe crearse en Supabase Authentication y luego asignarse como administrador.</div>
+  <button class="btnx" id="resetPassword" type="button" style="width:100%;margin-top:8px">Recuperar contraseña</button>
+  <div class="mode-note" id="modeNote">Conexión Supabase activa. Crea tu cuenta o inicia sesión.</div>
  </div>
 </div>
 
@@ -161,20 +162,15 @@ $('#q').oninput=render;$('#status').onchange=render;$('#source').onchange=render
 $('#export').onclick=()=>{let c=['id','name','business','contact','need','state','priority','next_action','next_date','value','owner','source','medium','campaign','created_at','notes'],csv=[c.join(','),...leads.map(l=>c.map(k=>`"${String(l[k]??'').replace(/"/g,'""')}"`).join(','))].join('\n'),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='somos-software-crm.csv';a.click()};
 $('#importLocal').onclick=async()=>{const local=localLeads();if(!local.length)return alert('No hay leads locales para importar.');const ok=await CRMStore.importMany(local);if(ok){alert(`${local.length} lead(s) enviados al CRM central.`);await load()}else alert('El backend no está configurado. Los leads locales se mantienen en este navegador.')};
 $('#logout').onclick=async()=>{await CRMStore.logout();location.reload()};
-CRMStore.onStateChange=({authenticated,email,mode})=>{ $('#logout').style.display=authenticated?'inline-block':'none';$('#session').innerHTML=authenticated?`<span>Sesión:</span> <b>${esc(email||'usuario')}</b>`:`<span>Modo:</span> <b>${mode==='supabase'?'Supabase':'local'}</b>`; $('#modeNote').textContent=mode==='supabase'?'Backend Supabase activo.':'Modo local de prueba activo.'};
+CRMStore.onStateChange=({authenticated,email,mode})=>{ $('#logout').style.display=authenticated?'inline-block':'none';$('#session').innerHTML=authenticated?`<span>Sesión:</span> <b>${esc(email||'usuario')}</b>`:`<span>Modo:</span> <b>${mode==='supabase'?'Supabase':'local'}</b>`; if(authenticated){$('#loginError').classList.remove('show');$('#modeNote').textContent='Sesión activa. Puedes cerrar el navegador y volver a entrar sin escribir tus credenciales.';}else if(mode==='supabase'){$('#modeNote').textContent='Supabase conectado. Inicia sesión o crea una cuenta.';}else{$('#modeNote').textContent='No se pudo conectar con Supabase.';}};
+function showAuthError(message){const el=$('#loginError');el.textContent=message;el.classList.add('show');}
+function clearAuthError(){const el=$('#loginError');el.textContent='';el.classList.remove('show');}
 await CRMStore.init();
 if(CRMStore.authenticated){$('#login').classList.remove('open')}else{$('#login').classList.add('open')}
-if(!CRMStore.requiresLogin){$('#modeNote').textContent='No se pudo conectar con Supabase. Verifica la configuración o la conexión a Internet.';$('#loginError').textContent='El motor de autenticación no está disponible todavía.';$('#loginError').classList.add('show')}
-$('#loginForm').onsubmit=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.currentTarget).entries()),r=await CRMStore.login(d.email,d.password);if(!r.ok){$('#loginError').textContent=r.error||'No fue posible iniciar sesión.';$('#loginError').classList.add('show')}else{$('#login').classList.remove('open');await load()}};
-$('#createAccount').onclick=async()=>{
- const email=$('#loginForm input[name=email]').value.trim();
- const password=$('#loginForm input[name=password]').value;
- if(!email||password.length<6){$('#loginError').textContent='Ingresa un correo y una contraseña de al menos 6 caracteres.';$('#loginError').classList.add('show');return}
- const r=await CRMStore.signUp(email,password);
- if(!r.ok){$('#loginError').textContent=r.error||'No fue posible crear la cuenta.';$('#loginError').classList.add('show');return}
- if(r.confirmed){$('#login').classList.remove('open');await load()}
- else {$('#loginError').textContent='Cuenta creada. Revisa el correo para confirmar la cuenta y luego inicia sesión.';$('#loginError').classList.add('show')}
-};
+if(!CRMStore.requiresLogin){showAuthError('No se pudo conectar con Supabase. Revisa la URL, la publishable key y la conexión a Internet.');}
+$('#loginForm').onsubmit=async e=>{e.preventDefault();clearAuthError();const d=Object.fromEntries(new FormData(e.currentTarget).entries());const btn=e.currentTarget.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Validando…';try{const r=await CRMStore.login(d.email.trim(),d.password);if(!r.ok){let msg=r.error||'No fue posible iniciar sesión.';if(/email not confirmed|email_not_confirmed/i.test(msg))msg='El correo todavía no está confirmado. Revisa tu correo y confirma la cuenta antes de iniciar sesión.';if(/invalid login credentials/i.test(msg))msg='Correo o contraseña incorrectos. Si acabas de crear la cuenta, confirma primero el correo.';showAuthError(msg);}else{$('#login').classList.remove('open');await load()}}catch(err){showAuthError(err?.message||'Error inesperado al iniciar sesión.')}finally{btn.disabled=false;btn.textContent='Iniciar sesión'}};
+$('#createAccount').onclick=async()=>{clearAuthError();const email=$('#loginForm input[name=email]').value.trim();const password=$('#loginForm input[name=password]').value;if(!email||password.length<6){showAuthError('Ingresa un correo válido y una contraseña de al menos 6 caracteres.');return}const btn=$('#createAccount');btn.disabled=true;btn.textContent='Creando cuenta…';try{const r=await CRMStore.signUp(email,password);if(!r.ok){showAuthError(r.error||'No fue posible crear la cuenta.');return}if(r.confirmed){$('#login').classList.remove('open');await load();alert('Cuenta creada y sesión iniciada correctamente.')}else{showAuthError('Cuenta creada correctamente. Supabase requiere confirmar el correo antes de iniciar sesión. Revisa tu bandeja de entrada y spam. Si no llega el mensaje, revisa la configuración SMTP de Supabase.')}}catch(err){showAuthError(err?.message||'Error inesperado al crear la cuenta.')}finally{btn.disabled=false;btn.textContent='Crear cuenta'}};
+$('#resetPassword').onclick=async()=>{clearAuthError();const email=$('#loginForm input[name=email]').value.trim();if(!email){showAuthError('Escribe primero tu correo para recuperar la contraseña.');return}try{const client=window.__SOMOS_SUPABASE_CLIENT__;if(!client){showAuthError('El motor de Supabase todavía no está disponible.');return}const {error}=await client.auth.resetPasswordForEmail(email,{redirectTo:window.location.href.split('#')[0]});if(error)showAuthError(error.message);else showAuthError('Te enviamos un enlace para restablecer la contraseña. Revisa tu correo y spam.')}catch(err){showAuthError(err?.message||'No fue posible solicitar la recuperación.')}};
 await load();
 </script>
 </body></html>
