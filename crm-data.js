@@ -26,8 +26,13 @@ function makePersistentStorage(){
 async function initSupabase(){
   if(!cfg.enabled || !cfg.url || !cfg.anonKey || cfg.anonKey.includes('YOUR_')) return false;
   try{
-    const mod = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
-    sb = mod.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:makePersistentStorage()}});
+    // Preferimos la librería global cargada por crm.html; si no existe, usamos ESM como respaldo.
+    let createClient = window.supabase?.createClient;
+    if(!createClient){
+      const mod = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
+      createClient = mod.createClient;
+    }
+    sb = createClient(cfg.url,cfg.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:makePersistentStorage()}});
     const {data}=await sb.auth.getSession();
     authUser=data.session?.user||null;
     sb.auth.onAuthStateChange((_event,session)=>{authUser=session?.user||null;notify();});

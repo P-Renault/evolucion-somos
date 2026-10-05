@@ -32,7 +32,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 </style>
 </head>
 <body>
-<div class="login" id="login">
+<div class="login open" id="login">
  <div class="login-card">
   <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B9.4</div>
   <h1>Acceso al CRM</h1>
@@ -100,6 +100,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 </div>
 
 <script src="supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script type="module">
 import { CRMStore } from './crm-data.js';
 
@@ -162,7 +163,8 @@ $('#importLocal').onclick=async()=>{const local=localLeads();if(!local.length)re
 $('#logout').onclick=async()=>{await CRMStore.logout();location.reload()};
 CRMStore.onStateChange=({authenticated,email,mode})=>{ $('#logout').style.display=authenticated?'inline-block':'none';$('#session').innerHTML=authenticated?`<span>Sesión:</span> <b>${esc(email||'usuario')}</b>`:`<span>Modo:</span> <b>${mode==='supabase'?'Supabase':'local'}</b>`; $('#modeNote').textContent=mode==='supabase'?'Backend Supabase activo.':'Modo local de prueba activo.'};
 await CRMStore.init();
-if(CRMStore.requiresLogin&&!CRMStore.authenticated){$('#login').classList.add('open')}
+if(CRMStore.authenticated){$('#login').classList.remove('open')}else{$('#login').classList.add('open')}
+if(!CRMStore.requiresLogin){$('#modeNote').textContent='No se pudo conectar con Supabase. Verifica la configuración o la conexión a Internet.';$('#loginError').textContent='El motor de autenticación no está disponible todavía.';$('#loginError').classList.add('show')}
 $('#loginForm').onsubmit=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.currentTarget).entries()),r=await CRMStore.login(d.email,d.password);if(!r.ok){$('#loginError').textContent=r.error||'No fue posible iniciar sesión.';$('#loginError').classList.add('show')}else{$('#login').classList.remove('open');await load()}};
 $('#createAccount').onclick=async()=>{
  const email=$('#loginForm input[name=email]').value.trim();
