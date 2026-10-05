@@ -1,0 +1,5 @@
+SOMOS SOFTWARE — B9.2 COMMERCIAL CONVERSION LAYER
+Baseline: B9
+Principle: additive evolution, preserve premium visual system.
+Added: source attribution, event tracking, lead capture, classification, diagnostic/agenda request, WhatsApp handoff.
+Deferred: production CRM persistence, real booking backend, testimonials/case studies until evidence exists.

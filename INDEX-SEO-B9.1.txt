@@ -1,0 +1,94 @@
+B9.1 — BLOQUE SEO PARA INDEX.HTML
+===================================
+
+1) REEMPLAZAR LA META DESCRIPTION ACTUAL POR:
+
+<meta content="Somos Software: desarrollo web, sistemas a medida, automatización y soluciones digitales para empresas y emprendedores en Chile. Cotiza tu proyecto." name="description"/>
+
+2) REEMPLAZAR EL <title> ACTUAL POR:
+
+<title>Somos Software | Desarrollo Web, Sistemas y Automatización</title>
+
+3) JUSTO DESPUÉS DE LA META DESCRIPTION, AGREGAR:
+
+<link rel="canonical" href="https://somossoftware.net/"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
+<meta name="author" content="Somos Software"/>
+<meta name="application-name" content="Somos Software"/>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="es_CL"/>
+<meta property="og:site_name" content="Somos Software"/>
+<meta property="og:title" content="Somos Software | Desarrollo Web, Sistemas y Automatización"/>
+<meta property="og:description" content="Desarrollo web, sistemas a medida, automatización y soluciones digitales para empresas y emprendedores en Chile."/>
+<meta property="og:url" content="https://somossoftware.net/"/>
+<meta property="og:image" content="https://somossoftware.net/assets/hero-01.webp"/>
+<meta property="og:image:alt" content="Somos Software — soluciones digitales"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Somos Software | Desarrollo Web, Sistemas y Automatización"/>
+<meta name="twitter:description" content="Desarrollo web, sistemas a medida, automatización y soluciones digitales para empresas y emprendedores en Chile."/>
+<meta name="twitter:image" content="https://somossoftware.net/assets/hero-01.webp"/>
+
+4) ANTES DE </head>, AGREGAR:
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://somossoftware.net/#organization",
+      "name": "Somos Software",
+      "url": "https://somossoftware.net/",
+      "logo": "https://somossoftware.net/assets/logo-somos-software.png",
+      "email": "teayudo@somossoftware.net",
+      "telephone": "+56 9 4123 9698",
+      "areaServed": "CL",
+      "sameAs": [
+        "https://www.instagram.com/somos.software/",
+        "https://www.facebook.com/share/1HULhaJftz/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://somossoftware.net/#website",
+      "name": "Somos Software",
+      "url": "https://somossoftware.net/",
+      "description": "Desarrollo web, sistemas a medida, automatización y soluciones digitales.",
+      "publisher": {
+        "@id": "https://somossoftware.net/#organization"
+      },
+      "inLanguage": "es-CL"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Control Financiero",
+      "description": "Sistema de control financiero desarrollado por Somos Software para visualizar ingresos, gastos, presupuesto, deudas, liquidez y proyecciones.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "url": "https://p-renault.github.io/Finanzas/",
+      "author": {
+        "@id": "https://somossoftware.net/#organization"
+      }
+    }
+  ]
+}
+</script>
+
+5) EN LA SECCIÓN DE CONTACTO, AGREGAR UN ENLACE VISIBLE:
+
+<a href="mailto:teayudo@somossoftware.net">teayudo@somossoftware.net</a>
+
+6) EN EL FOOTER, JUNTO A LOS ENLACES EXISTENTES, AGREGAR:
+
+<a href="mailto:teayudo@somossoftware.net">Correo ↗</a>
+
+IMPORTANTE
+==========
+- No reemplazar app.js.
+- No reemplazar styles.css.
+- No tocar legacy script.js.
+- No modificar B8.1 ni la rama 1.0.
+- Estos cambios están preparados para B9-conversion-comercial.
+- robots.txt y sitemap.xml van en la raíz del repositorio.

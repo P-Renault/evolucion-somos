@@ -1,0 +1,5 @@
+# Somos Software — robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://somossoftware.net/sitemap.xml
