@@ -34,24 +34,3 @@ Integrado:
 ### SEO
 
 La optimización SEO avanzada queda deliberadamente fuera de esta entrega, para realizarla durante la etapa de registro/configuración del dominio.
-
-
-## B9.2 — Evolución comercial operacional
-
-Esta entrega mantiene la estructura, identidad visual, animaciones, carruseles, parallax, microinteracciones y experiencia responsive de B9.
-
-Nueva capa aditiva:
-- Identificación de fuente mediante UTM/referrer.
-- Eventos comerciales y navegación mediante `window.dataLayer`.
-- Registro anónimo/local de eventos para validación del frontend.
-- Tarjetas/CTAs existentes convertidos en entradas medibles al flujo comercial.
-- Formulario estructurado de primer contacto.
-- Clasificación inicial por necesidad, intención, plazo y presupuesto.
-- Solicitud de diagnóstico.
-- Solicitud de agenda mediante fecha/hora preferida.
-- Handoff estructurado a WhatsApp Business.
-- Registro local temporal de leads pendientes de integración CRM.
-- Preparación para futura integración de CRM, agenda, remarketing y analítica.
-- Casos de éxito y testimonios no inventados: quedan como módulos futuros.
-
-Importante: B9.2 no pretende sustituir un CRM/backend. La persistencia real de leads, agenda, seguimiento y consentimiento deberá conectarse posteriormente a un backend seguro/CRM.

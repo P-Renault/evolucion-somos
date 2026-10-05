@@ -200,7 +200,7 @@
   const WHATSAPP_NUMBER='56941239698';
   const wa=$('#whatsapp');
   const waUrl=m=>`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(m)}`;
-  if(wa && WHATSAPP_NUMBER && !wa.dataset.leadIntent) wa.href=waUrl('Hola, Somos Software. Me interesa conocer sus soluciones digitales.');
-  $$('[data-offer]').forEach(a=>a.addEventListener('click',e=>{if(a.dataset.leadIntent)return;if(!WHATSAPP_NUMBER)return;e.preventDefault();wa.href=waUrl(`Hola, Somos Software. Me interesa la oferta ${a.dataset.offer}.`);location.href=wa.href;}));
-  $$('[data-service]').forEach(a=>a.addEventListener('click',e=>{if(a.dataset.leadIntent)return;if(!WHATSAPP_NUMBER)return;e.preventDefault();window.open(waUrl(`Hola, Somos Software. Me interesa el servicio de ${a.dataset.service}.`),'_blank','noopener');}));
+  if(wa && WHATSAPP_NUMBER) wa.href=waUrl('Hola, Somos Software. Me interesa conocer sus soluciones digitales.');
+  $$('[data-offer]').forEach(a=>a.addEventListener('click',e=>{if(!WHATSAPP_NUMBER)return;e.preventDefault();wa.href=waUrl(`Hola, Somos Software. Me interesa la oferta ${a.dataset.offer}.`);location.href=wa.href;}));
+  $$('[data-service]').forEach(a=>a.addEventListener('click',e=>{if(!WHATSAPP_NUMBER)return;e.preventDefault();window.open(waUrl(`Hola, Somos Software. Me interesa el servicio de ${a.dataset.service}.`),'_blank','noopener');}));
 })();
