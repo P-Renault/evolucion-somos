@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#05070c">
-<title>Somos Software · CRM Comercial B9.4</title>
+<title>Somos Software · CRM + Inteligencia Comercial B10.0</title>
 <link rel="stylesheet" href="styles.css">
 <style>
 :root{--crm-bg:#05070c;--crm-panel:#08111b;--crm-line:#172432;--crm-cyan:#18c8f4;--crm-muted:#718095}
@@ -29,12 +29,17 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
  .table{display:none}.session{width:100%;justify-content:space-between}
  .panel{padding:20px 16px;border-radius:18px}.grid,.meta{grid-template-columns:1fr}.field.full{grid-column:auto}.modal-actions{position:sticky;bottom:0;padding-top:10px;background:#08111b}
 }
+
+.navtabs{display:flex;gap:7px;margin:16px 0 10px;overflow:auto;padding-bottom:2px}.tabx{white-space:nowrap;padding:10px 13px;border:1px solid var(--crm-line);border-radius:11px;background:#07111d;color:#91a2b5;font-size:8px;font-weight:900;letter-spacing:.08em;cursor:pointer}.tabx.active{background:#0b3341;border-color:#1687a5;color:#dff9ff}.view{display:none}.view.active{display:block}.intel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px 0}.intel-card{border:1px solid var(--crm-line);border-radius:15px;background:linear-gradient(145deg,#08131f,#071019);padding:14px}.intel-card .ey{font-size:7px;color:var(--crm-muted);font-weight:900;letter-spacing:.13em}.intel-card b{display:block;font-size:22px;margin-top:7px}.intel-card small{display:block;color:#8190a4;font-size:8px;margin-top:4px}.intel-layout{display:grid;grid-template-columns:1.35fr .65fr;gap:10px;margin-top:10px}.intel-panel{border:1px solid var(--crm-line);border-radius:15px;background:#07101a;padding:14px}.intel-panel h3{font-size:11px;margin:0 0 10px}.funnel{display:grid;gap:6px}.funnel-row{display:grid;grid-template-columns:125px 1fr 52px;gap:8px;align-items:center;font-size:8px}.funnel-bar{height:8px;border-radius:99px;background:#0d2733;overflow:hidden}.funnel-bar i{display:block;height:100%;background:#18c8f4;border-radius:99px}.alert-list{display:grid;gap:7px}.alert-item{padding:9px;border:1px solid var(--crm-line);border-radius:10px;background:#091520;font-size:8px}.alert-item b{display:block;font-size:9px;margin-bottom:3px}.alert-item span{color:#8c9bae}.intel-table{width:100%;border-collapse:collapse}.intel-table th,.intel-table td{padding:8px;border-bottom:1px solid var(--crm-line);font-size:8px;text-align:left}.intel-table th{color:var(--crm-muted);letter-spacing:.08em}.score{display:inline-flex;min-width:30px;justify-content:center;padding:4px 6px;border-radius:99px;background:#0a2934;color:#c8f5ff;font-weight:900}.social-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:12px 0}.social-card{border:1px solid var(--crm-line);border-radius:15px;background:#07101a;padding:14px}.social-card h3{font-size:10px;margin:0}.social-card b{display:block;font-size:23px;margin-top:8px}.social-card small{color:#8190a4;font-size:8px}.growth{margin-top:6px;font-size:8px;color:#9ed9e7}.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#546276;margin-right:5px}.status-dot.ok{background:#18c8f4}.social-actions{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}.muted-note{color:#718095;font-size:8px;line-height:1.5}.tag{display:inline-block;padding:4px 6px;border-radius:999px;background:#10212c;color:#9ccbd7;font-size:7px;font-weight:800}
+@media(max-width:900px){.intel-grid{grid-template-columns:repeat(2,1fr)}.intel-layout{grid-template-columns:1fr}.social-grid{grid-template-columns:1fr}}
+@media(max-width:700px){.navtabs{margin-right:-10px}.intel-grid{grid-template-columns:repeat(2,1fr);gap:7px}.intel-card{padding:11px}.intel-card b{font-size:18px}.funnel-row{grid-template-columns:95px 1fr 45px}.intel-panel{padding:11px}.intel-table{min-width:650px}.social-card b{font-size:20px}}
+
 </style>
 </head>
 <body>
 <div class="login open" id="login">
  <div class="login-card">
-  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B9.4.9</div>
+  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B10.0</div>
   <h1>Acceso al CRM</h1>
   <p>CRM privado de Somos Software. Inicia sesión con tu usuario de Supabase. La sesión queda persistente en este dispositivo.</p>
   <form id="loginForm">
@@ -51,7 +56,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 
 <div class="login" id="signup" style="display:none;z-index:110">
  <div class="login-card">
-  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B9.4.9</div>
+  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B10.0</div>
   <h1>Crear cuenta</h1>
   <p>Crea tu usuario de acceso al CRM. Supabase enviará un correo de confirmación si las confirmaciones de email están activadas.</p>
   <form id="signupForm">
@@ -68,7 +73,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 
 <main class="crm">
 <header class="top">
- <div class="brand"><img src="assets/logo-somos-software.png" alt="Somos Software"><small>CRM COMERCIAL · B9.4.9</small><div class="session" id="session"></div></div>
+ <div class="brand"><img src="assets/logo-somos-software.png" alt="Somos Software"><small>CRM COMERCIAL + INTELIGENCIA · B10.0</small><div class="session" id="session"></div></div>
  <div class="actions">
   <button class="btnx" id="export">Exportar CSV</button>
   <button class="btnx" id="importLocal">Importar locales</button>
@@ -78,16 +83,42 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
  </div>
 </header>
 
-<section class="kpis" id="kpis"></section>
-<div class="toolbar">
- <input id="q" placeholder="Buscar lead, empresa, contacto...">
- <select id="status"><option value="">Todos los estados</option></select>
- <select id="source"><option value="">Todos los orígenes</option></select>
-</div>
+<nav class="navtabs" aria-label="Módulos CRM">
+ <button class="tabx active" data-tab="commercial">COMERCIAL</button>
+ <button class="tabx" data-tab="intelligence">INTELIGENCIA</button>
+ <button class="tabx" data-tab="social">REDES &amp; CANALES</button>
+</nav>
 
-<section class="board" id="board"></section>
-<section class="mobile-pipeline" id="mobilePipeline"></section>
-<section class="table"><table><thead><tr><th>Lead</th><th>Necesidad</th><th>Origen</th><th>Prioridad</th><th>Próxima acción</th><th>Seguimiento</th><th>Estado</th></tr></thead><tbody id="rows"></tbody></table></section>
+<section class="view active" id="view-commercial">
+ <section class="kpis" id="kpis"></section>
+ <div class="toolbar">
+  <input id="q" placeholder="Buscar lead, empresa, contacto...">
+  <select id="status"><option value="">Todos los estados</option></select>
+  <select id="source"><option value="">Todos los orígenes</option></select>
+ </div>
+ <section class="board" id="board"></section>
+ <section class="mobile-pipeline" id="mobilePipeline"></section>
+ <section class="table"><table><thead><tr><th>Lead</th><th>Necesidad</th><th>Origen</th><th>Prioridad</th><th>Próxima acción</th><th>Seguimiento</th><th>Estado</th></tr></thead><tbody id="rows"></tbody></table></section>
+</section>
+
+<section class="view" id="view-intelligence">
+ <div class="intel-grid" id="intelKpis"></div>
+ <div class="intel-layout">
+  <section class="intel-panel"><h3>Embudo comercial</h3><div class="funnel" id="funnel"></div></section>
+  <section class="intel-panel"><h3>Acciones recomendadas</h3><div class="alert-list" id="alerts"></div></section>
+ </div>
+ <section class="intel-panel" style="margin-top:10px"><h3>Leads priorizados por inteligencia</h3><div style="overflow:auto"><table class="intel-table"><thead><tr><th>Lead</th><th>Score</th><th>Prob.</th><th>Valor ponderado</th><th>Riesgo</th><th>Siguiente mejor acción</th></tr></thead><tbody id="intelRows"></tbody></table></div></section>
+</section>
+
+<section class="view" id="view-social">
+ <div class="social-actions">
+  <button class="btnx primary" id="socialRefresh">Actualizar datos guardados</button>
+  <button class="btnx" id="socialSeed">Cargar métrica de prueba</button>
+ </div>
+ <div class="social-grid" id="socialCards"></div>
+ <section class="intel-panel"><h3>Estado de conexión</h3><div id="socialAccounts"></div><p class="muted-note">La conexión real con Meta/Instagram se ejecutará mediante una Edge Function de Supabase. Los tokens nunca deben estar en GitHub Pages ni en este CRM.</p></section>
+ <section class="intel-panel" style="margin-top:10px"><h3>Histórico de crecimiento</h3><div style="overflow:auto"><table class="intel-table"><thead><tr><th>Fecha</th><th>Canal</th><th>Seguidores</th><th>Nuevos</th><th>Alcance</th><th>Interacción</th><th>Leads</th><th>Ingresos</th></tr></thead><tbody id="socialRows"></tbody></table></div></section>
+</section>
 </main>
 
 <div class="modal" id="modal">
@@ -120,130 +151,41 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 <script src="supabase-config.js?v=B9.4.9"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script type="module">
-import { CRMStore } from './crm-data.js?v=B9.4.9';
-
+import { CRMStore } from './crm-data.js?v=B10.0';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const states=['Nuevo','Contactado','Calificado','Diagnóstico','Agenda','Cotización enviada','Negociación','Ganado','Perdido','Postventa'];
-const cols=states.slice(0,9); let leads=[]; let editing=null;
-
+const cols=states.slice(0,9); let leads=[]; let editing=null; let socialMetrics=[]; let socialAccounts=[];
 const esc=x=>String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const money=x=>x?new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP',maximumFractionDigits:0}).format(+x):'$0';
+const localLeads=()=>{try{return JSON.parse(localStorage.getItem('somos_leads_pending')||'[]')}catch(e){return[]}};
 const saveLocal=()=>localStorage.setItem('somos_leads_pending',JSON.stringify(leads));
-function localLeads(){try{return JSON.parse(localStorage.getItem('somos_leads_pending')||'[]')}catch(e){return[]}}
-function normalize(x){return {status:'Nuevo',state:x.status||x.state||'Nuevo',priority:'Media',next_action:'Contactar',next_date:'',notes:'',owner:'Somos Software',...x,state:x.status||x.state||'Nuevo'}}
-
-async function load(){
-  const remote=await CRMStore.list();
-  leads=(remote?.length?remote:localLeads()).map(normalize);
-  render();
-}
-function filtered(){
- const q=$('#q').value.toLowerCase(),st=$('#status').value,so=$('#source').value;
- return leads.filter(l=>[l.name,l.business,l.contact,l.need,l.notes].join(' ').toLowerCase().includes(q)&&(!st||l.state===st)&&(!so||l.source===so));
-}
-function card(l){return `<article class="card" data-id="${esc(l.id)}"><strong>${esc(l.name)}</strong><small>${esc(l.business||l.contact||'')}</small><span class="pill">${esc(l.need||'Sin necesidad')}</span><small>${esc(l.next_action||'Sin próxima acción')}${l.next_date?' · '+l.next_date:''}</small></article>`}
-function render(){
- const d=filtered(),open=leads.filter(l=>!['Ganado','Perdido'].includes(l.state)).length,won=leads.filter(l=>l.state==='Ganado').length;
- const today=new Date().toISOString().slice(0,10),due=leads.filter(l=>l.next_date&&l.next_date<=today&&!['Ganado','Perdido'].includes(l.state)).length;
- const val=leads.filter(l=>l.state!=='Perdido').reduce((a,l)=>a+(+l.value||0),0);
- $('#kpis').innerHTML=[[leads.length,'TOTAL LEADS'],[open,'ABIERTOS'],[won,'GANADOS'],[due,'SEGUIMIENTOS VENCIDOS'],[money(val),'VALOR PIPELINE']].map(x=>`<div class="kpi"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');
- const src=[...new Set(leads.map(l=>l.source).filter(Boolean))];
- $('#source').innerHTML='<option value="">Todos los orígenes</option>'+src.map(x=>`<option>${esc(x)}</option>`).join('');
- $('#status').innerHTML='<option value="">Todos los estados</option>'+states.map(x=>`<option>${x}</option>`).join('');
- $('#board').innerHTML=cols.map(st=>{let a=d.filter(l=>l.state===st);return `<section class="col"><div class="chead"><b>${st}</b><span>${a.length}</span></div><div class="cards">${a.map(card).join('')||'<div style="padding:15px;color:#536276;font-size:8px">Sin leads</div>'}</div></section>`}).join('');
- $('#mobilePipeline').innerHTML=cols.map(st=>{let a=d.filter(l=>l.state===st);return `<section class="mobile-state"><div class="mobile-state-head"><b>${st}</b><span>${a.length}</span></div><div class="mobile-cards">${a.map(card).join('')||'<div style="padding:6px 5px 13px;color:#536276;font-size:8px">Sin leads</div>'}</div></section>`}).join('');
- $('#rows').innerHTML=d.map(l=>`<tr data-id="${esc(l.id)}"><td><b>${esc(l.name)}</b><br>${esc(l.business||'')}</td><td>${esc(l.need)}</td><td>${esc(l.source||'direct')}</td><td>${esc(l.priority)}</td><td>${esc(l.next_action||'—')}</td><td>${esc(l.next_date||'—')}</td><td>${esc(l.state)}</td></tr>`).join('');
- $$('[data-id]').forEach(x=>x.onclick=()=>edit(x.dataset.id));
-}
-function edit(id){
- editing=id||null;
- let l=id?leads.find(x=>x.id===id):{id:'LEAD-'+Date.now().toString(36).toUpperCase(),created_at:new Date().toISOString(),state:'Nuevo',priority:'Media',owner:'Somos Software',next_action:'Contactar'};
- $('#modal').classList.add('open'); $('#title').textContent=id?'Editar lead':'Nuevo lead';
- const f=$('#form');
- ['id','name','business','contact','need','priority','next_action','next_date','value','owner','notes'].forEach(n=>f.elements[n]&&(f.elements[n].value=l[n]||''));
- f.elements.state.innerHTML=states.map(x=>`<option>${x}</option>`).join(''); f.elements.state.value=l.state||'Nuevo';
- $('#meta').innerHTML=id?`<div><span>Creado</span><b>${new Date(l.created_at).toLocaleString('es-CL')}</b></div><div><span>Origen</span><b>${esc(l.source||'manual')}</b></div><div><span>Campaña</span><b>${esc(l.campaign||'—')}</b></div><div><span>Valor</span><b>${money(l.value)}</b></div>`:'';
-}
-async function saveLead(e){
- e.preventDefault(); const f=$('#form'); if(!f.reportValidity())return;
- const d=Object.fromEntries(new FormData(f).entries()); d.status=d.state; d.value=Number(d.value||0);
- const old=editing?leads.find(x=>x.id===d.id):null; const lead={...(old||{}),...d,created_at:old?.created_at||new Date().toISOString()};
- const saved=await CRMStore.upsert(lead);
- if(saved){const idx=leads.findIndex(x=>x.id===lead.id); if(idx>=0)leads[idx]=normalize(saved);else leads.unshift(normalize(saved))}
- else {const idx=leads.findIndex(x=>x.id===lead.id);if(idx>=0)leads[idx]=lead;else leads.unshift(lead);saveLocal()}
- close();render();
-}
+const normalize=x=>({status:'Nuevo',state:x.status||x.state||'Nuevo',priority:'Media',next_action:'Contactar',next_date:'',notes:'',owner:'Somos Software',...x,state:x.status||x.state||'Nuevo'});
+const prob={Nuevo:.05,Contactado:.10,Calificado:.20,'Diagnóstico':.35,Agenda:.45,'Cotización enviada':.55,Negociación:.70,Ganado:1,Perdido:0,Postventa:.95};
+function leadScore(l){let s=30;const reasons=[];if(l.priority==='Alta'){s+=20;reasons.push('prioridad alta')}else if(l.priority==='Baja')s-=8;if(l.value>0){s+=Math.min(15,Math.log10(+l.value+1)*3);reasons.push('valor económico identificado')}if(l.timeline){s+=10;reasons.push('plazo declarado')}if(l.intent){s+=8;reasons.push('intención declarada')}if(l.source){s+=4}if(l.next_date){const d=(new Date(l.next_date)-new Date(new Date().toISOString().slice(0,10)))/86400000;if(d<0){s-=18;reasons.push('seguimiento vencido')}else if(d<=3){s+=7;reasons.push('acción próxima')}}if(['Calificado','Diagnóstico','Agenda','Cotización enviada','Negociación'].includes(l.state))s+=Math.round((prob[l.state]||0)*20);if(l.state==='Ganado')s=100;if(l.state==='Perdido')s=0;s=Math.max(0,Math.min(100,Math.round(s)));const grade=s>=80?'A':s>=60?'B':s>=40?'C':'D';return{s,grade,reasons}};
+function stagnation(l){const t=l.updated_at||l.created_at;if(!t)return 0;return Math.max(0,Math.floor((Date.now()-new Date(t).getTime())/86400000))}
+function bestAction(l,score,days){if(l.state==='Ganado')return'Activar postventa y pedir referidos';if(l.state==='Perdido')return'Revisar causa de pérdida y programar reactivación';if(l.next_date&&l.next_date<=new Date().toISOString().slice(0,10))return'Contactar hoy y registrar resultado';if(l.state==='Cotización enviada')return'Confirmar recepción y resolver objeciones';if(l.state==='Negociación')return'Conducir a cierre con propuesta concreta';if(days>=7)return'Reactivar oportunidad estancada';if(score>=80)return'Atención prioritaria del responsable';if(l.state==='Nuevo')return'Primer contacto';return l.next_action||'Definir próxima acción'}
+function filtered(){const q=$('#q').value.toLowerCase(),st=$('#status').value,so=$('#source').value;return leads.filter(l=>[l.name,l.business,l.contact,l.need,l.notes].join(' ').toLowerCase().includes(q)&&(!st||l.state===st)&&(!so||l.source===so))}
+function card(l){const x=leadScore(l);return `<article class="card" data-id="${esc(l.id)}"><strong>${esc(l.name)}</strong><small>${esc(l.business||l.contact||'')}</small><span class="pill">${esc(l.need||'Sin necesidad')} · Score ${x.s}</span><small>${esc(l.next_action||'Sin próxima acción')}${l.next_date?' · '+l.next_date:''}</small></article>`}
+function render(){const d=filtered(),open=leads.filter(l=>!['Ganado','Perdido'].includes(l.state)).length,won=leads.filter(l=>l.state==='Ganado').length;const today=new Date().toISOString().slice(0,10),due=leads.filter(l=>l.next_date&&l.next_date<=today&&!['Ganado','Perdido'].includes(l.state)).length;const val=leads.filter(l=>l.state!=='Perdido').reduce((a,l)=>a+(+l.value||0),0);$('#kpis').innerHTML=[[leads.length,'TOTAL LEADS'],[open,'ABIERTOS'],[won,'GANADOS'],[due,'SEGUIMIENTOS VENCIDOS'],[money(val),'VALOR PIPELINE']].map(x=>`<div class="kpi"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');const src=[...new Set(leads.map(l=>l.source).filter(Boolean))];$('#source').innerHTML='<option value="">Todos los orígenes</option>'+src.map(x=>`<option>${esc(x)}</option>`).join('');$('#status').innerHTML='<option value="">Todos los estados</option>'+states.map(x=>`<option>${x}</option>`).join('');$('#board').innerHTML=cols.map(st=>{let a=d.filter(l=>l.state===st);return `<section class="col"><div class="chead"><b>${st}</b><span>${a.length}</span></div><div class="cards">${a.map(card).join('')||'<div style="padding:15px;color:#536276;font-size:8px">Sin leads</div>'}</div></section>`}).join('');$('#mobilePipeline').innerHTML=cols.map(st=>{let a=d.filter(l=>l.state===st);return `<section class="mobile-state"><div class="mobile-state-head"><b>${st}</b><span>${a.length}</span></div><div class="mobile-cards">${a.map(card).join('')||'<div style="padding:6px 5px 13px;color:#536276;font-size:8px">Sin leads</div>'}</div></section>`}).join('');$('#rows').innerHTML=d.map(l=>`<tr data-id="${esc(l.id)}"><td><b>${esc(l.name)}</b><br>${esc(l.business||'')}</td><td>${esc(l.need)}</td><td>${esc(l.source||'direct')}</td><td>${esc(l.priority)}</td><td>${esc(l.next_action||'—')}</td><td>${esc(l.next_date||'—')}</td><td>${esc(l.state)}</td></tr>`).join('');$$('[data-id]').forEach(x=>x.onclick=()=>edit(x.dataset.id));renderIntelligence()}
+function renderIntelligence(){const scored=leads.map(l=>{const z=leadScore(l),p=prob[l.state]??.1,v=(+l.value||0)*p,d=stagnation(l);return{l,...z,p,v,d,risk:d>=14?'alto':d>=7?'medio':'normal',action:bestAction(l,z.s,d)}}).sort((a,b)=>b.s-a.s);const open=scored.filter(x=>!['Ganado','Perdido'].includes(x.l.state));const weighted=open.reduce((a,x)=>a+x.v,0);const avg=open.length?Math.round(open.reduce((a,x)=>a+x.s,0)/open.length):0;const conv=leads.length?Math.round(leads.filter(x=>x.state==='Ganado').length/leads.length*100):0;const hot=open.filter(x=>x.s>=80).length;$('#intelKpis').innerHTML=[[money(weighted),'FORECAST PONDERADO',`${open.length} oportunidades abiertas`],[avg,'SCORE PROMEDIO','calidad del pipeline'],[conv+'%','CONVERSIÓN A GANADO','sobre leads históricos'],[hot,'OPORTUNIDADES CALIENTES','score ≥ 80']].map(x=>`<div class="intel-card"><span class="ey">${x[1]}</span><b>${x[0]}</b><small>${x[2]}</small></div>`).join('');const max=Math.max(1,...states.map(s=>leads.filter(l=>l.state===s).length));$('#funnel').innerHTML=states.map(s=>{const n=leads.filter(l=>l.state===s).length;return `<div class="funnel-row"><span>${s}</span><div class="funnel-bar"><i style="width:${Math.round(n/max*100)}%"></i></div><b>${n}</b></div>`}).join('');const alerts=[];const overdue=open.filter(x=>x.l.next_date&&x.l.next_date<=new Date().toISOString().slice(0,10)).length;if(overdue)alerts.push(['Seguimientos vencidos',`${overdue} oportunidad(es) requieren contacto hoy.`]);if(hot)alerts.push(['Prioridad comercial',`${hot} lead(s) tienen score ≥ 80.`]);const stale=open.filter(x=>x.d>=7).length;if(stale)alerts.push(['Pipeline estancado',`${stale} oportunidad(es) llevan 7+ días sin actualización.`]);const quotes=open.filter(x=>x.l.state==='Cotización enviada'&&!x.l.next_date).length;if(quotes)alerts.push(['Cotizaciones sin agenda',`${quotes} cotización(es) no tienen fecha de seguimiento.`]);if(!alerts.length)alerts.push(['Operación estable','No hay alertas críticas con los datos disponibles.']);$('#alerts').innerHTML=alerts.map(a=>`<div class="alert-item"><b>${a[0]}</b><span>${a[1]}</span></div>`).join('');$('#intelRows').innerHTML=scored.slice(0,20).map(x=>`<tr><td><b>${esc(x.l.name)}</b><br><span style="color:#718095">${esc(x.l.business||x.l.need||'')}</span></td><td><span class="score">${x.s}</span></td><td>${Math.round(x.p*100)}%</td><td>${money(x.v)}</td><td><span class="tag">${x.risk}</span></td><td>${esc(x.action)}</td></tr>`).join('')||'<tr><td colspan="6">Sin datos.</td></tr>';const rows=scored.map(x=>({lead_id:x.l.id,score:x.s,grade:x.grade,probability:x.p,estimated_value:x.v,stagnation_days:x.d,risk_level:x.risk,rationale:x.reasons,next_best_action:x.action}));if(rows.length)CRMStore.saveLeadIntelligence(rows)}
+async function renderSocial(){socialAccounts=await CRMStore.listSocialAccounts();socialMetrics=await CRMStore.listSocialMetrics(90);const platforms=['facebook','instagram','whatsapp'];$('#socialCards').innerHTML=platforms.map(p=>{const a=socialAccounts.find(x=>x.platform===p&&x.active);const arr=socialMetrics.filter(x=>x.platform===p).sort((x,y)=>x.metric_date.localeCompare(y.metric_date));const last=arr.at(-1);const prev=arr.length>7?arr.at(-8):arr[0];const followers=last?.followers??0;const growth=(last&&prev&&followers&&prev.followers!=null)?followers-(prev.followers||0):0;return `<article class="social-card"><h3>${p.toUpperCase()}</h3><b>${p==='whatsapp'?'—':followers.toLocaleString('es-CL')}</b><small>${p==='whatsapp'?'mensajería / conversiones':'seguidores registrados'}</small><div class="growth">${p==='whatsapp'?'Conexión comercial':(growth>=0?'+':'')+growth+' últimos 7 registros'}</div><div class="muted-note" style="margin-top:8px"><span class="status-dot ${a?.active?'ok':''}"></span>${a?.last_sync_at?'Sincronizado '+new Date(a.last_sync_at).toLocaleString('es-CL'):'Pendiente de conexión API'}</div></article>`}).join('');$('#socialAccounts').innerHTML=socialAccounts.length?socialAccounts.map(a=>`<div class="alert-item" style="margin-bottom:7px"><b>${esc(a.platform.toUpperCase())} · ${esc(a.account_name||a.account_id)}</b><span>${a.sync_status||'pending'} · ${a.last_sync_at?new Date(a.last_sync_at).toLocaleString('es-CL'):'sin sincronización'}</span></div>`).join(''):'<div class="muted-note">Aún no hay cuentas sociales registradas. La estructura ya está lista para Facebook e Instagram.</div>';$('#socialRows').innerHTML=socialMetrics.slice().reverse().map(m=>`<tr><td>${esc(m.metric_date)}</td><td>${esc(m.platform)}</td><td>${m.followers??'—'}</td><td>${m.followers_gained??'—'}</td><td>${m.reach??'—'}</td><td>${m.engagement??'—'}</td><td>${m.leads??'—'}</td><td>${money(m.revenue)}</td></tr>`).join('')||'<tr><td colspan="8">Sin métricas todavía.</td></tr>'}
+function edit(id){editing=id||null;let l=id?leads.find(x=>x.id===id):{id:'LEAD-'+Date.now().toString(36).toUpperCase(),created_at:new Date().toISOString(),state:'Nuevo',priority:'Media',owner:'Somos Software',next_action:'Contactar'};$('#modal').classList.add('open');$('#title').textContent=id?'Editar lead':'Nuevo lead';const f=$('#form');['id','name','business','contact','need','priority','next_action','next_date','value','owner','notes'].forEach(n=>f.elements[n]&&(f.elements[n].value=l[n]||''));f.elements.state.innerHTML=states.map(x=>`<option>${x}</option>`).join('');f.elements.state.value=l.state||'Nuevo';$('#meta').innerHTML=id?`<div><span>Creado</span><b>${new Date(l.created_at).toLocaleString('es-CL')}</b></div><div><span>Origen</span><b>${esc(l.source||'manual')}</b></div><div><span>Campaña</span><b>${esc(l.campaign||'—')}</b></div><div><span>Score</span><b>${leadScore(l).s}/100</b></div>`:''}
+async function saveLead(e){e.preventDefault();const f=$('#form');if(!f.reportValidity())return;const d=Object.fromEntries(new FormData(f).entries());d.status=d.state;d.value=Number(d.value||0);const old=editing?leads.find(x=>x.id===d.id):null;const lead={...(old||{}),...d,created_at:old?.created_at||new Date().toISOString(),updated_at:new Date().toISOString()};const saved=await CRMStore.upsert(lead);if(saved){const idx=leads.findIndex(x=>x.id===lead.id);if(idx>=0)leads[idx]=normalize(saved);else leads.unshift(normalize(saved))}else{const idx=leads.findIndex(x=>x.id===lead.id);if(idx>=0)leads[idx]=lead;else leads.unshift(lead);saveLocal()}close();render()}
 function close(){$('#modal').classList.remove('open');editing=null}
-$$('[data-close]').forEach(x=>x.onclick=close);$('#new').onclick=()=>edit();$('#form').onsubmit=saveLead;
-$('#q').oninput=render;$('#status').onchange=render;$('#source').onchange=render;
-$('#export').onclick=()=>{let c=['id','name','business','contact','need','state','priority','next_action','next_date','value','owner','source','medium','campaign','created_at','notes'],csv=[c.join(','),...leads.map(l=>c.map(k=>`"${String(l[k]??'').replace(/"/g,'""')}"`).join(','))].join('\n'),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='somos-software-crm.csv';a.click()};
-$('#importLocal').onclick=async()=>{const local=localLeads();if(!local.length)return alert('No hay leads locales para importar.');const ok=await CRMStore.importMany(local);if(ok){alert(`${local.length} lead(s) enviados al CRM central.`);await load()}else alert('El backend no está configurado. Los leads locales se mantienen en este navegador.')};
-$('#logout').onclick=async()=>{await CRMStore.logout();location.reload()};
-CRMStore.onStateChange=({authenticated,email,mode})=>{ $('#logout').style.display=authenticated?'inline-block':'none';$('#session').innerHTML=authenticated?`<span>Sesión:</span> <b>${esc(email||'usuario')}</b>`:`<span>Modo:</span> <b>${mode==='supabase'?'Supabase':'local'}</b>`; if(authenticated){$('#loginError').classList.remove('show');$('#modeNote').textContent='Sesión activa. Puedes cerrar el navegador y volver a entrar sin escribir tus credenciales.';}else if(mode==='supabase'){$('#modeNote').textContent='Supabase conectado. Inicia sesión o crea una cuenta.';}else{$('#modeNote').textContent='No se pudo conectar con Supabase.';}};
-function showAuthError(message){const el=$('#loginError');el.textContent=message;el.classList.add('show');}
-function clearAuthError(){const el=$('#loginError');el.textContent='';el.classList.remove('show');}
-$('#loginForm').onsubmit=async e=>{e.preventDefault();clearAuthError();const d=Object.fromEntries(new FormData(e.currentTarget).entries());const btn=e.currentTarget.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Validando…';try{const r=await CRMStore.login(d.email.trim(),d.password);if(!r.ok){let msg=r.error||'No fue posible iniciar sesión.';if(/email not confirmed|email_not_confirmed/i.test(msg))msg='El correo todavía no está confirmado. Revisa tu correo y confirma la cuenta antes de iniciar sesión.';if(/invalid login credentials/i.test(msg))msg='Correo o contraseña incorrectos. Si acabas de crear la cuenta, confirma primero el correo.';showAuthError(msg);}else{$('#login').classList.remove('open');await load()}}catch(err){showAuthError(err?.message||'Error inesperado al iniciar sesión.')}finally{btn.disabled=false;btn.textContent='Iniciar sesión'}};
-document.getElementById('createAccount').addEventListener('click', (ev)=>{
- ev.preventDefault();
- const email=$('#loginForm input[name=email]').value.trim();
- const password=$('#loginForm input[name=password]').value;
- $('#signupEmail').value=email;
- $('#signupPassword').value=password;
- $('#signupPassword2').value='';
- $('#signupError').classList.remove('show');
- $('#signupError').textContent='';
- $('#signupNote').textContent='Supabase conectado. Completa los datos para crear tu cuenta.';
- const panel=$('#signup');
- panel.style.setProperty('display','grid','important');
- panel.classList.add('open');
-});
-$('#backToLogin').onclick=(ev)=>{
- ev.preventDefault();
- $('#signup').style.setProperty('display','none','important');
- $('#signup').classList.remove('open');
- $('#signupError').classList.remove('show');
-};
-$('#signupForm').onsubmit=async e=>{
- e.preventDefault();
- const email=$('#signupEmail').value.trim();
- const password=$('#signupPassword').value;
- const password2=$('#signupPassword2').value;
- const err=$('#signupError');
- err.classList.remove('show');err.textContent='';
- if(!email){err.textContent='Ingresa un correo válido.';err.classList.add('show');return}
- if(password.length<6){err.textContent='La contraseña debe tener al menos 6 caracteres.';err.classList.add('show');return}
- if(password!==password2){err.textContent='Las contraseñas no coinciden.';err.classList.add('show');return}
- const btn=e.currentTarget.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Creando cuenta…';
- try{
-  const r=typeof CRMStore.signUp==='function' ? await CRMStore.signUp(email,password) : {ok:false,error:'El módulo de autenticación no está disponible. Recarga el CRM.'};
-  if(!r.ok){err.textContent=r.error||'No fue posible crear la cuenta.';err.classList.add('show');return}
-  if(r.confirmed){
-   $('#signup').style.display='none';
-   $('#login').classList.remove('open');
-   await load();
-   alert('Cuenta creada y sesión iniciada correctamente.');
-  }else{
-   $('#signupNote').textContent='Cuenta creada. Revisa tu correo y confirma la cuenta antes de iniciar sesión.';
-   err.textContent='Te enviamos el correo de confirmación. Revisa bandeja de entrada y spam. Si no llega, revisaremos SMTP y la URL de redirección de Supabase.';
-   err.classList.add('show');
-  }
- }catch(errx){
-  err.textContent=errx?.message||'Error inesperado al crear la cuenta.';err.classList.add('show');
- }finally{btn.disabled=false;btn.textContent='Crear cuenta'}
-};
-$('#resetPassword').onclick=async()=>{clearAuthError();const email=$('#loginForm input[name=email]').value.trim();if(!email){showAuthError('Escribe primero tu correo para recuperar la contraseña.');return}try{const client=window.__SOMOS_SUPABASE_CLIENT__;if(!client){showAuthError('El motor de Supabase todavía no está disponible.');return}const {error}=await client.auth.resetPasswordForEmail(email,{redirectTo:window.location.href.split('#')[0]});if(error)showAuthError(error.message);else showAuthError('Te enviamos un enlace para restablecer la contraseña. Revisa tu correo y spam.')}catch(err){showAuthError(err?.message||'No fue posible solicitar la recuperación.')}};
-// Inicialización de Supabase DESPUÉS de registrar los handlers de la interfaz.
-// Así los botones de Crear cuenta/Login siguen respondiendo aunque getSession() tarde o falle.
-try {
-  await CRMStore.init();
-  if(CRMStore.authenticated){$('#login').classList.remove('open');$('#signup').style.display='none';}
-  else {$('#login').classList.add('open');$('#signup').style.display='none';}
-  if(!CRMStore.requiresLogin){showAuthError('No se pudo conectar con Supabase. Revisa la URL, la publishable key y la conexión a Internet.');}
-} catch(initErr){
-  console.error('Error inicializando Supabase:', initErr);
-  $('#login').classList.add('open');
-  showAuthError('No se pudo inicializar Supabase: '+(initErr?.message||'error desconocido'));
-}
-await load();
+$$('[data-close]').forEach(x=>x.onclick=close);$('#new').onclick=()=>edit();$('#form').onsubmit=saveLead;$('#q').oninput=render;$('#status').onchange=render;$('#source').onchange=render;
+$('#export').onclick=()=>{let c=['id','name','business','contact','need','state','priority','next_action','next_date','value','owner','source','medium','campaign','created_at','notes'],csv=[c.join(','),...leads.map(l=>c.map(k=>`"${String(l[k]??'').replace(/"/g,'""')}"`).join(','))].join('\n'),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='somos-software-crm-b10.csv';a.click()};
+$('#importLocal').onclick=async()=>{const local=localLeads();if(!local.length)return alert('No hay leads locales para importar.');const ok=await CRMStore.importMany(local);if(ok){alert(`${local.length} lead(s) enviados al CRM central.`);await load()}else alert('No fue posible importar al backend.')};$('#logout').onclick=async()=>{await CRMStore.logout();location.reload()};
+$$('[data-tab]').forEach(btn=>btn.onclick=async()=>{const tab=btn.dataset.tab;$$('[data-tab]').forEach(x=>x.classList.toggle('active',x===btn));$$('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+tab));if(tab==='intelligence')renderIntelligence();if(tab==='social')await renderSocial()});
+$('#socialRefresh').onclick=renderSocial;
+$('#socialSeed').onclick=async()=>{const today=new Date().toISOString().slice(0,10);for(const p of ['facebook','instagram'])await CRMStore.saveSocialMetric({platform:p,account_id:'demo',metric_date:today,followers:p==='facebook'?100:120,followers_gained:0,followers_lost:0,reach:0,impressions:0,engagement:0,profile_visits:0,website_clicks:0,whatsapp_clicks:0,messages:0,leads:0,revenue:0,raw:{demo:true}});await renderSocial()};
+CRMStore.onStateChange=({authenticated,email,mode})=>{$('#logout').style.display=authenticated?'inline-block':'none';$('#session').innerHTML=authenticated?`<span>Sesión:</span> <b>${esc(email||'usuario')}</b>`:`<span>Modo:</span> <b>${mode==='supabase'?'Supabase':'local'}</b>`;if(authenticated){$('#loginError').classList.remove('show');$('#modeNote').textContent='Sesión activa. CRM + inteligencia comercial disponibles.'}else if(mode==='supabase')$('#modeNote').textContent='Supabase conectado. Inicia sesión o crea una cuenta.';else $('#modeNote').textContent='No se pudo conectar con Supabase.'};
+function showAuthError(message){const el=$('#loginError');el.textContent=message;el.classList.add('show')}function clearAuthError(){const el=$('#loginError');el.textContent='';el.classList.remove('show')}
+$('#loginForm').onsubmit=async e=>{e.preventDefault();clearAuthError();const d=Object.fromEntries(new FormData(e.currentTarget).entries());const btn=e.currentTarget.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Validando…';try{const r=await CRMStore.login(d.email.trim(),d.password);if(!r.ok){let msg=r.error||'No fue posible iniciar sesión.';if(/email not confirmed|email_not_confirmed/i.test(msg))msg='El correo todavía no está confirmado. Revisa tu correo y confirma la cuenta antes de iniciar sesión.';if(/invalid login credentials/i.test(msg))msg='Correo o contraseña incorrectos. Si acabas de crear la cuenta, confirma primero el correo.';showAuthError(msg)}else{$('#login').classList.remove('open');await load()}}catch(err){showAuthError(err?.message||'Error inesperado al iniciar sesión.')}finally{btn.disabled=false;btn.textContent='Iniciar sesión'}};
+document.getElementById('createAccount').addEventListener('click',ev=>{ev.preventDefault();const email=$('#loginForm input[name=email]').value.trim();const password=$('#loginForm input[name=password]').value;$('#signupEmail').value=email;$('#signupPassword').value=password;$('#signupPassword2').value='';$('#signupError').classList.remove('show');$('#signupError').textContent='';$('#signupNote').textContent='Supabase conectado. Completa los datos para crear tu cuenta.';const panel=$('#signup');panel.style.setProperty('display','grid','important');panel.classList.add('open')});
+$('#backToLogin').onclick=ev=>{ev.preventDefault();$('#signup').style.setProperty('display','none','important');$('#signup').classList.remove('open');$('#signupError').classList.remove('show')};
+$('#signupForm').onsubmit=async e=>{e.preventDefault();const email=$('#signupEmail').value.trim(),password=$('#signupPassword').value,password2=$('#signupPassword2').value,err=$('#signupError');err.classList.remove('show');err.textContent='';if(!email){err.textContent='Ingresa un correo válido.';err.classList.add('show');return}if(password.length<6){err.textContent='La contraseña debe tener al menos 6 caracteres.';err.classList.add('show');return}if(password!==password2){err.textContent='Las contraseñas no coinciden.';err.classList.add('show');return}const btn=e.currentTarget.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Creando cuenta…';try{const r=await CRMStore.signUp(email,password);if(!r.ok){err.textContent=r.error||'No fue posible crear la cuenta.';err.classList.add('show');return}if(r.confirmed){$('#signup').style.display='none';$('#login').classList.remove('open');await load();alert('Cuenta creada y sesión iniciada correctamente.')}else{$('#signupNote').textContent='Cuenta creada. Revisa tu correo y confirma la cuenta antes de iniciar sesión.';err.textContent='Te enviamos el correo de confirmación. Revisa bandeja de entrada y spam.';err.classList.add('show')}}catch(errx){err.textContent=errx?.message||'Error inesperado al crear la cuenta.';err.classList.add('show')}finally{btn.disabled=false;btn.textContent='Crear cuenta'}};
+$('#resetPassword').onclick=async()=>{clearAuthError();const email=$('#loginForm input[name=email]').value.trim();if(!email){showAuthError('Escribe primero tu correo para recuperar la contraseña.');return}try{const client=window.__SOMOS_SUPABASE_CLIENT__;if(!client){showAuthError('El motor de Supabase todavía no está disponible.');return}const{error}=await client.auth.resetPasswordForEmail(email,{redirectTo:window.location.href.split('#')[0]});if(error)showAuthError(error.message);else showAuthError('Te enviamos un enlace para restablecer la contraseña. Revisa tu correo y spam.')}catch(err){showAuthError(err?.message||'No fue posible solicitar la recuperación.')}};
+async function load(){const remote=await CRMStore.list();leads=(remote?.length?remote:localLeads()).map(normalize);render();if(CRMStore.authenticated)await renderSocial()}
+try{await CRMStore.init();if(CRMStore.authenticated){$('#login').classList.remove('open');$('#signup').style.display='none'}else{$('#login').classList.add('open');$('#signup').style.display='none'}if(!CRMStore.requiresLogin)showAuthError('No se pudo conectar con Supabase. Revisa la URL, la publishable key y la conexión a Internet.')}catch(initErr){console.error(initErr);$('#login').classList.add('open');showAuthError('No se pudo inicializar Supabase: '+(initErr?.message||'error desconocido'))}await load();
 </script>
 </body></html>
