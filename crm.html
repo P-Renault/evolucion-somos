@@ -36,14 +36,15 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
  <div class="login-card">
   <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B9.4</div>
   <h1>Acceso al CRM</h1>
-  <p>Cuando Supabase esté configurado, este acceso protege el CRM y centraliza los datos. Mientras tanto, B9.4 conserva el modo local para pruebas.</p>
+  <p>CRM privado de Somos Software. Inicia sesión con tu usuario de Supabase. La sesión queda persistente en este dispositivo.</p>
   <form id="loginForm">
    <label>CORREO</label><input type="email" name="email" autocomplete="username" required>
    <label>CONTRASEÑA</label><input type="password" name="password" autocomplete="current-password" required>
    <div class="login-error" id="loginError"></div>
-   <button class="btnx primary" type="submit">Ingresar</button>
+   <button class="btnx primary" type="submit">Iniciar sesión</button>
   </form>
-  <div class="mode-note" id="modeNote"></div>
+  <button class="btnx" id="createAccount" type="button" style="width:100%;margin-top:8px">Crear cuenta</button>
+  <div class="mode-note" id="modeNote">La primera cuenta debe crearse en Supabase Authentication y luego asignarse como administrador.</div>
  </div>
 </div>
 
@@ -163,6 +164,15 @@ CRMStore.onStateChange=({authenticated,email,mode})=>{ $('#logout').style.displa
 await CRMStore.init();
 if(CRMStore.requiresLogin&&!CRMStore.authenticated){$('#login').classList.add('open')}
 $('#loginForm').onsubmit=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.currentTarget).entries()),r=await CRMStore.login(d.email,d.password);if(!r.ok){$('#loginError').textContent=r.error||'No fue posible iniciar sesión.';$('#loginError').classList.add('show')}else{$('#login').classList.remove('open');await load()}};
+$('#createAccount').onclick=async()=>{
+ const email=$('#loginForm input[name=email]').value.trim();
+ const password=$('#loginForm input[name=password]').value;
+ if(!email||password.length<6){$('#loginError').textContent='Ingresa un correo y una contraseña de al menos 6 caracteres.';$('#loginError').classList.add('show');return}
+ const r=await CRMStore.signUp(email,password);
+ if(!r.ok){$('#loginError').textContent=r.error||'No fue posible crear la cuenta.';$('#loginError').classList.add('show');return}
+ if(r.confirmed){$('#login').classList.remove('open');await load()}
+ else {$('#loginError').textContent='Cuenta creada. Revisa el correo para confirmar la cuenta y luego inicia sesión.';$('#loginError').classList.add('show')}
+};
 await load();
 </script>
 </body></html>

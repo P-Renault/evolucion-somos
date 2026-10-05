@@ -12,30 +12,14 @@ const listeners = new Set();
 
 function notify(){ listeners.forEach(fn=>{try{fn({authenticated:!!authUser,email:authUser?.email||'',mode:sb?'supabase':'local'})}catch(e){}}); }
 
-// Storage persistente basado en IndexedDB.
-// Permite que la sesión sobreviva al cierre del navegador y a la eliminación
-// normal del historial. Si IndexedDB no está disponible, cae a localStorage.
+// Persistencia de sesión compatible con Supabase Auth.
+// localStorage sobrevive al cierre del navegador y al borrado del historial normal.
+// Si el usuario elimina los datos del sitio/cookies, ningún navegador puede conservarlos.
 function makePersistentStorage(){
-  const memory = new Map();
-  let dbPromise = null;
-  const openDB = ()=>{
-    if(dbPromise) return dbPromise;
-    dbPromise = new Promise((resolve,reject)=>{
-      if(!('indexedDB' in window)) return reject(new Error('IndexedDB no disponible'));
-      const req = indexedDB.open(STORAGE_DB,1);
-      req.onupgradeneeded=()=>{ if(!req.result.objectStoreNames.contains(STORAGE_STORE)) req.result.createObjectStore(STORAGE_STORE); };
-      req.onsuccess=()=>resolve(req.result);
-      req.onerror=()=>reject(req.error||new Error('No se pudo abrir IndexedDB'));
-    });
-    return dbPromise;
-  };
-  const idbGet=async key=>{const db=await openDB();return await new Promise((resolve,reject)=>{const tx=db.transaction(STORAGE_STORE,'readonly'),r=tx.objectStore(STORAGE_STORE).get(STORAGE_PREFIX+key);r.onsuccess=()=>resolve(r.result??null);r.onerror=()=>reject(r.error);});};
-  const idbSet=async(key,value)=>{const db=await openDB();return await new Promise((resolve,reject)=>{const tx=db.transaction(STORAGE_STORE,'readwrite');tx.objectStore(STORAGE_STORE).put(value,STORAGE_PREFIX+key);tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);});};
-  const idbRemove=async key=>{const db=await openDB();return await new Promise((resolve,reject)=>{const tx=db.transaction(STORAGE_STORE,'readwrite');tx.objectStore(STORAGE_STORE).delete(STORAGE_PREFIX+key);tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);});};
   return {
-    async getItem(key){try{const v=await idbGet(key);if(v!==null){memory.set(key,v);return v;}}catch(e){} try{return localStorage.getItem(key)}catch(e){return memory.get(key)||null}},
-    async setItem(key,value){memory.set(key,value);try{await idbSet(key,value);return;}catch(e){} try{localStorage.setItem(key,value)}catch(e){}},
-    async removeItem(key){memory.delete(key);try{await idbRemove(key)}catch(e){} try{localStorage.removeItem(key)}catch(e){}}
+    getItem(key){ try { return localStorage.getItem(key); } catch(e){ return null; } },
+    setItem(key,value){ try { localStorage.setItem(key,value); } catch(e){} },
+    removeItem(key){ try { localStorage.removeItem(key); } catch(e){} }
   };
 }
 
@@ -59,6 +43,13 @@ export const CRMStore={
     const {data,error}=await sb.auth.signInWithPassword({email,password});
     if(error)return {ok:false,error:error.message};
     authUser=data.user;this.authenticated=true;notify();return {ok:true};
+  },
+  async signUp(email,password){
+    if(!sb) return {ok:false,error:'Supabase no está disponible.'};
+    const {data,error}=await sb.auth.signUp({email,password});
+    if(error)return {ok:false,error:error.message};
+    authUser=data.session?.user||null; this.authenticated=!!authUser; notify();
+    return {ok:true,confirmed:!!data.session,user:data.user};
   },
   async logout(){if(sb)await sb.auth.signOut({scope:'local'});authUser=null;this.authenticated=false;notify();},
   async list(){
