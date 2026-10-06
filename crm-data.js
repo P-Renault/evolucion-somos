@@ -35,6 +35,45 @@ export const CRMStore={
  async saveSocialMetric(metric){if(!sb||!authUser)return false;const{error}=await sb.from('social_metrics').upsert(metric,{onConflict:'platform,account_id,metric_date'});if(error){console.warn('social_metrics:',error);return false}return true},
  async listEvents(days=90){if(!sb||!authUser)return[];const from=new Date(Date.now()-days*86400000).toISOString();const{data,error}=await sb.from('commercial_events').select('*').gte('created_at',from).order('created_at',{ascending:false});if(error){console.warn('commercial_events:',error);return[]}return data||[]},
  async listSocialSyncLogs(limit=20){if(!sb||!authUser)return[];const{data,error}=await sb.from('social_sync_logs').select('*').order('started_at',{ascending:false}).limit(limit);if(error){console.warn('social_sync_logs:',error);return[]}return data||[]},
+ async testWhatsAppConnection(){
+  if(!sb||!authUser){
+    return{
+      ok:false,
+      code:'NO_SESSION',
+      error:'Debes iniciar sesión en el CRM.'
+    };
+  }
+
+  try{
+    const {data,error}=await sb.functions.invoke('whatsapp-api',{
+      body:{
+        action:'check_meta'
+      }
+    });
+
+    if(error){
+      return{
+        ok:false,
+        code:'EDGE_FUNCTION_ERROR',
+        error:error.message||String(error)
+      };
+    }
+
+    return data||{
+      ok:false,
+      code:'EMPTY_RESPONSE',
+      error:'La función WhatsApp no devolvió datos.'
+    };
+
+  }catch(e){
+    return{
+      ok:false,
+      code:'REQUEST_ERROR',
+      error:e?.message||String(e)
+    };
+  }
+ },
+
  async syncMeta(){
   if(!sb||!authUser)return{ok:false,error:'Debes iniciar sesión en el CRM.'};
   try{
