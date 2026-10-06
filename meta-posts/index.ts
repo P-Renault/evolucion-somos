@@ -30,23 +30,14 @@ function cleanText(value: unknown) {
   return typeof value === "string" ? value.trim() : null;
 }
 
-function nestedMediaUrl(item: any) {
-  return cleanText(
-    item?.media_url ??
-    item?.media?.image?.src ??
-    item?.media?.source ??
-    item?.media?.url ??
-    null,
-  );
-}
-
-function parseUtm(url: string | null, caption: string | null) {
+function parseUtm(url: string | null, text: string | null) {
   const out: Record<string, string | null> = {
     utm_source: null,
     utm_medium: null,
     utm_campaign: null,
     utm_content: null,
   };
+
   try {
     if (url) {
       const u = new URL(url);
@@ -54,7 +45,7 @@ function parseUtm(url: string | null, caption: string | null) {
     }
   } catch (_) {}
 
-  if (caption) {
+  if (text) {
     const patterns: Record<string, RegExp> = {
       utm_source: /utm_source=([^\s&#]+)/i,
       utm_medium: /utm_medium=([^\s&#]+)/i,
@@ -62,20 +53,32 @@ function parseUtm(url: string | null, caption: string | null) {
       utm_content: /utm_content=([^\s&#]+)/i,
     };
     for (const [key, re] of Object.entries(patterns)) {
-      if (!out[key]) out[key] = caption.match(re)?.[1] ?? null;
+      if (!out[key]) out[key] = text.match(re)?.[1] ?? null;
     }
   }
+
   return out;
 }
 
+function attachmentUrl(attachment: any) {
+  return cleanText(
+    attachment?.media?.image?.src ??
+    attachment?.media?.source ??
+    attachment?.media_url ??
+    attachment?.media?.url ??
+    null,
+  );
+}
+
 function mapFacebook(item: any, pageId: string) {
+  const message = cleanText(item?.message);
+  const permalink = cleanText(item?.permalink_url);
   const reactions = Number(item?.reactions?.summary?.total_count ?? 0);
   const comments = Number(item?.comments?.summary?.total_count ?? 0);
   const shares = Number(item?.shares?.count ?? 0);
-  const permalink = cleanText(item?.permalink_url);
-  const message = cleanText(item?.message);
+  const attachment = item?.attachments?.data?.[0] ?? null;
   const utm = parseUtm(permalink, message);
-  const attachment = item?.attachments?.data?.[0] ?? item?.attachments?.data?.[0];
+
   return {
     platform: "facebook",
     external_id: String(item.id),
@@ -86,8 +89,8 @@ function mapFacebook(item: any, pageId: string) {
     message,
     caption: null,
     permalink_url: permalink,
-    media_url: nestedMediaUrl(attachment),
-    thumbnail_url: nestedMediaUrl(attachment),
+    media_url: attachmentUrl(attachment),
+    thumbnail_url: attachmentUrl(attachment),
     campaign: utm.utm_campaign,
     ...utm,
     reach: null,
@@ -107,6 +110,7 @@ function mapInstagram(item: any, instagramId: string) {
   const likes = Number(item?.like_count ?? 0);
   const comments = Number(item?.comments_count ?? 0);
   const utm = parseUtm(permalink, caption);
+
   return {
     platform: "instagram",
     external_id: String(item.id),
@@ -133,27 +137,69 @@ function mapInstagram(item: any, instagramId: string) {
 }
 
 async function graphGet(version: string, path: string, token: string) {
-  const url = `https://graph.facebook.com/${version}/${path}`;
-  const response = await fetchWithTimeout(`${url}${path.includes("?") ? "&" : "?"}access_token=${encodeURIComponent(token)}`);
+  const separator = path.includes("?") ? "&" : "?";
+  const url = `https://graph.facebook.com/${version}/${path}${separator}access_token=${encodeURIComponent(token)}`;
+  const response = await fetchWithTimeout(url);
   const body = await response.json().catch(() => ({}));
+
   if (!response.ok) {
-    const message = body?.error?.message || `Meta Graph API respondió HTTP ${response.status}`;
-    const error = new Error(message);
+    const error = new Error(
+      body?.error?.message || `Meta Graph API respondió HTTP ${response.status}`,
+    );
     (error as any).meta = body?.error ?? body;
     throw error;
   }
+
   return body;
+}
+
+async function ensureAccounts(supabase: any, page: any, instagram: any) {
+  const now = new Date().toISOString();
+  const rows = [
+    {
+      platform: "facebook",
+      account_id: String(page.id),
+      account_name: page.name ?? "Facebook Page",
+      account_url: `https://www.facebook.com/${page.id}`,
+      active: true,
+      last_sync_at: now,
+      sync_status: "success",
+    },
+    {
+      platform: "instagram",
+      account_id: String(instagram.id),
+      account_name: instagram.name ?? instagram.username ?? "Instagram",
+      account_url: instagram.username
+        ? `https://www.instagram.com/${instagram.username}/`
+        : null,
+      active: true,
+      last_sync_at: now,
+      sync_status: "success",
+    },
+  ];
+
+  const { error } = await supabase
+    .from("social_accounts")
+    .upsert(rows, { onConflict: "platform,account_id" });
+
+  if (error) throw new Error(`social_accounts: ${error.message}`);
 }
 
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
-  if (req.method !== "POST") return json({ ok: false, error: "METHOD_NOT_ALLOWED" }, 405);
+  if (req.method !== "POST") return json({ ok: false, code: "METHOD_NOT_ALLOWED" }, 405);
+
+  const startedAt = Date.now();
 
   try {
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_ANON_KEY") ?? "",
-      { global: { headers: { Authorization: req.headers.get("Authorization") ?? "" } } },
+      {
+        global: {
+          headers: { Authorization: req.headers.get("Authorization") ?? "" },
+        },
+      },
     );
 
     const { data: userData, error: userError } = await supabase.auth.getUser();
@@ -161,7 +207,7 @@ Deno.serve(async (req: Request) => {
       return json({ ok: false, code: "UNAUTHORIZED", message: "Sesión de Supabase no válida." }, 401);
     }
 
-    const accessToken = Deno.env.get("WHATSAPP_ACCESS_TOKEN");
+    const accessToken = Deno.env.get("META_ACCESS_TOKEN");
     const pageId = Deno.env.get("META_PAGE_ID");
     const instagramId = Deno.env.get("META_INSTAGRAM_ID");
     const graphVersion = Deno.env.get("META_GRAPH_VERSION") || DEFAULT_GRAPH_VERSION;
@@ -170,8 +216,9 @@ Deno.serve(async (req: Request) => {
       return json({
         ok: false,
         code: "META_NOT_CONFIGURED",
+        message: "Faltan Secrets de Meta para publicaciones.",
         configured: {
-          access_token: Boolean(accessToken),
+          meta_access_token: Boolean(accessToken),
           page_id: Boolean(pageId),
           instagram_id: Boolean(instagramId),
           graph_version: graphVersion,
@@ -179,50 +226,94 @@ Deno.serve(async (req: Request) => {
       }, 503);
     }
 
-    const [facebookResult, instagramResult] = await Promise.allSettled([
-      graphGet(graphVersion, `${pageId}/posts?fields=id,message,created_time,permalink_url,attachments{media_type,media},shares,comments.summary(true),reactions.summary(true)}&limit=50`, accessToken),
-      graphGet(graphVersion, `${instagramId}/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp,like_count,comments_count&limit=50`, accessToken),
+    const [pageInfo, instagramInfo] = await Promise.allSettled([
+      graphGet(graphVersion, `${pageId}?fields=id,name,link,followers_count`, accessToken),
+      graphGet(graphVersion, `${instagramId}?fields=id,name,username,followers_count`, accessToken),
+    ]);
+
+    if (pageInfo.status === "rejected" && instagramInfo.status === "rejected") {
+      return json({
+        ok: false,
+        code: "META_ACCOUNTS_FETCH_FAILED",
+        facebook_error: pageInfo.reason?.message ?? String(pageInfo.reason),
+        instagram_error: instagramInfo.reason?.message ?? String(instagramInfo.reason),
+      }, 502);
+    }
+
+    const page = pageInfo.status === "fulfilled" ? pageInfo.value : { id: pageId, name: null };
+    const instagram = instagramInfo.status === "fulfilled"
+      ? instagramInfo.value
+      : { id: instagramId, name: null, username: null };
+
+    try {
+      await ensureAccounts(supabase, page, instagram);
+    } catch (accountError) {
+      return json({
+        ok: false,
+        code: "SOCIAL_ACCOUNTS_UPSERT_FAILED",
+        message: accountError instanceof Error ? accountError.message : String(accountError),
+      }, 500);
+    }
+
+    const [facebookPosts, instagramPosts] = await Promise.allSettled([
+      graphGet(
+        graphVersion,
+        `${pageId}/posts?fields=id,message,created_time,permalink_url,attachments{media_type,media},shares,comments.summary(true),reactions.summary(true)&limit=50`,
+        accessToken,
+      ),
+      graphGet(
+        graphVersion,
+        `${instagramId}/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp,like_count,comments_count&limit=50`,
+        accessToken,
+      ),
     ]);
 
     const rows: any[] = [];
-    const errors: any[] = [];
+    const errors: Array<{ platform: string; message: string }> = [];
 
-    if (facebookResult.status === "fulfilled") {
-      for (const item of facebookResult.value?.data ?? []) rows.push(mapFacebook(item, pageId));
+    if (facebookPosts.status === "fulfilled") {
+      for (const item of facebookPosts.value?.data ?? []) rows.push(mapFacebook(item, pageId));
     } else {
-      errors.push({ platform: "facebook", message: facebookResult.reason?.message ?? String(facebookResult.reason) });
+      errors.push({ platform: "facebook", message: facebookPosts.reason?.message ?? String(facebookPosts.reason) });
     }
 
-    if (instagramResult.status === "fulfilled") {
-      for (const item of instagramResult.value?.data ?? []) rows.push(mapInstagram(item, instagramId));
+    if (instagramPosts.status === "fulfilled") {
+      for (const item of instagramPosts.value?.data ?? []) rows.push(mapInstagram(item, instagramId));
     } else {
-      errors.push({ platform: "instagram", message: instagramResult.reason?.message ?? String(instagramResult.reason) });
+      errors.push({ platform: "instagram", message: instagramPosts.reason?.message ?? String(instagramPosts.reason) });
     }
 
-    if (!rows.length && errors.length) {
-      return json({ ok: false, code: "META_POSTS_FETCH_FAILED", errors }, 502);
+    if (rows.length) {
+      const { error: upsertError } = await supabase
+        .from("social_posts")
+        .upsert(rows, { onConflict: "platform,external_id" });
+      if (upsertError) {
+        return json({ ok: false, code: "DB_UPSERT_FAILED", message: upsertError.message, errors }, 500);
+      }
     }
 
-    const { error: upsertError } = await supabase
-      .from("social_posts")
-      .upsert(rows, { onConflict: "platform,external_id" });
-
-    if (upsertError) {
-      return json({ ok: false, code: "DB_UPSERT_FAILED", message: upsertError.message, errors }, 500);
-    }
+    const facebookCount = rows.filter((x) => x.platform === "facebook").length;
+    const instagramCount = rows.filter((x) => x.platform === "instagram").length;
+    const durationMs = Date.now() - startedAt;
 
     return json({
       ok: true,
+      partial: errors.length > 0,
       total: rows.length,
-      facebook: rows.filter((x) => x.platform === "facebook").length,
-      instagram: rows.filter((x) => x.platform === "instagram").length,
+      facebook: facebookCount,
+      instagram: instagramCount,
       errors,
+      duration_ms: durationMs,
       synced_at: new Date().toISOString(),
     });
   } catch (error) {
     if ((error as any)?.name === "AbortError") {
       return json({ ok: false, code: "META_TIMEOUT", message: "Meta tardó demasiado en responder." }, 504);
     }
-    return json({ ok: false, code: "INTERNAL_ERROR", message: error instanceof Error ? error.message : String(error) }, 500);
+    return json({
+      ok: false,
+      code: "INTERNAL_ERROR",
+      message: error instanceof Error ? error.message : String(error),
+    }, 500);
   }
 });
