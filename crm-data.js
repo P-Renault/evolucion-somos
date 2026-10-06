@@ -1,3 +1,4 @@
+import { createClient as createSupabaseClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 // Somos Software CRM B10.3 — Centro Ejecutivo + Inteligencia Comercial + Social Intelligence + Attribution
 // Basado en B9.4.9. Nunca usar service_role/secret key en frontend.
 const localKey = 'somos_leads_pending';
@@ -11,8 +12,7 @@ function makePersistentStorage(){return{getItem(k){try{return localStorage.getIt
 async function initSupabase(){
  if(!cfg.enabled||!cfg.url||!cfg.anonKey||cfg.anonKey.includes('YOUR_'))return false;
  try{
-  let createClient=window.supabase?.createClient;
-  if(!createClient){const mod=await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');createClient=mod.createClient}
+  const createClient=createSupabaseClient;
   if(typeof createClient!=='function')throw new Error('No se encontró createClient de Supabase.');
   sb=createClient(cfg.url,cfg.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:makePersistentStorage()}});
   window.__SOMOS_SUPABASE_CLIENT__=sb;
