@@ -47,7 +47,9 @@ export const CRMStore={
  async syncMeta(){
   if(!sb||!authUser)return{ok:false,error:'Debes iniciar sesión en el CRM.'};
   try{
-   const {data,error}=await sb.functions.invoke('meta-sync',{body:{}});
+   const invokePromise=sb.functions.invoke('meta-sync',{body:{}});
+   const timeoutPromise=new Promise((_,reject)=>setTimeout(()=>reject(new Error('La sincronización Meta no respondió en 25 segundos. Revisa el deploy de meta-sync y sus Secrets.')),25000));
+   const {data,error}=await Promise.race([invokePromise,timeoutPromise]);
    if(error)return{ok:false,error:error.message||'No fue posible ejecutar la sincronización Meta.'};
    return data||{ok:false,error:'La función Meta no devolvió datos.'};
   }catch(e){return{ok:false,error:e?.message||String(e)}}
