@@ -35,6 +35,16 @@ export const CRMStore={
  async saveSocialMetric(metric){if(!sb||!authUser)return false;const{error}=await sb.from('social_metrics').upsert(metric,{onConflict:'platform,account_id,metric_date'});if(error){console.warn('social_metrics:',error);return false}return true},
  async listEvents(days=90){if(!sb||!authUser)return[];const from=new Date(Date.now()-days*86400000).toISOString();const{data,error}=await sb.from('commercial_events').select('*').gte('created_at',from).order('created_at',{ascending:false});if(error){console.warn('commercial_events:',error);return[]}return data||[]},
  async listSocialSyncLogs(limit=20){if(!sb||!authUser)return[];const{data,error}=await sb.from('social_sync_logs').select('*').order('started_at',{ascending:false}).limit(limit);if(error){console.warn('social_sync_logs:',error);return[]}return data||[]},
+
+ async listSocialPosts(limit=50){if(!sb||!authUser)return[];const{data,error}=await sb.from('social_posts').select('*').order('published_at',{ascending:false}).limit(limit);if(error){console.warn('social_posts:',error);return[]}return data||[]},
+ async syncSocialPosts(){
+  if(!sb||!authUser)return{ok:false,error:'Debes iniciar sesión en el CRM.'};
+  try{
+   const {data,error}=await sb.functions.invoke('meta-posts',{body:{}});
+   if(error)return{ok:false,error:error.message||'No fue posible sincronizar publicaciones.'};
+   return data||{ok:false,error:'La función de publicaciones no devolvió datos.'};
+  }catch(e){return{ok:false,error:e?.message||String(e)}}
+ },
  async syncMeta(){
   if(!sb||!authUser)return{ok:false,error:'Debes iniciar sesión en el CRM.'};
   try{
