@@ -255,12 +255,40 @@ Deno.serve(async (req: Request) => {
       }, 500);
     }
 
+    // Facebook: intentar la colección propia de la Página y, si no devuelve
+    // publicaciones, usar published_posts y finalmente feed como fallback.
+    // En feed filtramos únicamente publicaciones cuyo autor sea la propia Página.
+    const facebookFields =
+      `id,message,created_time,permalink_url,from{id,name},attachments{media_type,media},shares,comments.summary(true),reactions.summary(true)`;
+
+    async function fetchFacebookPosts() {
+      const attempts = [
+        `${pageId}/posts?fields=${facebookFields}&limit=50`,
+        `${pageId}/published_posts?fields=${facebookFields}&limit=50`,
+        `${pageId}/feed?fields=${facebookFields}&limit=50`,
+      ];
+      const errors: string[] = [];
+
+      for (const path of attempts) {
+        try {
+          const result = await graphGet(graphVersion, path, accessToken);
+          const data = Array.isArray(result?.data) ? result.data : [];
+          const own = data.filter((item: any) =>
+            !item?.from?.id || String(item.from.id) === String(pageId)
+          );
+          if (own.length > 0 || path.includes('/feed')) return { data: own, source: path.split('?')[0].split('/').pop() };
+        } catch (error) {
+          errors.push(error instanceof Error ? error.message : String(error));
+        }
+      }
+
+      const error = new Error(errors.join(' | ') || 'Facebook no devolvió publicaciones.');
+      (error as any).attempts = errors;
+      throw error;
+    }
+
     const [facebookPosts, instagramPosts] = await Promise.allSettled([
-      graphGet(
-        graphVersion,
-        `${pageId}/posts?fields=id,message,created_time,permalink_url,attachments{media_type,media},shares,comments.summary(true),reactions.summary(true)&limit=50`,
-        accessToken,
-      ),
+      fetchFacebookPosts(),
       graphGet(
         graphVersion,
         `${instagramId}/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp,like_count,comments_count&limit=50`,
@@ -274,7 +302,8 @@ Deno.serve(async (req: Request) => {
     if (facebookPosts.status === "fulfilled") {
       for (const item of facebookPosts.value?.data ?? []) rows.push(mapFacebook(item, pageId));
     } else {
-      errors.push({ platform: "facebook", message: facebookPosts.reason?.message ?? String(facebookPosts.reason) });
+      const reason = facebookPosts.reason;
+      errors.push({ platform: "facebook", message: reason?.message ?? String(reason) });
     }
 
     if (instagramPosts.status === "fulfilled") {
