@@ -39,7 +39,9 @@ export const CRMStore={
  async syncSocialPosts(){
   if(!sb||!authUser)return{ok:false,error:'Debes iniciar sesión en el CRM.'};
   try{
-   const {data,error}=await sb.functions.invoke('meta-posts',{body:{}});
+   const invokePromise=sb.functions.invoke('meta-posts',{body:{}});
+   const timeoutPromise=new Promise((_,reject)=>setTimeout(()=>reject(new Error('La sincronización de publicaciones no respondió en 25 segundos. Revisa el deploy de meta-posts y sus Secrets.')),25000));
+   const {data,error}=await Promise.race([invokePromise,timeoutPromise]);
    if(error)return{ok:false,error:error.message||'No fue posible sincronizar publicaciones.'};
    return data||{ok:false,error:'La función de publicaciones no devolvió datos.'};
   }catch(e){return{ok:false,error:e?.message||String(e)}}
