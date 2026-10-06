@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#05070c">
-<title>Somos Software · CRM + Inteligencia Comercial B10.3</title>
+<title>Somos Software · CRM + Inteligencia Comercial B10.4</title>
 <link rel="stylesheet" href="styles.css">
 <style>
 :root{--crm-bg:#05070c;--crm-panel:#08111b;--crm-line:#172432;--crm-cyan:#18c8f4;--crm-muted:#718095}
@@ -43,7 +43,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 <body>
 <div class="login open" id="login">
  <div class="login-card">
-  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B10.3</div>
+  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B10.4</div>
   <h1>Acceso al CRM</h1>
   <p>CRM privado de Somos Software. Inicia sesión con tu usuario de Supabase. La sesión queda persistente en este dispositivo.</p>
   <form id="loginForm">
@@ -60,7 +60,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 
 <div class="login" id="signup" style="display:none;z-index:110">
  <div class="login-card">
-  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B10.3</div>
+  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B10.4</div>
   <h1>Crear cuenta</h1>
   <p>Crea tu usuario de acceso al CRM. Supabase enviará un correo de confirmación si las confirmaciones de email están activadas.</p>
   <form id="signupForm">
@@ -77,7 +77,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 
 <main class="crm">
 <header class="top">
- <div class="brand"><img src="assets/logo-somos-software.png" alt="Somos Software"><small>CRM COMERCIAL + INTELIGENCIA · B10.0</small><div class="session" id="session"></div></div>
+ <div class="brand"><img src="assets/logo-somos-software.png" alt="Somos Software"><small>CRM COMERCIAL + INTELIGENCIA · B10.4</small><div class="session" id="session"></div></div>
  <div class="actions">
   <button class="btnx" id="export">Exportar CSV</button>
   <button class="btnx" id="importLocal">Importar locales</button>
@@ -130,9 +130,9 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
  <div class="social-actions">
   <button class="btnx primary" id="socialSync">Sincronizar Meta</button>
   <button class="btnx" id="socialRefresh">Actualizar datos guardados</button>
-   <button class="btnx" id="whatsappDiag">🧪 Probar WhatsApp</button>
+  <button class="btnx" id="whatsappDiag">🧪 Probar WhatsApp</button>
   <button class="btnx" id="socialSeed">Cargar métrica de prueba</button>
-  <span id="socialSyncStatus" class="tag">API pendiente</span>
+  <span id="socialSyncStatus" class="tag">Meta pendiente · WhatsApp verificable</span>
  </div>
  <div class="social-grid" id="socialCards"></div>
  <section class="intel-panel"><h3>Estado de conexión</h3><div id="socialAccounts"></div><p class="muted-note">La conexión real con Meta/Instagram se ejecutará mediante una Edge Function de Supabase. Los tokens nunca deben estar en GitHub Pages ni en este CRM.</p></section>
@@ -177,7 +177,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 <script src="supabase-config.js?v=B9.4.9"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script type="module">
-import { CRMStore } from './crm-data.js?v=B10.3';
+import { CRMStore } from './crm-data.js?v=B10.4';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const states=['Nuevo','Contactado','Calificado','Diagnóstico','Agenda','Cotización enviada','Negociación','Ganado','Perdido','Postventa'];
 const cols=states.slice(0,9); let leads=[]; let editing=null; let socialMetrics=[]; let socialAccounts=[]; let commercialEvents=[]; let syncLogs=[];
@@ -228,39 +228,64 @@ async function renderExecutive(){
 async function renderAttribution(){
  commercialEvents=await CRMStore.listEvents(90);const bySource=leadAttribution();const totalLeads=leads.length;const attributed=leads.filter(l=>l.source||l.campaign||l.medium).length;const attributedWon=leads.filter(l=>(l.source||l.campaign||l.medium)&&l.state==='Ganado').length;const revenue=leads.filter(l=>l.state==='Ganado').reduce((a,l)=>a+Number(l.value||0),0);$('#attrKpis').innerHTML=[[attributed,'LEADS ATRIBUIDOS',`${totalLeads?Math.round(attributed/totalLeads*100):0}% del total`],[attributedWon,'VENTAS ATRIBUIDAS','ganados con origen/campaña'],[money(revenue),'INGRESOS TOTALES','ganados registrados'],[commercialEvents.length,'EVENTOS 90 DÍAS','web y comerciales']].map(x=>`<div class="attr-card"><span class="ey">${x[1]}</span><b>${x[0]}</b><small>${x[2]}</small></div>`).join('');$('#attrRows').innerHTML=bySource.map(x=>`<tr><td><b>${esc(x.source)}</b></td><td>${x.leads}</td><td>${x.won}</td><td>${x.leads?Math.round(x.won/x.leads*100):0}%</td><td>${money(x.pipeline)}</td><td>${money(x.revenue)}</td></tr>`).join('')||'<tr><td colspan="6">Sin datos de atribución.</td></tr>';const ev=eventCampaigns();$('#utmRows').innerHTML=ev.map(x=>`<tr><td><b>${esc(x.campaign)}</b></td><td>${x.events}</td><td>${x.leads}</td><td>${x.won}</td><td>${money(x.value)}</td><td>${esc(x.medium)}</td></tr>`).join('')||'<tr><td colspan="6">Sin campañas o UTM registrados.</td></tr>';
 }
-async function renderSocial(){socialAccounts=await CRMStore.listSocialAccounts();socialMetrics=await CRMStore.listSocialMetrics(90);syncLogs=await CRMStore.listSocialSyncLogs(20);const platforms=['facebook','instagram','whatsapp'];$('#socialCards').innerHTML=platforms.map(p=>{const a=socialAccounts.find(x=>x.platform===p&&x.active);const arr=socialMetrics.filter(x=>x.platform===p).sort((x,y)=>x.metric_date.localeCompare(y.metric_date));const last=arr.at(-1);const prev=arr.length>7?arr.at(-8):arr[0];const followers=last?.followers??0;const growth=(last&&prev&&followers&&prev.followers!=null)?followers-(prev.followers||0):0;return `<article class="social-card"><h3>${p.toUpperCase()}</h3><b>${p==='whatsapp'?'—':followers.toLocaleString('es-CL')}</b><small>${p==='whatsapp'?'mensajería / conversiones':'seguidores registrados'}</small><div class="growth">${p==='whatsapp'?'Conexión comercial':(growth>=0?'+':'')+growth+' últimos 7 registros'}</div><div class="muted-note" style="margin-top:8px"><span class="status-dot ${a?.active?'ok':''}"></span>${a?.last_sync_at?'Sincronizado '+new Date(a.last_sync_at).toLocaleString('es-CL'):'Pendiente de conexión API'}</div></article>`}).join('');$('#socialAccounts').innerHTML=socialAccounts.length?socialAccounts.map(a=>`<div class="alert-item" style="margin-bottom:7px"><b>${esc(a.platform.toUpperCase())} · ${esc(a.account_name||a.account_id)}</b><span>${a.sync_status||'pending'} · ${a.last_sync_at?new Date(a.last_sync_at).toLocaleString('es-CL'):'sin sincronización'}</span></div>`).join(''):'<div class="muted-note">Aún no hay cuentas sociales registradas. La estructura ya está lista para Facebook e Instagram.</div>';$('#socialRows').innerHTML=socialMetrics.slice().reverse().map(m=>`<tr><td>${esc(m.metric_date)}</td><td>${esc(m.platform)}</td><td>${m.followers??'—'}</td><td>${m.followers_gained??'—'}</td><td>${m.reach??'—'}</td><td>${m.engagement??'—'}</td><td>${m.leads??'—'}</td><td>${money(m.revenue)}</td></tr>`).join('')||'<tr><td colspan="8">Sin métricas todavía.</td></tr>';$('#syncRows').innerHTML=syncLogs.map(x=>`<tr><td>${new Date(x.started_at).toLocaleString('es-CL')}</td><td><span class="tag">${esc(x.status)}</span></td><td>${x.facebook_ok?'OK':'—'}</td><td>${x.instagram_ok?'OK':'—'}</td><td>${esc(x.error_message||'Sin errores')}</td></tr>`).join('')||'<tr><td colspan="5">Sin sincronizaciones registradas.</td></tr>'}
+async function renderSocial(){
+ socialAccounts=await CRMStore.listSocialAccounts();
+ socialMetrics=await CRMStore.listSocialMetrics(90);
+ syncLogs=await CRMStore.listSocialSyncLogs(20);
+ let whatsapp={ok:false};
+ try{whatsapp=await CRMStore.testWhatsAppConnection()}catch(e){whatsapp={ok:false,error:e?.message||String(e)}}
+ const platforms=['facebook','instagram','whatsapp'];
+ $('#socialCards').innerHTML=platforms.map(p=>{
+  const a=socialAccounts.find(x=>x.platform===p&&x.active);
+  const arr=socialMetrics.filter(x=>x.platform===p).sort((x,y)=>x.metric_date.localeCompare(y.metric_date));
+  const realArr=arr.filter(x=>!(x.raw&&x.raw.demo));
+  const displayArr=realArr.length?realArr:arr;
+  const last=displayArr.at(-1);
+  const prev=displayArr.length>7?displayArr.at(-8):displayArr[0];
+  const followers=last?.followers??0;
+  const growth=(last&&prev&&last.followers!=null&&prev.followers!=null)?followers-(prev.followers||0):0;
+  const demoOnly=p!=='whatsapp'&&arr.length>0&&!realArr.length;
+  const connected=p==='whatsapp'?!!whatsapp?.ok:!!a?.active||realArr.length>0;
+  const status=p==='whatsapp'
+   ?(connected?'Conectado a Meta · API operativa':'Pendiente de conexión')
+   :(connected?'Conectado a Meta · datos sincronizados':(demoOnly?'Datos de prueba · API pendiente':'Pendiente de conexión API'));
+  return `<article class="social-card">
+   <h3>${p.toUpperCase()}</h3>
+   <b>${p==='whatsapp'?'—':followers.toLocaleString('es-CL')}</b>
+   <small>${p==='whatsapp'?'mensajería / conversiones':'seguidores registrados'}</small>
+   <div class="growth">${p==='whatsapp'?(connected?'Conexión comercial activa':'Conexión comercial pendiente'):(demoOnly?'Métrica de prueba':(growth>=0?'+':'')+growth+' últimos 7 registros')}</div>
+   <div class="muted-note" style="margin-top:8px"><span class="status-dot ${connected?'ok':''}"></span>${status}</div>
+  </article>`;
+ }).join('');
+
+ const rows=[
+  {platform:'Facebook',status:(socialAccounts.find(x=>x.platform==='facebook'&&x.active)?'Conectado a Meta':(socialMetrics.some(x=>x.platform==='facebook'&&!(x.raw&&x.raw.demo))?'Conectado · métricas sincronizadas':'Pendiente de conexión API')),detail:'La sincronización real se ejecuta mediante meta-sync.'},
+  {platform:'Instagram',status:(socialAccounts.find(x=>x.platform==='instagram'&&x.active)?'Conectado a Meta':(socialMetrics.some(x=>x.platform==='instagram'&&!(x.raw&&x.raw.demo))?'Conectado · métricas sincronizadas':'Pendiente de conexión API')),detail:'Cuenta profesional vía Meta Graph API.'},
+  {platform:'WhatsApp',status:whatsapp?.ok?'Conectado · número real operativo':'Pendiente de verificación',detail:whatsapp?.ok?((whatsapp.meta?.display_phone_number||whatsapp.meta?.phone_number_id)?'Somos software · '+(whatsapp.meta?.display_phone_number||'Phone Number ID verificado'):'API operativa'):('Diagnóstico: '+(whatsapp?.error||whatsapp?.code||'sin respuesta'))}
+ ];
+ $('#socialAccounts').innerHTML=rows.map(x=>`<div class="alert-item" style="margin-bottom:7px"><b>${esc(x.platform)}</b><span>${esc(x.status)} · ${esc(x.detail)}</span></div>`).join('');
+
+ $('#socialRows').innerHTML=socialMetrics.slice().reverse().map(m=>`<tr><td>${esc(m.metric_date)}</td><td>${esc(m.platform)}</td><td>${m.followers??'—'}</td><td>${m.followers_gained??'—'}</td><td>${m.reach??'—'}</td><td>${m.engagement??'—'}</td><td>${m.leads??'—'}</td><td>${money(m.revenue)}</td></tr>`).join('')||'<tr><td colspan="8">Sin métricas todavía.</td></tr>';
+ $('#syncRows').innerHTML=syncLogs.map(x=>`<tr><td>${new Date(x.started_at).toLocaleString('es-CL')}</td><td><span class="tag">${esc(x.status)}</span></td><td>${x.facebook_ok?'OK':'—'}</td><td>${x.instagram_ok?'OK':'—'}</td><td>${esc(x.error_message||'Sin errores')}</td></tr>`).join('')||'<tr><td colspan="5">Sin sincronizaciones registradas.</td></tr>';
+ if(whatsapp?.ok)$('#socialSyncStatus').textContent='WhatsApp conectado · Meta pendiente de sincronización';
+}
 $$('[data-tab]').forEach(btn=>btn.onclick=async()=>{const tab=btn.dataset.tab;$$('[data-tab]').forEach(x=>x.classList.toggle('active',x===btn));$$('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+tab));if(tab==='executive')await renderExecutive();if(tab==='intelligence')renderIntelligence();if(tab==='social')await renderSocial();if(tab==='attribution')await renderAttribution()});
 $('#socialRefresh').onclick=renderSocial;
-$('#socialSync').onclick=async()=>{const b=$('#socialSync');const s=$('#socialSyncStatus');b.disabled=true;b.textContent='Sincronizando…';s.textContent='Conectando con Meta…';try{const r=await CRMStore.syncMeta();if(r?.ok){s.textContent='Sincronización OK';await renderSocial();alert('Meta sincronizado correctamente.')}else{s.textContent='Error de sincronización';alert(r?.error||'No fue posible sincronizar Meta.')}}finally{b.disabled=false;b.textContent='Sincronizar Meta'}};
 $('#whatsappDiag').onclick=async()=>{
-  const b=$('#whatsappDiag');
-  b.disabled=true;
-  b.textContent='Probando…';
-  try{
-    const r=await CRMStore.testWhatsAppConnection();
-    console.log('WhatsApp diagnostic:',r);
-    if(r?.ok){
-      alert(
-        'WhatsApp conectado correctamente.\\n\\n'+
-        'Phone Number ID: '+(r.meta?.phone_number_id||'—')+'\\n'+
-        'Número: '+(r.meta?.display_phone_number||'—')+'\\n'+
-        'Nombre: '+(r.meta?.verified_name||'—')
-      );
-    }else{
-      alert(
-        'Diagnóstico WhatsApp: ERROR\\n\\n'+
-        (r?.error||r?.message||r?.code||'Respuesta desconocida')
-      );
-    }
-  }catch(e){
-    console.error('WhatsApp diagnostic error:',e);
-    alert('Error en diagnóstico WhatsApp: '+(e?.message||String(e)));
-  }finally{
-    b.disabled=false;
-    b.textContent='🧪 Probar WhatsApp';
+ const b=$('#whatsappDiag');b.disabled=true;b.textContent='Probando…';
+ try{
+  const r=await CRMStore.testWhatsAppConnection();
+  if(r?.ok){
+   $('#socialSyncStatus').textContent='WhatsApp conectado · API operativa';
+   alert('WhatsApp conectado correctamente.\n\nPhone Number ID: '+(r.meta?.phone_number_id||r.meta?.id||'—')+'\nNúmero: '+(r.meta?.display_phone_number||'—')+'\nNombre: '+(r.meta?.verified_name||r.meta?.name||'—'));
+  }else{
+   alert('Diagnóstico WhatsApp: ERROR\n\n'+(r?.error||r?.message||r?.code||'Respuesta desconocida'));
   }
+ }catch(e){alert('Error en diagnóstico WhatsApp: '+(e?.message||String(e)))}
+ finally{b.disabled=false;b.textContent='🧪 Probar WhatsApp';await renderSocial()}
 };
-$('#socialSeed').onclick=async()=>{const today=new Date().toISOString().slice(0,10);for(const p of ['facebook','instagram'])await CRMStore.saveSocialMetric({platform:p,account_id:'demo',metric_date:today,followers:p==='facebook'?100:120,followers_gained:0,followers_lost:0,reach:0,impressions:0,engagement:0,profile_visits:0,website_clicks:0,whatsapp_clicks:0,messages:0,leads:0,revenue:0,raw:{demo:true}});await renderSocial()};
+$('#socialSync').onclick=async()=>{const b=$('#socialSync');const s=$('#socialSyncStatus');b.disabled=true;b.textContent='Sincronizando…';s.textContent='Conectando Facebook + Instagram…';try{const r=await CRMStore.syncMeta();if(r?.ok){s.textContent='Meta sincronizado correctamente';await renderSocial();alert('Facebook e Instagram sincronizados correctamente.')}else{s.textContent='Meta pendiente / error';alert(r?.error||'No fue posible sincronizar Meta.')}}finally{b.disabled=false;b.textContent='Sincronizar Meta'}};
+$('#socialSeed').onclick=async()=>{const today=new Date().toISOString().slice(0,10);for(const p of ['facebook','instagram'])await CRMStore.saveSocialMetric({platform:p,account_id:'demo',metric_date:today,followers:p==='facebook'?100:120,followers_gained:0,followers_lost:0,reach:0,impressions:0,engagement:0,profile_visits:0,website_clicks:0,whatsapp_clicks:0,messages:0,leads:0,revenue:0,raw:{demo:true,source:'CRM demo'}});await renderSocial()};
 CRMStore.onStateChange=({authenticated,email,mode})=>{$('#logout').style.display=authenticated?'inline-block':'none';$('#session').innerHTML=authenticated?`<span>Sesión:</span> <b>${esc(email||'usuario')}</b>`:`<span>Modo:</span> <b>${mode==='supabase'?'Supabase':'local'}</b>`;if(authenticated){$('#loginError').classList.remove('show');$('#modeNote').textContent='Sesión activa. CRM + inteligencia comercial disponibles.'}else if(mode==='supabase')$('#modeNote').textContent='Supabase conectado. Inicia sesión o crea una cuenta.';else $('#modeNote').textContent='No se pudo conectar con Supabase.'};
 function showAuthError(message){const el=$('#loginError');el.textContent=message;el.classList.add('show')}function clearAuthError(){const el=$('#loginError');el.textContent='';el.classList.remove('show')}
 $('#loginForm').onsubmit=async e=>{e.preventDefault();clearAuthError();const d=Object.fromEntries(new FormData(e.currentTarget).entries());const btn=e.currentTarget.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Validando…';try{const r=await CRMStore.login(d.email.trim(),d.password);if(!r.ok){let msg=r.error||'No fue posible iniciar sesión.';if(/email not confirmed|email_not_confirmed/i.test(msg))msg='El correo todavía no está confirmado. Revisa tu correo y confirma la cuenta antes de iniciar sesión.';if(/invalid login credentials/i.test(msg))msg='Correo o contraseña incorrectos. Si acabas de crear la cuenta, confirma primero el correo.';showAuthError(msg)}else{$('#login').classList.remove('open');await load()}}catch(err){showAuthError(err?.message||'Error inesperado al iniciar sesión.')}finally{btn.disabled=false;btn.textContent='Iniciar sesión'}};

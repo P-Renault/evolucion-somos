@@ -37,43 +37,27 @@ export const CRMStore={
  async listSocialSyncLogs(limit=20){if(!sb||!authUser)return[];const{data,error}=await sb.from('social_sync_logs').select('*').order('started_at',{ascending:false}).limit(limit);if(error){console.warn('social_sync_logs:',error);return[]}return data||[]},
  async testWhatsAppConnection(){
   if(!sb||!authUser){
-    return{
-      ok:false,
-      code:'NO_SESSION',
-      error:'Debes iniciar sesión en el CRM.'
-    };
+   return{ok:false,code:'NO_SESSION',error:'Debes iniciar sesión en el CRM.'};
   }
-
   try{
-    const {data,error}=await sb.functions.invoke('whatsapp-api',{
-      body:{
-        action:'check_meta'
-      }
-    });
-
-    if(error){
-      return{
-        ok:false,
-        code:'EDGE_FUNCTION_ERROR',
-        error:error.message||String(error)
-      };
-    }
-
-    return data||{
-      ok:false,
-      code:'EMPTY_RESPONSE',
-      error:'La función WhatsApp no devolvió datos.'
-    };
-
+   const {data,error}=await sb.functions.invoke('whatsapp-api',{body:{action:'check_meta'}});
+   if(error)return{ok:false,code:'EDGE_FUNCTION_ERROR',error:error.message||String(error)};
+   return data||{ok:false,code:'EMPTY_RESPONSE',error:'La función WhatsApp no devolvió datos.'};
   }catch(e){
-    return{
-      ok:false,
-      code:'REQUEST_ERROR',
-      error:e?.message||String(e)
-    };
+   return{ok:false,code:'REQUEST_ERROR',error:e?.message||String(e)};
   }
  },
-
+ async sendWhatsAppText(to,message){
+  if(!sb||!authUser)return{ok:false,code:'NO_SESSION',error:'Debes iniciar sesión en el CRM.'};
+  if(!to||!message)return{ok:false,code:'INVALID_INPUT',error:'Faltan destinatario o mensaje.'};
+  try{
+   const {data,error}=await sb.functions.invoke('whatsapp-api',{body:{action:'send_text',to,message}});
+   if(error)return{ok:false,code:'EDGE_FUNCTION_ERROR',error:error.message||String(error)};
+   return data||{ok:false,code:'EMPTY_RESPONSE',error:'WhatsApp no devolvió datos.'};
+  }catch(e){
+   return{ok:false,code:'REQUEST_ERROR',error:e?.message||String(e)};
+  }
+ },
  async syncMeta(){
   if(!sb||!authUser)return{ok:false,error:'Debes iniciar sesión en el CRM.'};
   try{
