@@ -35,28 +35,14 @@ export const CRMStore={
  async saveSocialMetric(metric){if(!sb||!authUser)return false;const{error}=await sb.from('social_metrics').upsert(metric,{onConflict:'platform,account_id,metric_date'});if(error){console.warn('social_metrics:',error);return false}return true},
  async listEvents(days=90){if(!sb||!authUser)return[];const from=new Date(Date.now()-days*86400000).toISOString();const{data,error}=await sb.from('commercial_events').select('*').gte('created_at',from).order('created_at',{ascending:false});if(error){console.warn('commercial_events:',error);return[]}return data||[]},
  async listSocialSyncLogs(limit=20){if(!sb||!authUser)return[];const{data,error}=await sb.from('social_sync_logs').select('*').order('started_at',{ascending:false}).limit(limit);if(error){console.warn('social_sync_logs:',error);return[]}return data||[]},
- async testWhatsAppConnection(){
-  if(!sb||!authUser){
-   return{ok:false,code:'NO_SESSION',error:'Debes iniciar sesión en el CRM.'};
-  }
+ async listSocialPosts(limit=50){if(!sb||!authUser)return[];const{data,error}=await sb.from('social_posts').select('*').order('published_at',{ascending:false}).limit(limit);if(error){console.warn('social_posts:',error);return[]}return data||[]},
+ async syncSocialPosts(){
+  if(!sb||!authUser)return{ok:false,error:'Debes iniciar sesión en el CRM.'};
   try{
-   const {data,error}=await sb.functions.invoke('whatsapp-api',{body:{action:'check_meta'}});
-   if(error)return{ok:false,code:'EDGE_FUNCTION_ERROR',error:error.message||String(error)};
-   return data||{ok:false,code:'EMPTY_RESPONSE',error:'La función WhatsApp no devolvió datos.'};
-  }catch(e){
-   return{ok:false,code:'REQUEST_ERROR',error:e?.message||String(e)};
-  }
- },
- async sendWhatsAppText(to,message){
-  if(!sb||!authUser)return{ok:false,code:'NO_SESSION',error:'Debes iniciar sesión en el CRM.'};
-  if(!to||!message)return{ok:false,code:'INVALID_INPUT',error:'Faltan destinatario o mensaje.'};
-  try{
-   const {data,error}=await sb.functions.invoke('whatsapp-api',{body:{action:'send_text',to,message}});
-   if(error)return{ok:false,code:'EDGE_FUNCTION_ERROR',error:error.message||String(error)};
-   return data||{ok:false,code:'EMPTY_RESPONSE',error:'WhatsApp no devolvió datos.'};
-  }catch(e){
-   return{ok:false,code:'REQUEST_ERROR',error:e?.message||String(e)};
-  }
+   const {data,error}=await sb.functions.invoke('meta-posts',{body:{}});
+   if(error)return{ok:false,error:error.message||'No fue posible sincronizar publicaciones.'};
+   return data||{ok:false,error:'La función de publicaciones no devolvió datos.'};
+  }catch(e){return{ok:false,error:e?.message||String(e)}}
  },
  async syncMeta(){
   if(!sb||!authUser)return{ok:false,error:'Debes iniciar sesión en el CRM.'};
