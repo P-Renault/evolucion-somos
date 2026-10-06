@@ -46,6 +46,20 @@ export const CRMStore={
    return data||{ok:false,error:'La función de publicaciones no devolvió datos.'};
   }catch(e){return{ok:false,error:e?.message||String(e)}}
  },
+ async syncSocialAll(){
+  if(!sb||!authUser)return{ok:false,error:'Debes iniciar sesión en el CRM.'};
+  const run=(fn,label)=>Promise.resolve(fn()).then(data=>({ok:!!data?.ok,data,label})).catch(e=>({ok:false,error:e?.message||String(e),label}));
+  const [metrics,posts]=await Promise.all([
+    run(()=>CRMStore.syncMeta(),'metrics'),
+    run(()=>CRMStore.syncSocialPosts(),'posts')
+  ]);
+  return {
+    ok:metrics.ok||posts.ok,
+    metrics,
+    posts,
+    errors:[metrics,posts].filter(x=>!x.ok).map(x=>({source:x.label,message:x.error||x.data?.error||'Error desconocido'}))
+  };
+ },
  async syncMeta(){
   if(!sb||!authUser)return{ok:false,error:'Debes iniciar sesión en el CRM.'};
   try{
