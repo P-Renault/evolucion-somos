@@ -241,16 +241,30 @@ async function renderSocial(){
  const platforms=['facebook','instagram','whatsapp'];
  $('#socialCards').innerHTML=platforms.map(p=>{
    const a=socialAccounts.find(x=>x.platform===p&&x.active);
-   const arr=socialMetrics.filter(x=>x.platform===p).sort((x,y)=>x.metric_date.localeCompare(y.metric_date));
+   // Nunca mezclar registros demo con métricas reales.
+   const arr=socialMetrics
+     .filter(x=>x.platform===p && x.account_id!=='demo')
+     .sort((x,y)=>String(x.metric_date).localeCompare(String(y.metric_date)));
    const last=arr.at(-1);
-   const prev=arr.length>7?arr.at(-8):arr[0];
-   const followers=last?.followers??0;
-   const growth=(last&&prev&&followers!=null&&prev.followers!=null)?followers-(prev.followers||0):0;
+   const prev=arr.length>1?arr.at(-2):null;
+   const hasRealMetric=!!last;
+   const followers=Number.isFinite(Number(last?.followers))?Number(last.followers):null;
+   const growth=(last&&prev&&followers!=null&&prev.followers!=null)
+     ? followers-Number(prev.followers||0)
+     : null;
    const connected=!!a?.active;
+   const apiOk=connected && (a.sync_status==='success' || a.sync_status==='synced' || a.sync_status==='ok');
+   const sourceLabel=hasRealMetric
+     ? (last?.raw ? 'META REAL · dato recibido' : 'META REAL · sin respuesta de métrica')
+     : (connected ? 'META REAL · esperando primera métrica' : 'Sin conexión API');
    const status=connected
-     ? `Conectado · ${a.sync_status==='success'?'API operativa':(a.sync_status||'sincronizado')}`
+     ? `Conectado · ${apiOk?'API operativa':(a.sync_status||'sincronizado')}`
      : 'Pendiente de conexión API';
-   return `<article class="social-card"><h3>${p.toUpperCase()}</h3><b>${p==='whatsapp'?'—':followers.toLocaleString('es-CL')}</b><small>${p==='whatsapp'?'mensajería / conversiones':'seguidores registrados'}</small><div class="growth">${p==='whatsapp'?'Conexión comercial':(growth>=0?'+':'')+growth+' últimos 7 registros'}</div><div class="muted-note" style="margin-top:8px"><span class="status-dot ${connected?'ok':''}"></span>${status}</div></article>`;
+   const value=p==='whatsapp'?'—':(followers==null?'—':followers.toLocaleString('es-CL'));
+   const growthLabel=p==='whatsapp'
+     ? 'Conexión comercial'
+     : (growth==null?'Sin histórico real suficiente':((growth>=0?'+':'')+growth+' últimos registros'));
+   return `<article class="social-card"><h3>${p.toUpperCase()}</h3><b>${value}</b><small>${p==='whatsapp'?'mensajería / conversiones':'seguidores registrados'}</small><div class="growth">${growthLabel}</div><div class="muted-note" style="margin-top:8px"><span class="status-dot ${connected?'ok':''}"></span>${status}</div><div class="muted-note" style="margin-top:5px;font-size:11px;opacity:.8">Origen: ${sourceLabel}</div></article>`;
  }).join('');
  $('#socialAccounts').innerHTML=socialAccounts.length
    ? socialAccounts.map(a=>`<div class="alert-item" style="margin-bottom:7px"><b>${esc(a.platform.toUpperCase())} · ${esc(a.account_name||a.account_id)}</b><span>${esc(a.sync_status||'pending')} · ${a.last_sync_at?new Date(a.last_sync_at).toLocaleString('es-CL'):'sin sincronización'}</span></div>`).join('')
@@ -263,7 +277,12 @@ async function renderSocial(){
    const url=p.permalink_url||p.permalink||'';
    return `<tr><td>${p.published_at?new Date(p.published_at).toLocaleString('es-CL'):'—'}</td><td>${esc(p.platform)}</td><td>${esc(p.media_type||'—')}</td><td style="max-width:260px"><b>${esc(text.slice(0,120)||'Sin texto')}</b></td><td>${p.engagement??'—'}</td><td>${p.reach??'—'}</td><td>${esc(campaign)}</td><td>${url?`<a href="${esc(url)}" target="_blank" rel="noopener" class="tag">Ver</a>`:'—'}</td></tr>`;
  }).join('')||'<tr><td colspan="8">Sin publicaciones sincronizadas todavía.</td></tr>';
- $('#socialSyncStatus').textContent=socialPosts.length?`Datos guardados · ${socialPosts.length} publicaciones`:'API pendiente';
+ const realMetrics=socialMetrics.filter(x=>x.account_id!=='demo');
+ const demoMetrics=socialMetrics.filter(x=>x.account_id==='demo');
+ const connectedCount=socialAccounts.filter(x=>x.active && ['facebook','instagram'].includes(x.platform)).length;
+ $('#socialSyncStatus').textContent=connectedCount
+   ? `Datos reales · ${connectedCount} canales conectados · ${socialPosts.length} publicaciones`
+   : (realMetrics.length?`Datos reales guardados · ${realMetrics.length} métricas · ${socialPosts.length} publicaciones`:(demoMetrics.length?`Solo datos demo · ${demoMetrics.length} métricas`:'API pendiente'));
 }
 
 $$('[data-tab]').forEach(btn=>btn.onclick=async()=>{const tab=btn.dataset.tab;$$('[data-tab]').forEach(x=>x.classList.toggle('active',x===btn));$$('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+tab));if(tab==='executive')await renderExecutive();if(tab==='intelligence')renderIntelligence();if(tab==='social')await renderSocial();if(tab==='attribution')await renderAttribution()});
