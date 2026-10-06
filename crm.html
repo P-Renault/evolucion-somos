@@ -130,6 +130,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
  <div class="social-actions">
   <button class="btnx primary" id="socialSync">Sincronizar Meta</button>
   <button class="btnx" id="socialRefresh">Actualizar datos guardados</button>
+   <button class="btnx" id="whatsappDiag">🧪 Probar WhatsApp</button>
   <button class="btnx" id="socialSeed">Cargar métrica de prueba</button>
   <span id="socialSyncStatus" class="tag">API pendiente</span>
  </div>
@@ -231,6 +232,34 @@ async function renderSocial(){socialAccounts=await CRMStore.listSocialAccounts()
 $$('[data-tab]').forEach(btn=>btn.onclick=async()=>{const tab=btn.dataset.tab;$$('[data-tab]').forEach(x=>x.classList.toggle('active',x===btn));$$('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+tab));if(tab==='executive')await renderExecutive();if(tab==='intelligence')renderIntelligence();if(tab==='social')await renderSocial();if(tab==='attribution')await renderAttribution()});
 $('#socialRefresh').onclick=renderSocial;
 $('#socialSync').onclick=async()=>{const b=$('#socialSync');const s=$('#socialSyncStatus');b.disabled=true;b.textContent='Sincronizando…';s.textContent='Conectando con Meta…';try{const r=await CRMStore.syncMeta();if(r?.ok){s.textContent='Sincronización OK';await renderSocial();alert('Meta sincronizado correctamente.')}else{s.textContent='Error de sincronización';alert(r?.error||'No fue posible sincronizar Meta.')}}finally{b.disabled=false;b.textContent='Sincronizar Meta'}};
+$('#whatsappDiag').onclick=async()=>{
+  const b=$('#whatsappDiag');
+  b.disabled=true;
+  b.textContent='Probando…';
+  try{
+    const r=await CRMStore.testWhatsAppConnection();
+    console.log('WhatsApp diagnostic:',r);
+    if(r?.ok){
+      alert(
+        'WhatsApp conectado correctamente.\\n\\n'+
+        'Phone Number ID: '+(r.meta?.phone_number_id||'—')+'\\n'+
+        'Número: '+(r.meta?.display_phone_number||'—')+'\\n'+
+        'Nombre: '+(r.meta?.verified_name||'—')
+      );
+    }else{
+      alert(
+        'Diagnóstico WhatsApp: ERROR\\n\\n'+
+        (r?.error||r?.message||r?.code||'Respuesta desconocida')
+      );
+    }
+  }catch(e){
+    console.error('WhatsApp diagnostic error:',e);
+    alert('Error en diagnóstico WhatsApp: '+(e?.message||String(e)));
+  }finally{
+    b.disabled=false;
+    b.textContent='🧪 Probar WhatsApp';
+  }
+};
 $('#socialSeed').onclick=async()=>{const today=new Date().toISOString().slice(0,10);for(const p of ['facebook','instagram'])await CRMStore.saveSocialMetric({platform:p,account_id:'demo',metric_date:today,followers:p==='facebook'?100:120,followers_gained:0,followers_lost:0,reach:0,impressions:0,engagement:0,profile_visits:0,website_clicks:0,whatsapp_clicks:0,messages:0,leads:0,revenue:0,raw:{demo:true}});await renderSocial()};
 CRMStore.onStateChange=({authenticated,email,mode})=>{$('#logout').style.display=authenticated?'inline-block':'none';$('#session').innerHTML=authenticated?`<span>Sesión:</span> <b>${esc(email||'usuario')}</b>`:`<span>Modo:</span> <b>${mode==='supabase'?'Supabase':'local'}</b>`;if(authenticated){$('#loginError').classList.remove('show');$('#modeNote').textContent='Sesión activa. CRM + inteligencia comercial disponibles.'}else if(mode==='supabase')$('#modeNote').textContent='Supabase conectado. Inicia sesión o crea una cuenta.';else $('#modeNote').textContent='No se pudo conectar con Supabase.'};
 function showAuthError(message){const el=$('#loginError');el.textContent=message;el.classList.add('show')}function clearAuthError(){const el=$('#loginError');el.textContent='';el.classList.remove('show')}
