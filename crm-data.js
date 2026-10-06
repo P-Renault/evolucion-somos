@@ -35,37 +35,10 @@ export const CRMStore={
  async saveSocialMetric(metric){if(!sb||!authUser)return false;const{error}=await sb.from('social_metrics').upsert(metric,{onConflict:'platform,account_id,metric_date'});if(error){console.warn('social_metrics:',error);return false}return true},
  async listEvents(days=90){if(!sb||!authUser)return[];const from=new Date(Date.now()-days*86400000).toISOString();const{data,error}=await sb.from('commercial_events').select('*').gte('created_at',from).order('created_at',{ascending:false});if(error){console.warn('commercial_events:',error);return[]}return data||[]},
  async listSocialSyncLogs(limit=20){if(!sb||!authUser)return[];const{data,error}=await sb.from('social_sync_logs').select('*').order('started_at',{ascending:false}).limit(limit);if(error){console.warn('social_sync_logs:',error);return[]}return data||[]},
- async listSocialPosts(limit=50){if(!sb||!authUser)return[];const{data,error}=await sb.from('social_posts').select('*').order('published_at',{ascending:false}).limit(limit);if(error){console.warn('social_posts:',error);return[]}return data||[]},
- async syncSocialPosts(){
-  if(!sb||!authUser)return{ok:false,error:'Debes iniciar sesión en el CRM.'};
-  try{
-   const invokePromise=sb.functions.invoke('meta-posts',{body:{}});
-   const timeoutPromise=new Promise((_,reject)=>setTimeout(()=>reject(new Error('La sincronización de publicaciones no respondió en 25 segundos. Revisa el deploy de meta-posts y sus Secrets.')),25000));
-   const {data,error}=await Promise.race([invokePromise,timeoutPromise]);
-   if(error)return{ok:false,error:error.message||'No fue posible sincronizar publicaciones.'};
-   return data||{ok:false,error:'La función de publicaciones no devolvió datos.'};
-  }catch(e){return{ok:false,error:e?.message||String(e)}}
- },
- async syncSocialAll(){
-  if(!sb||!authUser)return{ok:false,error:'Debes iniciar sesión en el CRM.'};
-  const run=(fn,label)=>Promise.resolve(fn()).then(data=>({ok:!!data?.ok,data,label})).catch(e=>({ok:false,error:e?.message||String(e),label}));
-  const [metrics,posts]=await Promise.all([
-    run(()=>CRMStore.syncMeta(),'metrics'),
-    run(()=>CRMStore.syncSocialPosts(),'posts')
-  ]);
-  return {
-    ok:metrics.ok||posts.ok,
-    metrics,
-    posts,
-    errors:[metrics,posts].filter(x=>!x.ok).map(x=>({source:x.label,message:x.error||x.data?.error||'Error desconocido'}))
-  };
- },
  async syncMeta(){
   if(!sb||!authUser)return{ok:false,error:'Debes iniciar sesión en el CRM.'};
   try{
-   const invokePromise=sb.functions.invoke('meta-sync',{body:{}});
-   const timeoutPromise=new Promise((_,reject)=>setTimeout(()=>reject(new Error('La sincronización Meta no respondió en 25 segundos. Revisa el deploy de meta-sync y sus Secrets.')),25000));
-   const {data,error}=await Promise.race([invokePromise,timeoutPromise]);
+   const {data,error}=await sb.functions.invoke('meta-sync',{body:{}});
    if(error)return{ok:false,error:error.message||'No fue posible ejecutar la sincronización Meta.'};
    return data||{ok:false,error:'La función Meta no devolvió datos.'};
   }catch(e){return{ok:false,error:e?.message||String(e)}}
