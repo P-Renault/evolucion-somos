@@ -94,7 +94,7 @@ Deno.serve(async (req) => {
         message_type: "text",
         body: message,
         wamid,
-        status: "accepted",
+        status: "sent",
         contact_name: null,
         message_timestamp: new Date().toISOString(),
         raw: meta,
