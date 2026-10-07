@@ -47,6 +47,43 @@ export const CRMStore={
  async savePublication(item){if(!sb||!authUser)return null;const payload={...item};delete payload.id;const{data,error}=await sb.from('social_publication_calendar').insert(payload).select().single();if(error){console.warn('publication calendar:',error);return null}return data},
  async updatePublication(id,patch){if(!sb||!authUser||!id)return null;const{data,error}=await sb.from('social_publication_calendar').update(patch).eq('id',id).select().single();if(error){console.warn('publication calendar update:',error);return null}return data},
  async deletePublication(id){if(!sb||!authUser||!id)return false;const{error}=await sb.from('social_publication_calendar').delete().eq('id',id);if(error){console.warn('publication calendar delete:',error);return false}return true},
+ async listContactsRange(days=3650){
+  if(!sb||!authUser)return[];
+  const from=new Date(Date.now()-days*86400000).toISOString();
+  const {data,error}=await sb.from('contacts').select('*').gte('created_at',from).order('created_at',{ascending:true}).limit(1000);
+  if(error){console.warn('contacts range:',error);return[]} return data||[];
+ },
+ async listContactActivitiesRange(days=365){
+  if(!sb||!authUser)return[];
+  const from=new Date(Date.now()-days*86400000).toISOString();
+  const {data,error}=await sb.from('contact_activities').select('*').gte('activity_at',from).order('activity_at',{ascending:true}).limit(2000);
+  if(error){console.warn('contact_activities range:',error);return[]} return data||[];
+ },
+ async listLeadActivitiesRange(days=365){
+  if(!sb||!authUser)return[];
+  const from=new Date(Date.now()-days*86400000).toISOString();
+  const {data,error}=await sb.from('lead_activities').select('*').gte('created_at',from).order('created_at',{ascending:true}).limit(2000);
+  if(error){console.warn('lead_activities range:',error);return[]} return data||[];
+ },
+ async listWhatsAppMessagesRange(days=365){
+  if(!sb||!authUser)return[];
+  const from=new Date(Date.now()-days*86400000).toISOString();
+  const {data,error}=await sb.from('whatsapp_messages').select('id,direction,message_type,message_timestamp,created_at').gte('message_timestamp',from).order('message_timestamp',{ascending:true}).limit(5000);
+  if(error){console.warn('whatsapp_messages range:',error);return[]} return data||[];
+ },
+ async listPublicationCalendarRange(days=365){
+  if(!sb||!authUser)return[];
+  const from=new Date(Date.now()-days*86400000).toISOString();
+  const to=new Date(Date.now()+86400000).toISOString();
+  const {data,error}=await sb.from('social_publication_calendar').select('*').gte('scheduled_at',from).lt('scheduled_at',to).order('scheduled_at',{ascending:true}).limit(2000);
+  if(error){console.warn('social_publication_calendar range:',error);return[]} return data||[];
+ },
+ async listSocialPostsRange(days=365){
+  if(!sb||!authUser)return[];
+  const from=new Date(Date.now()-days*86400000).toISOString();
+  const {data,error}=await sb.from('social_posts').select('*').gte('published_at',from).order('published_at',{ascending:true}).limit(2000);
+  if(error){console.warn('social_posts range:',error);return[]} return data||[];
+ },
  async syncSocialPosts(){
   if(!sb||!authUser)return{ok:false,error:'Debes iniciar sesión en el CRM.'};
   try{

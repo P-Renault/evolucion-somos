@@ -77,17 +77,38 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 @media(max-width:700px){.wa-head{flex-direction:column}.wa-live{align-self:flex-start}.wa-layout{grid-template-columns:1fr;min-height:0}.wa-sidebar{border-right:0;border-bottom:1px solid var(--crm-line)}.wa-conversation{max-height:360px;min-height:250px}.wa-bubble{max-width:88%}.wa-compose-foot{align-items:flex-end;flex-direction:column}.wa-send{width:100%;justify-content:center}.wa-panel{padding:12px!important}}
 
 
-/* B10.6.2 · Contactos + Calendario + Reportes */
+/* B10.7 · Reportes avanzados + Contacto 360 + calendario editorial */
 .power-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px 0}.power-card{border:1px solid var(--crm-line);border-radius:15px;background:#07101a;padding:14px}.power-card span{font-size:7px;color:var(--crm-muted);font-weight:900;letter-spacing:.12em}.power-card b{display:block;font-size:22px;margin-top:7px}.module-toolbar{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.module-toolbar input,.module-toolbar select,.module-form input,.module-form select,.module-form textarea{border:1px solid var(--crm-line);border-radius:10px;background:#07111d;color:#dff9ff;padding:10px;font:inherit;font-size:9px;box-sizing:border-box}.module-toolbar input{flex:1;min-width:180px}.module-form{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.module-form .full{grid-column:1/-1}.contact-list{display:grid;gap:7px}.contact-row{display:grid;grid-template-columns:1.5fr 1fr 1fr auto;gap:8px;align-items:center;padding:10px;border:1px solid var(--crm-line);border-radius:11px;background:#07111b;font-size:8px}.contact-row small{display:block;color:#718095;margin-top:3px}.calendar-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--crm-line);border-radius:12px;overflow:hidden}.calendar-day{min-height:92px;border-right:1px solid var(--crm-line);border-bottom:1px solid var(--crm-line);padding:7px;background:#07101a}.calendar-day:nth-child(7n){border-right:0}.calendar-day.muted{opacity:.38}.calendar-day.today{box-shadow:inset 0 0 0 1px #18c8f4}.calendar-day-num{font-size:8px;font-weight:900;color:#9fb0c1}.calendar-event{display:block;margin-top:5px;padding:4px 5px;border-radius:6px;background:#0b3341;color:#dff9ff;font-size:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.report-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px 0}.report-card{border:1px solid var(--crm-line);border-radius:15px;background:#07101a;padding:14px}.report-card b{font-size:22px;display:block}.report-card small{color:#8190a4;font-size:8px}.wa-contact-tools{display:grid;gap:6px;margin:8px 0}.wa-contact-tools select,.wa-contact-tools input{width:100%;box-sizing:border-box;border:1px solid var(--crm-line);border-radius:9px;background:#07111d;color:#dff9ff;padding:9px;font-size:8px}.module-note{padding:9px;border:1px solid var(--crm-line);border-radius:10px;background:#091520;color:#8190a4;font-size:8px;line-height:1.5}@media(max-width:700px){.power-grid,.report-grid{grid-template-columns:repeat(2,1fr)}.module-form{grid-template-columns:1fr}.module-form .full{grid-column:auto}.contact-row{grid-template-columns:1fr 1fr}.calendar-day{min-height:75px;padding:5px}.calendar-event{font-size:6px}.calendar-grid{font-size:7px}}
 
 /* B10.6.2 — Contacto 360 + calendario editorial */
 .contact-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.detail-card{border:1px solid var(--crm-line);border-radius:12px;background:#07111b;padding:11px}.detail-card span{display:block;color:#718095;font-size:7px;text-transform:uppercase;letter-spacing:.1em}.detail-card b{display:block;margin-top:5px;font-size:10px}.activity-list{display:grid;gap:7px;margin-top:9px}.activity-item{padding:9px;border:1px solid var(--crm-line);border-radius:10px;background:#091520}.activity-item b{font-size:8px}.activity-item span{display:block;color:#718095;font-size:7px;margin-top:3px}.calendar-filters{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.calendar-filters select{border:1px solid var(--crm-line);border-radius:9px;background:#07111d;color:#dff9ff;padding:8px;font-size:8px}.calendar-summary{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.calendar-summary .tag{padding:6px 8px}.report-mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.report-mini{border:1px solid var(--crm-line);border-radius:11px;padding:10px;background:#07111b}.report-mini b{display:block;font-size:16px}.report-mini span{display:block;color:#8190a4;font-size:7px;margin-top:3px}@media(max-width:700px){.contact-detail-grid{grid-template-columns:1fr}.report-mini-grid{grid-template-columns:1fr 1fr}.calendar-filters select{flex:1;min-width:130px}}
+
+/* B10.7 — Reportes avanzados */
+.report-toolbar{align-items:flex-end;gap:12px;margin:12px 0}
+.report-toolbar h2{color:#f2f8fb}.report-controls{display:flex;gap:7px;align-items:flex-end;flex-wrap:wrap}
+.report-period-label{display:grid;gap:4px;color:#8190a4;font-size:7px;font-weight:900;letter-spacing:.08em}
+.report-period-label select{min-width:145px;border:1px solid var(--crm-line);border-radius:9px;background:#07111d;color:#dff9ff;padding:9px;font-size:8px}
+.report-health-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.health-card{border:1px solid var(--crm-line);border-radius:12px;background:#091520;padding:11px}.health-card b{display:block;font-size:21px}
+.health-card strong{display:block;font-size:8px;margin-top:4px}.health-card span{display:block;color:#8190a4;font-size:7px;margin-top:3px;line-height:1.4}
+.report-bars{display:grid;gap:8px}.report-bar-row{display:grid;grid-template-columns:110px 1fr 28px;gap:7px;align-items:center;font-size:8px}
+.report-bar-row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.report-bar-row i{height:8px;border-radius:99px;background:#0d2733;overflow:hidden}
+.report-bar-row em{display:block;height:100%;border-radius:99px;background:#18c8f4}.report-bar-row b{text-align:right}
+.report-channel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.channel-card{border:1px solid var(--crm-line);border-radius:12px;background:#091520;padding:11px}
+.channel-card b{font-size:8px;color:#9ed9e7;letter-spacing:.08em}.channel-card strong{display:block;font-size:18px;margin-top:5px}
+.channel-card span{display:block;color:#8190a4;font-size:7px;margin-top:3px;line-height:1.4}
+.report-post-compare{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.report-post-compare>div{border:1px solid var(--crm-line);border-radius:12px;background:#091520;padding:11px}
+.report-post-compare b{display:block;font-size:20px}.report-post-compare span{display:block;color:#8190a4;font-size:7px;margin-top:3px}
+.campaign-banner{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;border:1px solid var(--crm-line);border-radius:12px;background:#091520}
+.campaign-banner b{display:block;font-size:10px}.campaign-banner span{display:block;color:#8190a4;font-size:7px;line-height:1.5;margin-top:3px}
+@media(max-width:900px){.report-health-grid{grid-template-columns:repeat(2,1fr)}.report-channel-grid{grid-template-columns:1fr}.report-post-compare{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.report-toolbar{align-items:stretch}.report-controls{display:grid;grid-template-columns:1fr 1fr}.report-period-label{grid-column:1/-1}.report-period-label select{width:100%}.report-controls .btnx{width:100%;justify-content:center}.report-bar-row{grid-template-columns:85px 1fr 25px}.campaign-banner{align-items:flex-start;flex-direction:column}.campaign-banner .btnx{width:100%;justify-content:center}.health-card{padding:9px}}
 </style>
 </head>
 <body>
 <div class="login open" id="login">
  <div class="login-card">
-  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B10.5</div>
+  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B10.7</div>
   <h1>Acceso al CRM</h1>
   <p>CRM privado de Somos Software. Inicia sesión con tu usuario de Supabase. La sesión queda persistente en este dispositivo.</p>
   <form id="loginForm">
@@ -104,7 +125,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 
 <div class="login" id="signup" style="display:none;z-index:110">
  <div class="login-card">
-  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B10.5</div>
+  <div style="color:#18c8f4;font-size:8px;font-weight:900;letter-spacing:.18em">SOMOS SOFTWARE · B10.7</div>
   <h1>Crear cuenta</h1>
   <p>Crea tu usuario de acceso al CRM. Supabase enviará un correo de confirmación si las confirmaciones de email están activadas.</p>
   <form id="signupForm">
@@ -121,7 +142,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 
 <main class="crm">
 <header class="top">
- <div class="brand"><img src="assets/logo-somos-software.png" alt="Somos Software"><small>CRM COMERCIAL + INTELIGENCIA · B10.6.2</small><div class="session" id="session"></div></div>
+ <div class="brand"><img src="assets/logo-somos-software.png" alt="Somos Software"><small>CRM COMERCIAL + INTELIGENCIA · B10.7</small><div class="session" id="session"></div></div>
  <div class="actions">
   <button class="btnx" id="export">Exportar CSV</button>
   <button class="btnx" id="importLocal">Importar locales</button>
@@ -290,14 +311,44 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 </section>
 
 <section class="view" id="view-reports">
+ <div class="module-toolbar report-toolbar">
+  <div>
+   <div class="module-kicker">B10.7 · REPORTES AVANZADOS</div>
+   <h2 style="margin:3px 0 0;font-size:18px">Rendimiento comercial y marketing</h2>
+   <div class="module-note">Lectura consolidada de leads, pipeline, contactos, actividades, redes y calendario editorial. No modifica WhatsApp ni las Edge Functions.</div>
+  </div>
+  <div class="report-controls">
+   <label class="report-period-label">PERÍODO
+    <select id="reportPeriod">
+     <option value="7">Últimos 7 días</option><option value="30" selected>Últimos 30 días</option>
+     <option value="90">Últimos 90 días</option><option value="365">Últimos 12 meses</option>
+    </select>
+   </label>
+   <button class="btnx primary" id="reportRefresh" type="button">Actualizar reporte</button>
+   <button class="btnx" id="reportExport" type="button">Exportar CSV</button>
+  </div>
+ </div>
  <div class="report-grid" id="reportKpis"></div>
+ <section class="intel-panel"><h3>Salud comercial</h3><div class="report-health-grid" id="reportHealth"></div></section>
  <div class="intel-layout">
-  <section class="intel-panel"><h3>Rendimiento comercial</h3><div style="overflow:auto"><table class="intel-table"><thead><tr><th>Estado</th><th>Cantidad</th><th>Valor</th></tr></thead><tbody id="reportStateRows"></tbody></table></div></section>
+  <section class="intel-panel"><h3>Tendencia de generación de leads</h3><div class="report-bars" id="reportLeadTrend"></div></section>
+  <section class="intel-panel"><h3>Actividad comercial por tipo</h3><div class="report-bars" id="reportActivityTypes"></div></section>
+ </div>
+ <div class="intel-layout">
+  <section class="intel-panel"><h3>Rendimiento por estado</h3><div style="overflow:auto"><table class="intel-table"><thead><tr><th>Estado</th><th>Leads</th><th>Valor</th><th>% del período</th></tr></thead><tbody id="reportStateRows"></tbody></table></div></section>
   <section class="intel-panel"><h3>Base de contactos</h3><div id="reportContactSummary"></div></section>
  </div>
- <section class="intel-panel" style="margin-top:10px"><h3>Actividad multicanal</h3><div class="report-mini-grid" id="reportChannelSummary"></div></section>
- <section class="intel-panel" style="margin-top:10px"><h3>Resumen de publicaciones</h3><div style="overflow:auto"><table class="intel-table"><thead><tr><th>Estado</th><th>Cantidad</th><th>Canal</th></tr></thead><tbody id="reportPostRows"></tbody></table></div></section>
- <section class="intel-panel" style="margin-top:10px"><h3>Indicadores recomendados para gestión</h3><div class="alert-list" id="reportInsights"></div></section>
+ <section class="intel-panel" style="margin-top:10px"><h3>Actividad por canal</h3><div class="report-channel-grid" id="reportChannelSummary"></div></section>
+ <section class="intel-panel" style="margin-top:10px">
+  <h3>Publicaciones reales vs. planificadas</h3>
+  <div class="report-post-compare" id="reportPostCompare"></div>
+  <div style="overflow:auto;margin-top:9px"><table class="intel-table"><thead><tr><th>Canal</th><th>Reales</th><th>Planificadas</th><th>Publicadas</th></tr></thead><tbody id="reportPostRows"></tbody></table></div>
+ </section>
+ <section class="intel-panel" style="margin-top:10px"><h3>Indicadores y prioridades</h3><div class="alert-list" id="reportInsights"></div></section>
+ <section class="intel-panel" style="margin-top:10px">
+  <h3>Campaña SOMOS IMPULSA</h3>
+  <div class="campaign-banner"><div><b>3 sitios web profesionales gratis</b><span>Landing activa en <code>/somos-impulsa/</code>. Las postulaciones se mantienen en su flujo propio y separadas del pipeline comercial.</span></div><a class="btnx" href="somos-impulsa/" target="_blank" rel="noopener">Abrir landing ↗</a></div>
+ </section>
 </section>
 
 <div class="modal" id="contactModal">
@@ -349,10 +400,10 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
  </div>
 </div>
 
-<script src="supabase-config.js?v=B10.6.2"></script>
+<script src="supabase-config.js?v=B10.7"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script type="module">
-import { CRMStore } from './crm-data.js?v=B10.6.2';
+import { CRMStore } from './crm-data.js?v=B10.7';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const states=['Nuevo','Contactado','Calificado','Diagnóstico','Agenda','Cotización enviada','Negociación','Ganado','Perdido','Postventa'];
 const cols=states.slice(0,9); let leads=[]; let editing=null; let socialMetrics=[]; let socialAccounts=[]; let commercialEvents=[]; let syncLogs=[]; let socialPosts=[];
@@ -484,7 +535,79 @@ function monthKey(){return `${calendarMonth.getFullYear()}-${String(calendarMont
 function editPublication(x){if(!x)return;calendarEditId=x.id;$('#calTitle').value=x.title||'';$('#calDate').value=x.scheduled_at?new Date(x.scheduled_at).toISOString().slice(0,16):'';$('#calPlatform').value=x.platform||'facebook+instagram';$('#calStatus').value=x.status||'Planificada';$('#calType').value=x.content_type||'Post';$('#calCaption').value=x.caption||'';$('#calMedia').value=x.media_url||'';$('#calCampaign').value=x.campaign||'';$('#calUtm').value=x.utm_campaign||'';$('#calNotes').value=x.notes||'';$('#calSave').textContent='Actualizar planificación';$('#calCancel').style.display='inline-block';$('#calStatusMsg').textContent='Editando planificación';window.scrollTo({top:document.querySelector('#view-calendar')?.offsetTop||0,behavior:'smooth'})}
 function cancelPublicationEdit(){calendarEditId=null;$('#calTitle').value='';$('#calDate').value='';$('#calCaption').value='';$('#calMedia').value='';$('#calCampaign').value='';$('#calUtm').value='';$('#calNotes').value='';$('#calSave').textContent='Guardar planificación';$('#calCancel').style.display='none';$('#calStatusMsg').textContent='Sin cambios'}
 async function renderCalendar(){const month=monthKey();const allRows=await CRMStore.listPublicationCalendar(month);const fp=$('#calFilterPlatform')?.value||'',fs=$('#calFilterStatus')?.value||'';const rows=allRows.filter(r=>(!fp||r.platform===fp)&&(!fs||r.status===fs));const y=calendarMonth.getFullYear(),m=calendarMonth.getMonth();$('#calendarTitle').textContent=calendarMonth.toLocaleDateString('es-CL',{month:'long',year:'numeric'}).replace(/^./,x=>x.toUpperCase());const summary={Borrador:allRows.filter(x=>x.status==='Borrador').length,Planificada:allRows.filter(x=>x.status==='Planificada').length,Publicada:allRows.filter(x=>x.status==='Publicada').length,Cancelada:allRows.filter(x=>x.status==='Cancelada').length};$('#calendarSummary').innerHTML=Object.entries(summary).map(([k,v])=>`<span class="tag">${k}: ${v}</span>`).join('');const first=new Date(y,m,1);const offset=(first.getDay()+6)%7;const days=new Date(y,m+1,0).getDate();const prevDays=new Date(y,m,0).getDate();let cells=[];for(let i=0;i<42;i++){const d=i-offset+1;let day=d,muted=false,dt;if(d<1){day=prevDays+d;muted=true;dt=new Date(y,m-1,day)}else if(d>days){day=d-days;muted=true;dt=new Date(y,m+1,day)}else dt=new Date(y,m,day);const key=`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;const items=rows.filter(r=>String(r.scheduled_at||'').slice(0,10)===key);const today=new Date().toISOString().slice(0,10);cells.push(`<div class="calendar-day ${muted?'muted':''} ${key===today?'today':''}"><div class="calendar-day-num">${day}</div>${items.map(x=>`<span class="calendar-event" title="${esc(x.caption||x.title||'')}">${esc((x.platform||'').toUpperCase())} · ${esc(x.title||x.content_type||'Publicación')}</span>`).join('')}</div>`)}$('#calendarGrid').innerHTML=cells.join('');$('#calendarRows').innerHTML=rows.map(x=>`<tr><td>${new Date(x.scheduled_at).toLocaleString('es-CL')}</td><td>${esc(x.platform)}</td><td><b>${esc(x.title||x.content_type||'Publicación')}</b><br><span style="color:#718095">${esc((x.caption||'').slice(0,100))}</span></td><td><span class="tag">${esc(x.status)}</span></td><td>${esc(x.campaign||'—')}</td><td><button class="btnx" data-edit-cal="${esc(x.id)}">Editar</button> <button class="btnx" data-duplicate-cal="${esc(x.id)}">Duplicar</button> ${x.status!=='Publicada'?`<button class="btnx primary" data-publish-cal="${esc(x.id)}">Publicar</button>`:''} <button class="btnx" data-delete-cal="${esc(x.id)}">Eliminar</button></td></tr>`).join('')||'<tr><td colspan="6">No hay publicaciones para el filtro seleccionado.</td></tr>';$$('[data-edit-cal]').forEach(b=>b.onclick=()=>editPublication(rows.find(x=>x.id===b.dataset.editCal)));$$('[data-duplicate-cal]').forEach(b=>b.onclick=async()=>{const x=rows.find(r=>r.id===b.dataset.duplicateCal);if(!x)return;const copy={...x};delete copy.id;copy.status='Borrador';copy.title=(copy.title||'Publicación')+' · Copia';copy.scheduled_at=new Date(new Date(copy.scheduled_at).getTime()+86400000).toISOString();const saved=await CRMStore.savePublication(copy);if(!saved)alert('No fue posible duplicar.');else await renderCalendar()});$$('[data-publish-cal]').forEach(b=>b.onclick=async()=>{const ok=await CRMStore.updatePublication(b.dataset.publishCal,{status:'Publicada'});if(!ok)alert('No fue posible cambiar el estado.');else await renderCalendar()});$$('[data-delete-cal]').forEach(b=>b.onclick=async()=>{if(!confirm('¿Eliminar esta planificación?'))return;const ok=await CRMStore.deletePublication(b.dataset.deleteCal);if(!ok)alert('No fue posible eliminar la planificación.');else await renderCalendar()});}
-async function renderReports(){const open=leads.filter(x=>!['Ganado','Perdido'].includes(x.state)),won=leads.filter(x=>x.state==='Ganado'),pipeline=open.reduce((a,x)=>a+Number(x.value||0),0),revenue=won.reduce((a,x)=>a+Number(x.value||0),0);const contacts=await CRMStore.listContacts();const posts=await CRMStore.listSocialPosts(100);const planned=await CRMStore.listPublicationCalendar(monthKey());const metrics=await CRMStore.listSocialMetrics(30);$('#reportKpis').innerHTML=[[leads.length,'LEADS'],[money(pipeline),'PIPELINE ABIERTO'],[money(revenue),'INGRESOS GANADOS'],[contacts.length,'CONTACTOS'],[posts.length,'PUBLICACIONES REALES'],[planned.length,'PLANIFICADAS ESTE MES'],[(leads.length?Math.round(won.length/leads.length*100):0)+'%','CONVERSIÓN'],[contacts.filter(x=>x.phone).length,'CONTACTOS CON TELÉFONO']].map(x=>`<div class="report-card"><b>${x[0]}</b><small>${x[1]}</small></div>`).join('');const counts=states.map(st=>{const a=leads.filter(x=>x.state===st);return`<tr><td>${esc(st)}</td><td>${a.length}</td><td>${money(a.reduce((z,x)=>z+Number(x.value||0),0))}</td></tr>`}).join('');$('#reportStateRows').innerHTML=counts;const types={};contacts.forEach(x=>types[x.contact_type]=(types[x.contact_type]||0)+1);$('#reportContactSummary').innerHTML=Object.entries(types).map(([k,v])=>`<div class="alert-item"><b>${esc(k)}</b><span>${v} contactos</span></div>`).join('')||'<div class="module-note">Sin contactos.</div>';const pc={};posts.forEach(x=>pc[x.platform]=(pc[x.platform]||0)+1);planned.forEach(x=>pc['Planificadas · '+x.platform]=(pc['Planificadas · '+x.platform]||0)+1);$('#reportPostRows').innerHTML=Object.entries(pc).map(([k,v])=>`<tr><td>${esc(k)}</td><td>${v}</td><td>—</td></tr>`).join('')||'<tr><td colspan="3">Sin publicaciones.</td></tr>';const channel={facebook:{leads:0,eng:0,reach:0},instagram:{leads:0,eng:0,reach:0},whatsapp:{leads:0,eng:0,reach:0}};metrics.forEach(m=>{const x=channel[m.platform]||channel.facebook;x.leads+=Number(m.leads||0);x.eng+=Number(m.engagement||0);x.reach+=Number(m.reach||0)});$('#reportChannelSummary').innerHTML=Object.entries(channel).map(([k,v])=>`<div class="report-mini"><b>${k.toUpperCase()}</b><span>${v.leads} leads · ${v.eng} interacciones · ${v.reach} alcance</span></div>`).join('');const ins=[];if(open.length)ins.push(['Pipeline activo',`${open.length} oportunidades abiertas por ${money(pipeline)}.`]);if(contacts.length<leads.length)ins.push(['Base de contactos',`Conviene completar la ficha 360° de los ${Math.max(0,leads.length-contacts.length)} leads que aún no tienen contacto central.`]);if(planned.length===0)ins.push(['Calendario editorial','No hay publicaciones planificadas para este mes.']);if(revenue>0)ins.push(['Ingresos','El CRM ya puede contrastar ingresos ganados con origen y campaña.']);if(contacts.filter(x=>!x.email&&!x.phone).length)ins.push(['Fichas incompletas',`${contacts.filter(x=>!x.email&&!x.phone).length} contacto(s) no tienen teléfono ni correo.`]);$('#reportInsights').innerHTML=ins.map(x=>`<div class="alert-item"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}
+let reportSnapshot={days:30,generatedAt:null,kpis:{},health:{},trend:[],activityTypes:[],states:[],channels:{},posts:[]};
+
+function reportDateKey(value,days){
+ const d=new Date(value);if(Number.isNaN(d.getTime()))return'—';
+ return days<=90?d.toLocaleDateString('es-CL',{day:'2-digit',month:'2-digit'}):d.toLocaleDateString('es-CL',{month:'short',year:'2-digit'});
+}
+function reportMoney(x){return money(Number(x||0))}
+function reportBarRows(map){
+ const rows=Object.entries(map).sort((a,b)=>b[1]-a[1]),max=Math.max(1,...rows.map(x=>x[1]));
+ return rows.length?rows.map(([k,v])=>`<div class="report-bar-row"><span>${esc(k)}</span><i><em style="width:${Math.round(v/max*100)}%"></em></i><b>${v}</b></div>`).join(''):'<div class="module-note">Sin actividad en el período.</div>';
+}
+function downloadReportCSV(){
+ const s=reportSnapshot,csv=x=>`"${String(x??'').replace(/"/g,'""')}"`,lines=[];
+ lines.push(['CMCRM B10.7 — Reporte avanzado',''],['Período',`Últimos ${s.days} días`],['Generado',s.generatedAt||new Date().toISOString()],[]);
+ lines.push(['KPI','Valor']);Object.entries(s.kpis).forEach(([k,v])=>lines.push([k,v]));
+ lines.push([],['SALUD COMERCIAL','Cantidad']);Object.entries(s.health).forEach(([k,v])=>lines.push([k,v]));
+ lines.push([],['TENDENCIA LEADS','Cantidad']);s.trend.forEach(x=>lines.push([x.label,x.value]));
+ lines.push([],['ACTIVIDAD POR TIPO','Cantidad']);s.activityTypes.forEach(x=>lines.push([x.label,x.value]));
+ lines.push([],['ESTADO','LEADS','VALOR']);s.states.forEach(x=>lines.push([x.state,x.count,x.value]));
+ lines.push([],['CANAL','LEADS','INTERACCIONES','ALCANCE','MENSAJES']);Object.entries(s.channels).forEach(([k,v])=>lines.push([k,v.leads,v.engagement,v.reach,v.messages]));
+ lines.push([],['PUBLICACIONES','REALES','PLANIFICADAS','PUBLICADAS']);s.posts.forEach(x=>lines.push([x.channel,x.real,x.planned,x.published]));
+ const blob=new Blob([lines.map(r=>r.map(csv).join(',')).join('\\r\\n')],{type:'text/csv;charset=utf-8'});
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`cmcrm-b10.7-reporte-${s.days}d-${new Date().toISOString().slice(0,10)}.csv`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+async function renderReports(){
+ const days=Number($('#reportPeriod')?.value||30),from=new Date(Date.now()-days*86400000);
+ const periodLeads=(leads||[]).filter(x=>new Date(x.created_at||0)>=from);
+ const open=periodLeads.filter(x=>!['Ganado','Perdido'].includes(x.state)),won=periodLeads.filter(x=>x.state==='Ganado');
+ const pipeline=open.reduce((a,x)=>a+Number(x.value||0),0),revenue=won.reduce((a,x)=>a+Number(x.value||0),0);
+ const contacts=await CRMStore.listContactsRange(days),activities=await CRMStore.listContactActivitiesRange(days),leadActivities=await CRMStore.listLeadActivitiesRange(days);
+ const posts=await CRMStore.listSocialPostsRange(days),planned=await CRMStore.listPublicationCalendarRange(days),metrics=await CRMStore.listSocialMetrics(days),waMessages=await CRMStore.listWhatsAppMessagesRange(days);
+ const allActivities=[...activities.map(x=>({type:x.activity_type||'Otro',channel:String(x.activity_type||'').toLowerCase()==='whatsapp'?'whatsapp':'crm'})),...leadActivities.map(x=>({type:x.activity_type||'Nota',channel:'crm'}))];
+ const overdue=(leads||[]).filter(x=>x.next_date&&new Date(`${x.next_date}T23:59:59`)<new Date()&&!['Ganado','Perdido'].includes(x.state));
+ const noNextAction=periodLeads.filter(x=>!x.next_action&&!['Ganado','Perdido'].includes(x.state));
+ const highPriority=periodLeads.filter(x=>String(x.priority||'').toLowerCase()==='alta'&&!['Ganado','Perdido'].includes(x.state));
+ const incomplete=contacts.filter(x=>!x.phone&&!x.email),conversion=periodLeads.length?Math.round(won.length/periodLeads.length*100):0;
+ const keyFor=d=>{const dt=new Date(d);if(days<=30)return dt.toISOString().slice(0,10);if(days<=90){dt.setDate(dt.getDate()-dt.getDay()+1);return dt.toISOString().slice(0,10)}return`${dt.getUTCFullYear()}-${String(dt.getUTCMonth()+1).padStart(2,'0')}`};
+ const trendMap={};periodLeads.forEach(x=>{const k=keyFor(x.created_at);trendMap[k]=(trendMap[k]||0)+1});
+ const trend=Object.entries(trendMap).sort().map(([k,v])=>({label:reportDateKey(k,days),value:v}));
+ const activityMap={};allActivities.forEach(x=>activityMap[x.type]=(activityMap[x.type]||0)+1);
+ const activityTypes=Object.entries(activityMap).sort((a,b)=>b[1]-a[1]).map(([label,value])=>({label,value}));
+ const stateRows=states.map(state=>{const a=periodLeads.filter(x=>x.state===state);return{state,count:a.length,value:a.reduce((z,x)=>z+Number(x.value||0),0)}}).filter(x=>x.count);
+ const channels={facebook:{leads:0,engagement:0,reach:0,messages:0},instagram:{leads:0,engagement:0,reach:0,messages:0},whatsapp:{leads:0,engagement:0,reach:0,messages:0}};
+ metrics.forEach(m=>{const p=String(m.platform||'').toLowerCase(),x=channels[p]||channels.facebook;x.leads+=Number(m.leads||0);x.engagement+=Number(m.engagement||0);x.reach+=Number(m.reach||0);x.messages+=Number(m.messages||m.whatsapp_clicks||0)});
+ allActivities.forEach(a=>{if(a.channel==='whatsapp')channels.whatsapp.messages++});channels.whatsapp.messages+=waMessages.length;
+ periodLeads.forEach(x=>{const p=String(x.source||'').toLowerCase();if(p.includes('facebook'))channels.facebook.leads++;else if(p.includes('instagram'))channels.instagram.leads++;else if(p.includes('whatsapp'))channels.whatsapp.leads++});
+ const byChannel={facebook:{real:0,planned:0,published:0},instagram:{real:0,planned:0,published:0},'facebook+instagram':{real:0,planned:0,published:0}};
+ posts.forEach(p=>{const ch=String(p.platform||'').toLowerCase(),x=byChannel[ch]||byChannel.facebook;x.real++;x.published++});
+ planned.forEach(p=>{const ch=String(p.platform||'').toLowerCase(),x=byChannel[ch]||byChannel.facebook;x.planned++;if(String(p.status||'').toLowerCase()==='publicada')x.published++});
+ const postRows=Object.entries(byChannel).filter(([k,v])=>v.real||v.planned).map(([channel,v])=>({channel,...v}));
+ reportSnapshot={days,generatedAt:new Date().toISOString(),kpis:{'Leads del período':periodLeads.length,'Pipeline abierto':pipeline,'Ingresos ganados':revenue,'Contactos nuevos':contacts.length,'Publicaciones reales':posts.length,'Conversión':conversion+'%','Actividades':allActivities.length},health:{'Seguimientos vencidos':overdue.length,'Sin próxima acción':noNextAction.length,'Prioridad alta':highPriority.length,'Contactos incompletos':incomplete.length},trend,activityTypes,states:stateRows,channels,posts:postRows};
+ $('#reportKpis').innerHTML=[[periodLeads.length,'LEADS DEL PERÍODO'],[reportMoney(pipeline),'PIPELINE ABIERTO'],[reportMoney(revenue),'INGRESOS GANADOS'],[contacts.length,'CONTACTOS NUEVOS'],[posts.length,'PUBLICACIONES REALES'],[conversion+'%','CONVERSIÓN'],[allActivities.length,'ACTIVIDADES'],[planned.length,'PUBLICACIONES PLANIFICADAS']].map(x=>`<div class="report-card"><b>${x[0]}</b><small>${x[1]}</small></div>`).join('');
+ $('#reportHealth').innerHTML=[['Seguimientos vencidos',overdue.length,'Requieren atención inmediata.'],['Sin próxima acción',noNextAction.length,'Oportunidades abiertas sin siguiente paso.'],['Prioridad alta',highPriority.length,'Oportunidades abiertas de alta prioridad.'],['Contactos incompletos',incomplete.length,'Sin teléfono ni correo.']].map(x=>`<div class="health-card"><b>${x[1]}</b><strong>${x[0]}</strong><span>${x[2]}</span></div>`).join('');
+ $('#reportLeadTrend').innerHTML=reportBarRows(Object.fromEntries(trend.map(x=>[x.label,x.value])));
+ $('#reportActivityTypes').innerHTML=reportBarRows(Object.fromEntries(activityTypes.map(x=>[x.label,x.value])));
+ $('#reportStateRows').innerHTML=stateRows.map(x=>`<tr><td>${esc(x.state)}</td><td>${x.count}</td><td>${reportMoney(x.value)}</td><td>${periodLeads.length?Math.round(x.count/periodLeads.length*100):0}%</td></tr>`).join('')||'<tr><td colspan="4">Sin leads en el período.</td></tr>';
+ const types={};contacts.forEach(x=>{const k=x.contact_type||'Otro';types[k]=(types[k]||0)+1});
+ $('#reportContactSummary').innerHTML=Object.entries(types).map(([k,v])=>`<div class="alert-item"><b>${esc(k)}</b><span>${v} contacto(s) creado(s) en el período.</span></div>`).join('')||'<div class="module-note">Sin contactos nuevos en el período.</div>';
+ $('#reportChannelSummary').innerHTML=Object.entries(channels).map(([k,v])=>`<div class="channel-card"><b>${k.toUpperCase()}</b><strong>${v.leads} leads</strong><span>${v.engagement} interacciones · ${v.reach} alcance · ${v.messages} mensajes</span></div>`).join('');
+ const published=planned.filter(x=>String(x.status||'').toLowerCase()==='publicada').length;
+ $('#reportPostCompare').innerHTML=`<div><b>${posts.length}</b><span>REALES</span></div><div><b>${planned.length}</b><span>PLANIFICADAS</span></div><div><b>${published}</b><span>MARCADA PUBLICADA</span></div><div><b>${planned.length?Math.round(published/planned.length*100):0}%</b><span>EJECUCIÓN DEL PLAN</span></div>`;
+ $('#reportPostRows').innerHTML=postRows.map(x=>`<tr><td>${esc(x.channel)}</td><td>${x.real}</td><td>${x.planned}</td><td>${x.published}</td></tr>`).join('')||'<tr><td colspan="4">Sin publicaciones o planificación en el período.</td></tr>';
+ const insights=[];
+ if(overdue.length)insights.push(['Seguimientos vencidos',`${overdue.length} oportunidad(es) requieren recuperación de seguimiento.`]);
+ if(noNextAction.length)insights.push(['Próxima acción',`${noNextAction.length} oportunidad(es) abiertas no tienen siguiente acción.`]);
+ if(highPriority.length)insights.push(['Prioridad alta',`${highPriority.length} oportunidad(es) abiertas están marcadas como prioridad alta.`]);
+ if(incomplete.length)insights.push(['Fichas incompletas',`${incomplete.length} contacto(s) no tienen teléfono ni correo.`]);
+ if(planned.length===0)insights.push(['Calendario editorial','No hay publicaciones planificadas dentro del período seleccionado.']);
+ if(posts.length<planned.length)insights.push(['Plan vs realidad',`Hay ${planned.length-posts.length} más publicaciones planificadas que reales en el período; revisar ejecución.`]);
+ if(revenue>0)insights.push(['Ingresos','El reporte está relacionando ingresos ganados con el pipeline del período.']);
+ if(!insights.length)insights.push(['Salud comercial','No se detectaron alertas prioritarias con los datos disponibles.']);
+ $('#reportInsights').innerHTML=insights.map(x=>`<div class="alert-item"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join('');
+}
 
 async function activateTab(tab){
   const desktopBtn=$$('[data-tab]').find(x=>x.dataset.tab===tab);
@@ -506,6 +629,9 @@ $$('[data-mobile-tab]').forEach(btn=>btn.onclick=async()=>{await activateTab(btn
 if($('#mobileModuleToggle'))$('#mobileModuleToggle').onclick=()=>{const menu=$('#mobileModuleMenu');const toggle=$('#mobileModuleToggle');const open=!menu?.classList.contains('open');menu?.classList.toggle('open',open);toggle?.setAttribute('aria-expanded',String(open))};
 
 activateTab('commercial');
+if($('#reportRefresh')) $('#reportRefresh').onclick=renderReports;
+if($('#reportPeriod')) $('#reportPeriod').onchange=renderReports;
+if($('#reportExport')) $('#reportExport').onclick=downloadReportCSV;
 if($('#socialRefresh')) $('#socialRefresh').onclick=renderSocial;
 if($('#socialPostsSync')) $('#socialPostsSync').onclick=async()=>{const b=$('#socialPostsSync');const s=$('#socialSyncStatus');b.disabled=true;b.textContent='Sincronizando Redes…';s.textContent='Sincronizando métricas + publicaciones…';try{const results=await Promise.all([CRMStore.syncMeta(),CRMStore.syncSocialPosts()]);const metrics=results[0]||{};const posts=results[1]||{};await renderSocial();const metricsOk=!!metrics.ok;const postsOk=!!posts.ok;const fb=posts.facebook??posts.data?.facebook??0;const ig=posts.instagram??posts.data?.instagram??0;const total=posts.total??posts.data?.total??0;const lines=[metricsOk?'Métricas Meta: OK':`Métricas Meta: ERROR — ${metrics.error||'sin detalle'}`,postsOk?`Publicaciones: OK · FB ${fb} · IG ${ig}`:`Publicaciones: ERROR — ${posts.error||'sin detalle'}`];if(metricsOk&&postsOk){s.textContent=`Redes sincronizadas · FB ${fb} · IG ${ig} · ${total} publicaciones`;alert(`Sincronización integral completada.\n\n${lines.join('\n')}\nTotal publicaciones: ${total}`)}else if(metricsOk||postsOk){s.textContent='Sincronización parcial';alert(`Sincronización parcial.\n\n${lines.join('\n')}`)}else{s.textContent='Error de sincronización';alert(`No fue posible completar la sincronización.\n\n${lines.join('\n')}`)}}catch(e){s.textContent='Error de sincronización';alert(e?.message||'Error inesperado durante la sincronización.')}finally{b.disabled=false;b.textContent='Sincronizar Redes'}};
 if($('#socialSync')) $('#socialSync').onclick=async()=>{const b=$('#socialSync');const s=$('#socialSyncStatus');b.disabled=true;b.textContent='Sincronizando…';s.textContent='Consultando métricas reales…';try{const r=await CRMStore.syncMeta();await renderSocial();const fb=r?.facebook||{};const ig=r?.instagram||{};const fbd=fb?.diagnostic||{};const igd=ig?.diagnostic||{};const fbLine=fb?.ok?`Facebook: ${fb.followers ?? '—'} seguidores · ${fbd.status||'SIN DIAGNÓSTICO'}`:`Facebook: ERROR · ${fb?.error||'sin detalle'}`;const igLine=ig?.ok?`Instagram: ${ig.followers ?? '—'} seguidores · ${igd.status||'SIN DIAGNÓSTICO'}`:`Instagram: ERROR · ${ig?.error||'sin detalle'}`;const fbFields=(fbd.fields_received||[]).join(', ')||'ninguno';const igFields=(igd.fields_received||[]).join(', ')||'ninguno';if(r?.ok){s.textContent='Métricas Meta actualizadas';alert(`Diagnóstico de métricas Meta\n\n${fbLine}\nCampos recibidos: ${fbFields}\n\n${igLine}\nCampos recibidos: ${igFields}`)}else{s.textContent=r?.partial?'Sincronización parcial':'Error de sincronización';alert(`Diagnóstico de métricas Meta\n\n${fbLine}\nCampos recibidos: ${fbFields}\n\n${igLine}\nCampos recibidos: ${igFields}`)}}catch(e){s.textContent='Error de sincronización';alert(e?.message||'Error inesperado durante la sincronización.')}finally{b.disabled=false;b.textContent='Sincronizar Meta'}};
