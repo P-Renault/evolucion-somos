@@ -105,6 +105,37 @@ export const CRMStore={
  async getQuote(id){if(!sb||!authUser||!id)return null;const{data,error}=await sb.from('crm_quotes').select('*').eq('id',id).single();if(error){console.warn('crm_quote get:',error);return null};return data},
  async saveQuote(quote){if(!sb||!authUser)return null;const payload={...quote,created_by:authUser.id};delete payload.id;const{data,error}=await sb.from('crm_quotes').insert(payload).select().single();if(error){console.warn('crm_quote save:',error);return null};return data},
  async updateQuote(id,patch){if(!sb||!authUser||!id)return null;const payload={...patch,updated_at:new Date().toISOString()};delete payload.id;const{data,error}=await sb.from('crm_quotes').update(payload).eq('id',id).select().single();if(error){console.warn('crm_quote update:',error);return null};return data},
+ async deleteQuote(id){if(!sb||!authUser||!id)return false;const{error}=await sb.from('crm_quotes').delete().eq('id',id).eq('created_by',authUser.id);if(error){console.warn('crm_quote delete:',error);return false}return true},
+
+ async listSales(days=3650){
+  if(!sb||!authUser)return[];
+  const from=new Date(Date.now()-days*86400000).toISOString();
+  const{data,error}=await sb.from('crm_sales').select('*').gte('sale_date',from.slice(0,10)).order('sale_date',{ascending:false});
+  if(error){console.warn('crm_sales:',error);return[]}
+  return data||[];
+ },
+ async getSale(id){
+  if(!sb||!authUser||!id)return null;
+  const{data,error}=await sb.from('crm_sales').select('*').eq('id',id).single();
+  if(error){console.warn('crm_sale get:',error);return null}
+  return data;
+ },
+ async saveSale(sale){
+  if(!sb||!authUser)return null;
+  const payload={...sale,created_by:authUser.id};
+  delete payload.id;
+  const{data,error}=await sb.from('crm_sales').insert(payload).select().single();
+  if(error){console.warn('crm_sale save:',error);return null}
+  return data;
+ },
+ async updateSale(id,patch){
+  if(!sb||!authUser||!id)return null;
+  const payload={...patch,updated_at:new Date().toISOString()};
+  delete payload.id;
+  const{data,error}=await sb.from('crm_sales').update(payload).eq('id',id).select().single();
+  if(error){console.warn('crm_sale update:',error);return null}
+  return data;
+ },
  async subscribeRealtime(callback){
   if(!sb||!authUser||typeof callback!=='function')return null;
   const channel=sb.channel('somos-crm-b108')
@@ -114,6 +145,7 @@ export const CRMStore={
     .on('postgres_changes',{event:'*',schema:'public',table:'social_publication_calendar'},payload=>callback({table:'social_publication_calendar',payload}))
     .on('postgres_changes',{event:'*',schema:'public',table:'social_posts'},payload=>callback({table:'social_posts',payload}))
     .on('postgres_changes',{event:'*',schema:'public',table:'social_metrics'},payload=>callback({table:'social_metrics',payload}))
+    .on('postgres_changes',{event:'*',schema:'public',table:'crm_sales'},payload=>callback({table:'crm_sales',payload}))
     .subscribe((status,error)=>{if(status==='CHANNEL_ERROR'||status==='TIMED_OUT')console.warn('CRM Realtime:',status,error)});
   return channel;
  },

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#05070c">
-<title>Somos Software · CRM + Inteligencia Comercial B10.5</title>
+<title>Somos Software · CRM + Inteligencia Comercial B10.10</title>
 <link rel="stylesheet" href="styles.css">
 <style>
 :root{--crm-bg:#05070c;--crm-panel:#08111b;--crm-line:#172432;--crm-cyan:#18c8f4;--crm-muted:#718095}
@@ -115,6 +115,36 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 @media(max-width:700px){.report-toolbar{align-items:stretch}.report-controls{display:grid;grid-template-columns:1fr 1fr}.report-period-label{grid-column:1/-1}.report-period-label select{width:100%}.report-controls .btnx{width:100%;justify-content:center}.report-bar-row{grid-template-columns:85px 1fr 25px}.campaign-banner{align-items:flex-start;flex-direction:column}.campaign-banner .btnx{width:100%;justify-content:center}.health-card{padding:9px}}
 
 .quote-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin:14px 0}.quote-kpi{padding:14px;border:1px solid var(--crm-line);border-radius:15px;background:#08111b}.quote-kpi b{display:block;font-size:20px}.quote-kpi span{display:block;color:var(--crm-muted);font-size:7px;font-weight:bold;letter-spacing:.12em;margin-top:5px}.quote-toolbar{display:flex;gap:8px;margin:12px 0}.quote-toolbar input,.quote-toolbar select{box-sizing:border-box;background:#07111d;color:#e8f1f8;border:1px solid #1b2937;border-radius:9px;padding:10px;font-size:10px}.quote-toolbar input{flex:1}.quote-table-wrap{overflow:auto}.quote-table{min-width:920px}.quote-table td,.quote-table th{vertical-align:middle}.quote-actions{display:flex;gap:5px;flex-wrap:wrap}.quote-actions .btnx{font-size:7px;padding:6px 8px}.quote-panel{width:min(900px,100%)}.quote-items-head{display:flex;justify-content:space-between;align-items:center;margin-top:14px}.quote-items-head h3{font-size:12px}.quote-item{display:grid;grid-template-columns:2fr 80px 120px 120px 36px;gap:6px;margin-bottom:6px}.quote-item input{box-sizing:border-box;background:#07111d;color:#e8f1f8;border:1px solid #1b2937;border-radius:8px;padding:9px;font-size:9px;width:100%}.quote-item .remove-item{border:1px solid #3b2430;background:#1b1017;color:#ffb8c0;border-radius:8px;cursor:pointer}.quote-summary{display:flex;justify-content:flex-end;margin:12px 0;padding:12px;border:1px solid var(--crm-line);border-radius:12px;background:#07101a}.quote-summary-grid{min-width:280px;display:grid;gap:6px}.quote-summary-grid div{display:flex;justify-content:space-between;font-size:9px}.quote-summary-grid div:last-child{font-size:14px;font-weight:bold;padding-top:7px;border-top:1px solid var(--crm-line)}.quote-detail-head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start}.quote-detail-total{font-size:24px;font-weight:bold;color:#bdeefa}.quote-detail-items{margin-top:16px}.quote-detail-items table{width:100%;border-collapse:collapse}.quote-detail-items th,.quote-detail-items td{padding:8px;border-bottom:1px solid var(--crm-line);font-size:8px;text-align:left}.quote-detail-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:12px}.quote-detail-meta div{padding:9px;border:1px solid var(--crm-line);border-radius:9px}.quote-detail-meta span{display:block;color:var(--crm-muted);font-size:7px}.quote-detail-meta b{font-size:9px}@media(max-width:700px){.quote-kpis{grid-template-columns:repeat(2,1fr)}.quote-toolbar{flex-direction:column}.quote-item{grid-template-columns:1fr 60px 90px 90px 34px}.quote-detail-meta{grid-template-columns:1fr}.quote-detail-head{flex-direction:column}.quote-actions{justify-content:flex-start}}
+
+/* B10.10 · CIERRE COMERCIAL / VENTAS */
+.sales-kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin:14px 0}
+.sales-kpi{padding:14px;border:1px solid var(--crm-line);border-radius:15px;background:#07101a}
+.sales-kpi b{display:block;font-size:20px}.sales-kpi span{display:block;color:var(--crm-muted);font-size:7px;font-weight:900;letter-spacing:.11em;margin-top:5px}
+.sales-toolbar{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
+.sales-toolbar input,.sales-toolbar select{box-sizing:border-box;background:#07111d;color:#e8f1f8;border:1px solid #1b2937;border-radius:9px;padding:10px;font-size:9px}
+.sales-toolbar input{flex:1;min-width:220px}
+.sales-table-wrap{overflow:auto}.sales-table{min-width:1050px}
+.sales-table td,.sales-table th{vertical-align:middle}
+.sales-actions{display:flex;gap:5px;flex-wrap:wrap}.sales-actions .btnx{font-size:7px;padding:6px 8px}
+.sale-status{display:inline-block;padding:4px 7px;border-radius:999px;background:#10212c;color:#9ccbd7;font-size:7px;font-weight:900}
+.sale-balance{font-weight:900}
+.sale-positive{color:#9ed9e7}.sale-warning{color:#ffd78a}.sale-danger{color:#ffb8c0}
+.sale-modal{width:min(900px,100%)}
+.sale-detail-head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start}
+.sale-detail-total{font-size:26px;font-weight:900;color:#bdeefa}
+.sale-detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.sale-detail-card{padding:10px;border:1px solid var(--crm-line);border-radius:10px;background:#07101a}
+.sale-detail-card span{display:block;color:var(--crm-muted);font-size:7px}.sale-detail-card b{display:block;font-size:10px;margin-top:4px}
+.sale-convert-note{padding:10px 12px;border:1px solid rgba(24,200,244,.16);border-radius:11px;background:rgba(24,200,244,.04);color:#91a6b7;font-size:8px;line-height:1.5;margin-top:10px}
+.sale-pay-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sale-pay-grid .field.full{grid-column:1/-1}
+@media(max-width:900px){.sales-kpis{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){
+ .sales-kpis{grid-template-columns:repeat(2,1fr);gap:7px}.sales-kpi{padding:11px}.sales-kpi b{font-size:18px}
+ .sales-toolbar{display:grid;grid-template-columns:1fr 1fr}.sales-toolbar input{grid-column:1/-1;min-width:0}.sales-toolbar select{width:100%}
+ .sale-detail-head{flex-direction:column}.sale-detail-grid{grid-template-columns:1fr}.sale-pay-grid{grid-template-columns:1fr}.sale-pay-grid .field.full{grid-column:auto}
+}
+
 </style>
 </head>
 <body>
@@ -174,6 +204,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
  <button class="tabx" data-tab="reports">REPORTES</button>
  <button class="tabx" data-tab="activities">ACTIVIDADES</button>
  <button class="tabx" data-tab="quotes">COTIZACIONES</button>
+ <button class="tabx" data-tab="sales">VENTAS</button>
  <button class="tabx" data-tab="attribution">ATRIBUCIÓN</button>
 </nav>
 
@@ -191,6 +222,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
   <button type="button" data-mobile-tab="reports">REPORTES</button>
   <button type="button" data-mobile-tab="activities">ACTIVIDADES</button>
   <button type="button" data-mobile-tab="quotes">COTIZACIONES</button>
+  <button type="button" data-mobile-tab="sales">VENTAS</button>
   <button type="button" data-mobile-tab="attribution">ATRIBUCIÓN</button>
  </div>
 </div>
@@ -438,8 +470,92 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 </div>
 
 <div class="modal" id="quoteDetailModal">
- <div class="back" data-quote-detail-close></div><div class="panel quote-panel"><button class="close" data-quote-detail-close>×</button><div id="quoteDetailBody"></div><div class="modal-actions"><button class="btnx" id="quotePrint">Imprimir / PDF</button><button class="btnx" id="quoteWhatsApp">WhatsApp</button><button class="btnx" id="quoteEmail">Email</button><button class="btnx primary" id="quoteAccept">Marcar aceptada</button><button class="btnx" data-quote-detail-close>Cerrar</button></div></div>
+ <div class="back" data-quote-detail-close></div><div class="panel quote-panel"><button class="close" data-quote-detail-close>×</button><div id="quoteDetailBody"></div><div class="modal-actions"><button class="btnx" id="quotePrint">Imprimir / PDF</button><button class="btnx" id="quoteWhatsApp">WhatsApp</button><button class="btnx" id="quoteEmail">Email</button><button class="btnx primary" id="quoteAccept">Marcar aceptada</button><button class="btnx" id="quoteConvertSale">Convertir a venta</button><button class="btnx" data-quote-detail-close>Cerrar</button></div></div>
 </div>
+
+<section class="view" id="view-sales">
+ <div class="module-toolbar report-toolbar">
+  <div>
+   <div class="module-kicker">B10.10 · CIERRE COMERCIAL</div>
+   <h2>Ventas</h2>
+   <div class="module-note">Convierte cotizaciones aceptadas en ventas, registra cobros y mantiene separado el cierre financiero de la operación de WhatsApp.</div>
+  </div>
+  <div class="report-controls">
+   <button class="btnx" id="salesRefresh" type="button">Actualizar</button>
+   <button class="btnx primary" id="saleNew" type="button">+ Nueva venta</button>
+  </div>
+ </div>
+
+ <div class="sales-kpis" id="salesKpis"></div>
+
+ <div class="sales-toolbar">
+  <input id="salesSearch" placeholder="Buscar venta, cliente, empresa...">
+  <select id="salesStatus">
+   <option value="">Todos los estados</option>
+   <option>Confirmada</option><option>En proceso</option><option>Entregada</option><option>Pagada</option><option>Anulada</option>
+  </select>
+  <select id="salesPayment">
+   <option value="">Todos los cobros</option>
+   <option>Pendiente</option><option>Parcial</option><option>Pagada</option>
+  </select>
+ </div>
+
+ <section class="intel-panel">
+  <h3>Ventas registradas</h3>
+  <div class="sales-table-wrap">
+   <table class="intel-table sales-table">
+    <thead><tr><th>N°</th><th>Cliente</th><th>Fecha</th><th>Estado</th><th>Cobro</th><th>Total</th><th>Pagado</th><th>Saldo</th><th>Acciones</th></tr></thead>
+    <tbody id="salesRows"></tbody>
+   </table>
+  </div>
+ </section>
+</section>
+
+<div class="modal" id="saleModal">
+ <div class="back" data-sale-close></div>
+ <div class="panel sale-modal">
+  <button class="close" data-sale-close>×</button>
+  <div class="module-kicker">B10.10 · VENTA</div>
+  <h2 id="saleModalTitle">Nueva venta</h2>
+  <form id="saleForm">
+   <input type="hidden" name="id">
+   <div class="grid">
+    <div class="field"><label>NÚMERO DE VENTA</label><input name="sale_number" placeholder="VEN-20261007-0001"></div>
+    <div class="field"><label>ESTADO</label><select name="status"><option>Confirmada</option><option>En proceso</option><option>Entregada</option><option>Pagada</option><option>Anulada</option></select></div>
+    <div class="field"><label>CLIENTE</label><input name="customer_name" required></div>
+    <div class="field"><label>EMPRESA</label><input name="customer_business"></div>
+    <div class="field"><label>EMAIL</label><input name="customer_email" type="email"></div>
+    <div class="field"><label>WHATSAPP / TELÉFONO</label><input name="customer_phone"></div>
+    <div class="field"><label>FECHA DE VENTA</label><input name="sale_date" type="date"></div>
+    <div class="field"><label>FECHA DE VENCIMIENTO / COBRO</label><input name="due_date" type="date"></div>
+    <div class="field"><label>MÉTODO DE PAGO</label><select name="payment_method"><option>Transferencia</option><option>Webpay</option><option>Efectivo</option><option>Tarjeta</option><option>Mercado Pago</option><option>Otro</option></select></div>
+    <div class="field"><label>MONTO PAGADO</label><input name="paid_amount" type="number" min="0" step="1" value="0"></div>
+    <div class="field"><label>SUBTOTAL</label><input name="subtotal" type="number" min="0" step="1" value="0"></div>
+    <div class="field"><label>DESCUENTO</label><input name="discount" type="number" min="0" step="1" value="0"></div>
+    <div class="field"><label>IVA</label><input name="tax" type="number" min="0" step="1" value="0"></div>
+    <div class="field"><label>TOTAL</label><input name="total" type="number" min="0" step="1" value="0"></div>
+    <div class="field full"><label>NOTAS</label><textarea name="notes" rows="3" placeholder="Entrega, alcance, observaciones de cierre..."></textarea></div>
+   </div>
+   <div class="sale-convert-note">Una venta creada desde una cotización conserva la trazabilidad mediante <b>quote_id</b> y <b>lead_id</b>. El estado comercial del lead se mantiene en Ganado.</div>
+   <div class="modal-actions"><button type="button" class="btnx" data-sale-close>Cancelar</button><button type="submit" class="btnx primary">Guardar venta</button></div>
+  </form>
+ </div>
+</div>
+
+<div class="modal" id="saleDetailModal">
+ <div class="back" data-sale-detail-close></div>
+ <div class="panel sale-modal">
+  <button class="close" data-sale-detail-close>×</button>
+  <div id="saleDetailBody"></div>
+  <div class="modal-actions">
+   <button class="btnx" id="saleRegisterPayment">Registrar cobro</button>
+   <button class="btnx" id="saleMarkDelivered">Marcar entregada</button>
+   <button class="btnx primary" id="saleMarkPaid">Marcar pagada</button>
+   <button class="btnx" data-sale-detail-close>Cerrar</button>
+  </div>
+ </div>
+</div>
+
 <section class="view" id="view-attribution">
  <div class="attr-grid" id="attrKpis"></div>
  <section class="intel-panel"><h3>Origen → Lead → Venta</h3><div style="overflow:auto"><table class="intel-table"><thead><tr><th>Origen</th><th>Leads</th><th>Ganados</th><th>Conversión</th><th>Pipeline</th><th>Ingresos ganados</th></tr></thead><tbody id="attrRows"></tbody></table></div></section>
@@ -707,6 +823,160 @@ async function renderActivities(){
 }
 
 
+
+let salesRowsCache=[];let saleEditingId=null;let saleDetailId=null;
+const saleMoney=x=>new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP',maximumFractionDigits:0}).format(Number(x||0));
+const saleDate=x=>x?new Date(`${String(x).slice(0,10)}T12:00:00`).toLocaleDateString('es-CL',{day:'2-digit',month:'short',year:'numeric'}):'—';
+function saleNumber(){const d=new Date();return `VEN-${d.toISOString().slice(0,10).replaceAll('-','')}-${String(Date.now()).slice(-4)}`}
+function saleBalance(x){return Math.max(0,Number(x?.total||0)-Number(x?.paid_amount||0))}
+function salePaymentStatus(x){const b=saleBalance(x),p=Number(x?.paid_amount||0),t=Number(x?.total||0);if(t>0&&b<=0)return'Pagada';if(p>0)return'Parcial';return'Pendiente'}
+function saleStatusClass(x){return `<span class="sale-status">${esc(x||'Confirmada')}</span>`}
+async function listSales(){return await CRMStore.listSales?.(3650)||[]}
+function renderSales(){
+ const q=($('#salesSearch')?.value||'').toLowerCase().trim(),st=$('#salesStatus')?.value||'',ps=$('#salesPayment')?.value||'';
+ const all=salesRowsCache;
+ const rows=all.filter(x=>(!st||x.status===st)&&(!ps||salePaymentStatus(x)===ps)&&(!q||[x.sale_number,x.customer_name,x.customer_business,x.customer_email].join(' ').toLowerCase().includes(q)));
+ const active=all.filter(x=>x.status!=='Anulada');
+ const revenue=active.reduce((a,x)=>a+Number(x.total||0),0);
+ const paid=active.reduce((a,x)=>a+Number(x.paid_amount||0),0);
+ const balance=Math.max(0,revenue-paid);
+ const paidSales=active.filter(x=>salePaymentStatus(x)==='Pagada').length;
+ const avg=active.length?Math.round(revenue/active.length):0;
+ const accepted=quoteRowsCache.filter(x=>x.status==='Aceptada').length;
+ const converted=new Set(all.map(x=>x.quote_id).filter(Boolean)).size;
+ const conversion=accepted?Math.round(converted/accepted*100):0;
+ $('#salesKpis').innerHTML=[
+  [active.length,'VENTAS ACTIVAS'],
+  [saleMoney(revenue),'INGRESOS'],
+  [saleMoney(paid),'COBRADO'],
+  [saleMoney(balance),'POR COBRAR'],
+  [paidSales,'VENTAS PAGADAS'],
+  [`${conversion}%`,'ACEPTADA → VENTA']
+ ].map(x=>`<div class="sales-kpi"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');
+ $('#salesRows').innerHTML=rows.map(x=>{
+   const bal=saleBalance(x), pay=salePaymentStatus(x);
+   return `<tr>
+    <td><b>${esc(x.sale_number)}</b></td>
+    <td><b>${esc(x.customer_name)}</b><br><span style="color:#718095">${esc(x.customer_business||x.customer_email||'')}</span></td>
+    <td>${saleDate(x.sale_date)}</td>
+    <td>${saleStatusClass(x.status)}</td>
+    <td>${saleStatusClass(pay)}</td>
+    <td><b>${saleMoney(x.total)}</b></td>
+    <td>${saleMoney(x.paid_amount)}</td>
+    <td class="${bal>0?'sale-warning':'sale-positive'} sale-balance">${saleMoney(bal)}</td>
+    <td><div class="sales-actions"><button class="btnx" data-sview="${esc(x.id)}">Ver</button><button class="btnx" data-sedit="${esc(x.id)}">Editar</button></div></td>
+   </tr>`
+ }).join('')||'<tr><td colspan="9">No hay ventas con estos filtros.</td></tr>';
+ $('#salesRows').querySelectorAll('[data-sview]').forEach(b=>b.onclick=()=>openSaleDetail(b.dataset.sview));
+ $('#salesRows').querySelectorAll('[data-sedit]').forEach(b=>b.onclick=()=>openSaleModal(b.dataset.sedit));
+}
+function salePayload(){
+ const f=$('#saleForm');
+ const total=Number(f.elements.total.value||0),paid=Math.min(Math.max(0,Number(f.elements.paid_amount.value||0)),Math.max(0,total));
+ return {
+  sale_number:f.elements.sale_number.value.trim()||saleNumber(),
+  status:f.elements.status.value,
+  customer_name:f.elements.customer_name.value.trim(),
+  customer_business:f.elements.customer_business.value.trim()||null,
+  customer_email:f.elements.customer_email.value.trim()||null,
+  customer_phone:f.elements.customer_phone.value.trim()||null,
+  sale_date:f.elements.sale_date.value||new Date().toISOString().slice(0,10),
+  due_date:f.elements.due_date.value||null,
+  payment_method:f.elements.payment_method.value||null,
+  paid_amount:paid,
+  subtotal:Number(f.elements.subtotal.value||0),
+  discount:Number(f.elements.discount.value||0),
+  tax:Number(f.elements.tax.value||0),
+  total:Math.max(0,total),
+  payment_status:paid>=total&&total>0?'Pagada':paid>0?'Parcial':'Pendiente',
+  notes:f.elements.notes.value.trim()||null
+ };
+}
+async function openSaleModal(id=''){
+ saleEditingId=id||null;
+ const f=$('#saleForm');f.reset();
+ $('#saleModalTitle').textContent=id?'Editar venta':'Nueva venta';
+ if(id){
+   const s=salesRowsCache.find(x=>String(x.id)===String(id))||await CRMStore.getSale?.(id);
+   if(!s)return;
+   for(const k of ['sale_number','status','customer_name','customer_business','customer_email','customer_phone','sale_date','due_date','payment_method','paid_amount','subtotal','discount','tax','total','notes'])if(f.elements[k])f.elements[k].value=s[k]??'';
+ }else{
+   f.elements.sale_number.value=saleNumber();
+   f.elements.status.value='Confirmada';
+   f.elements.sale_date.value=new Date().toISOString().slice(0,10);
+   f.elements.due_date.value=new Date(Date.now()+15*86400000).toISOString().slice(0,10);
+   f.elements.paid_amount.value=0;f.elements.subtotal.value=0;f.elements.discount.value=0;f.elements.tax.value=0;f.elements.total.value=0;
+ }
+ $('#saleModal').classList.add('open');
+}
+function closeSaleModal(){$('#saleModal')?.classList.remove('open')}
+async function saveSale(e){
+ e.preventDefault();
+ const p=salePayload();
+ if(!p.customer_name){alert('Ingresa el nombre del cliente.');return}
+ if(!p.total){alert('El total de la venta debe ser mayor que $0.');return}
+ const saved=saleEditingId?await CRMStore.updateSale?.(saleEditingId,p):await CRMStore.saveSale?.(p);
+ if(!saved){alert('No fue posible guardar la venta. Verifica el esquema B10.10 en Supabase.');return}
+ closeSaleModal();salesRowsCache=await listSales();renderSales();
+}
+function openSaleDetail(id){
+ const s=salesRowsCache.find(x=>String(x.id)===String(id));if(!s)return;
+ saleDetailId=id;
+ const bal=saleBalance(s),pay=salePaymentStatus(s);
+ $('#saleDetailBody').innerHTML=`
+  <div class="sale-detail-head">
+   <div><div class="module-kicker">${esc(s.sale_number)}</div><h2 style="margin:4px 0">${esc(s.customer_name)}</h2><div class="module-note">${esc(s.customer_business||'')} ${s.customer_email?'· '+esc(s.customer_email):''}</div></div>
+   <div><div class="sale-detail-total">${saleMoney(s.total)}</div><div style="text-align:right;margin-top:4px">${saleStatusClass(s.status)}</div></div>
+  </div>
+  <div class="sale-detail-grid">
+   <div class="sale-detail-card"><span>Fecha de venta</span><b>${saleDate(s.sale_date)}</b></div>
+   <div class="sale-detail-card"><span>Estado de cobro</span><b>${esc(pay)}</b></div>
+   <div class="sale-detail-card"><span>Fecha de cobro</span><b>${saleDate(s.due_date)}</b></div>
+   <div class="sale-detail-card"><span>Total</span><b>${saleMoney(s.total)}</b></div>
+   <div class="sale-detail-card"><span>Pagado</span><b>${saleMoney(s.paid_amount)}</b></div>
+   <div class="sale-detail-card"><span>Saldo</span><b class="${bal>0?'sale-warning':'sale-positive'}">${saleMoney(bal)}</b></div>
+   <div class="sale-detail-card"><span>Método</span><b>${esc(s.payment_method||'—')}</b></div>
+   <div class="sale-detail-card"><span>Cotización origen</span><b>${esc(s.quote_id||'—')}</b></div>
+   <div class="sale-detail-card"><span>Lead origen</span><b>${esc(s.lead_id||'—')}</b></div>
+  </div>
+  <div class="sale-convert-note">${esc(s.notes||'Sin observaciones.')}</div>`;
+ $('#saleDetailModal').classList.add('open');
+ $('#saleRegisterPayment').style.display=bal>0?'inline-block':'none';
+ $('#saleMarkPaid').style.display=pay==='Pagada'?'none':'inline-block';
+ $('#saleMarkDelivered').style.display=['Entregada','Pagada','Anulada'].includes(s.status)?'none':'inline-block';
+}
+function closeSaleDetail(){$('#saleDetailModal')?.classList.remove('open')}
+async function updateCurrentSale(patch){
+ const s=salesRowsCache.find(x=>String(x.id)===String(saleDetailId));if(!s)return;
+ const saved=await CRMStore.updateSale?.(s.id,patch);
+ if(!saved){alert('No fue posible actualizar la venta.');return}
+ salesRowsCache=await listSales();renderSales();openSaleDetail(s.id);
+}
+function registerSalePayment(){
+ const s=salesRowsCache.find(x=>String(x.id)===String(saleDetailId));if(!s)return;
+ const raw=prompt(`Saldo pendiente: ${saleMoney(saleBalance(s))}\nIngresa el nuevo monto total pagado:`,String(s.paid_amount||0));
+ if(raw===null)return;
+ const paid=Math.max(0,Math.min(Number(s.total||0),Number(raw||0)));
+ updateCurrentSale({paid_amount:paid,payment_status:paid>=Number(s.total||0)?'Pagada':paid>0?'Parcial':'Pendiente',status:paid>=Number(s.total||0)?'Pagada':s.status});
+}
+async function markSaleDelivered(){await updateCurrentSale({status:'Entregada'})}
+async function markSalePaid(){const s=salesRowsCache.find(x=>String(x.id)===String(saleDetailId));if(!s)return;await updateCurrentSale({status:'Pagada',paid_amount:Number(s.total||0),payment_status:'Pagada'})}
+async function convertQuoteToSale(id){
+ const q=quoteRowsCache.find(x=>String(x.id)===String(id));if(!q)return;
+ if(q.status!=='Aceptada'){alert('Solo una cotización Aceptada puede convertirse en venta.');return}
+ const exists=salesRowsCache.find(x=>String(x.quote_id)===String(q.id));
+ if(exists){openSaleDetail(exists.id);return}
+ const saved=await CRMStore.saveSale?.({
+   sale_number:saleNumber(),quote_id:q.id,lead_id:q.lead_id||null,
+   customer_name:q.customer_name,customer_business:q.customer_business||null,customer_email:q.customer_email||null,customer_phone:q.customer_phone||null,
+   sale_date:new Date().toISOString().slice(0,10),due_date:q.valid_until||null,payment_method:'Transferencia',
+   paid_amount:0,subtotal:Number(q.subtotal||0),discount:Number(q.discount||0),tax:Number(q.tax||0),total:Number(q.total||0),
+   payment_status:'Pendiente',status:'Confirmada',notes:`Convertida desde cotización ${q.quote_number}.`
+ });
+ if(!saved){alert('No fue posible convertir la cotización en venta. Verifica el esquema B10.10 en Supabase.');return}
+ salesRowsCache=await listSales();openSaleDetail(saved.id);renderSales();
+}
+
 let quoteRowsCache=[];let quoteEditingId=null;let quoteDetailId=null;let quoteItems=[];
 const quoteMoney=x=>new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP',maximumFractionDigits:0}).format(Number(x||0));
 const quoteDate=x=>x?new Date(`${x}T12:00:00`).toLocaleDateString('es-CL',{day:'2-digit',month:'short',year:'numeric'}):'—';
@@ -716,13 +986,13 @@ function renderQuoteItems(){const el=$('#quoteItems');if(!el)return;el.innerHTML
 function renderQuoteSummary(){const x=quoteCalc();$('#quoteSummary').innerHTML=`<div class="quote-summary-grid"><div><span>Subtotal</span><b>${quoteMoney(x.subtotal)}</b></div><div><span>Descuento</span><b>-${quoteMoney(x.discount)}</b></div><div><span>Neto</span><b>${quoteMoney(x.taxable)}</b></div><div><span>IVA ${x.rate}%</span><b>${quoteMoney(x.tax)}</b></div><div><span>Total</span><b>${quoteMoney(x.total)}</b></div></div>`}
 function quoteStatusClass(status){return `<span class="tag">${esc(status||'Borrador')}</span>`}
 async function listQuotes(){return await CRMStore.listQuotes?.()||[]}
-async function renderQuotes(){quoteRowsCache=await listQuotes();const q=($('#quoteSearch')?.value||'').toLowerCase().trim(),st=$('#quoteStatus')?.value||'';let rows=quoteRowsCache.filter(x=>(!st||x.status===st)&&(!q||[x.quote_number,x.customer_name,x.customer_business,x.customer_email].join(' ').toLowerCase().includes(q)));const counts={all:quoteRowsCache.length,open:quoteRowsCache.filter(x=>!['Aceptada','Rechazada','Vencida'].includes(x.status)).length,accepted:quoteRowsCache.filter(x=>x.status==='Aceptada').length,total:quoteRowsCache.filter(x=>x.status!=='Rechazada').reduce((a,x)=>a+Number(x.total||0),0),pending:quoteRowsCache.filter(x=>['Emitida','Enviada'].includes(x.status)).reduce((a,x)=>a+Number(x.total||0),0)};$('#quoteKpis').innerHTML=[[counts.all,'COTIZACIONES'],[counts.open,'ABIERTAS'],[counts.accepted,'ACEPTADAS'],[quoteMoney(counts.total),'VALOR EMITIDO'],[quoteMoney(counts.pending),'PENDIENTE DE CIERRE']].map(x=>`<div class="quote-kpi"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');$('#quoteRows').innerHTML=rows.map(x=>`<tr><td><b>${esc(x.quote_number)}</b></td><td><b>${esc(x.customer_name)}</b><br><span style="color:#718095">${esc(x.customer_business||x.customer_email||'')}</span></td><td>${quoteDate(x.issue_date)}</td><td>${quoteDate(x.valid_until)}</td><td>${quoteStatusClass(x.status)}</td><td><b>${quoteMoney(x.total)}</b></td><td><div class="quote-actions"><button class="btnx" data-qview="${esc(x.id)}">Ver</button><button class="btnx" data-qedit="${esc(x.id)}">Editar</button></div></td></tr>`).join('')||'<tr><td colspan="7">No hay cotizaciones con estos filtros.</td></tr>';$('#quoteRows').querySelectorAll('[data-qview]').forEach(b=>b.onclick=()=>openQuoteDetail(b.dataset.qview));$('#quoteRows').querySelectorAll('[data-qedit]').forEach(b=>b.onclick=()=>openQuoteModal(b.dataset.qedit));}
+async function renderQuotes(){quoteRowsCache=await listQuotes();const q=($('#quoteSearch')?.value||'').toLowerCase().trim(),st=$('#quoteStatus')?.value||'';let rows=quoteRowsCache.filter(x=>(!st||x.status===st)&&(!q||[x.quote_number,x.customer_name,x.customer_business,x.customer_email].join(' ').toLowerCase().includes(q)));const counts={all:quoteRowsCache.length,open:quoteRowsCache.filter(x=>!['Aceptada','Rechazada','Vencida'].includes(x.status)).length,accepted:quoteRowsCache.filter(x=>x.status==='Aceptada').length,total:quoteRowsCache.filter(x=>x.status!=='Rechazada').reduce((a,x)=>a+Number(x.total||0),0),pending:quoteRowsCache.filter(x=>['Emitida','Enviada'].includes(x.status)).reduce((a,x)=>a+Number(x.total||0),0)};$('#quoteKpis').innerHTML=[[counts.all,'COTIZACIONES'],[counts.open,'ABIERTAS'],[counts.accepted,'ACEPTADAS'],[quoteMoney(counts.total),'VALOR EMITIDO'],[quoteMoney(counts.pending),'PENDIENTE DE CIERRE']].map(x=>`<div class="quote-kpi"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');$('#quoteRows').innerHTML=rows.map(x=>`<tr><td><b>${esc(x.quote_number)}</b></td><td><b>${esc(x.customer_name)}</b><br><span style="color:#718095">${esc(x.customer_business||x.customer_email||'')}</span></td><td>${quoteDate(x.issue_date)}</td><td>${quoteDate(x.valid_until)}</td><td>${quoteStatusClass(x.status)}</td><td><b>${quoteMoney(x.total)}</b></td><td><div class="quote-actions"><button class="btnx" data-qview="${esc(x.id)}">Ver</button><button class="btnx" data-qedit="${esc(x.id)}">Editar</button>${x.status==='Borrador'?`<button class="btnx" data-qdelete="${esc(x.id)}">Eliminar</button>`:''} </div></td></tr>`).join('')||'<tr><td colspan="7">No hay cotizaciones con estos filtros.</td></tr>';$('#quoteRows').querySelectorAll('[data-qview]').forEach(b=>b.onclick=()=>openQuoteDetail(b.dataset.qview));$('#quoteRows').querySelectorAll('[data-qedit]').forEach(b=>b.onclick=()=>openQuoteModal(b.dataset.qedit));$('#quoteRows').querySelectorAll('[data-qdelete]').forEach(b=>b.onclick=async()=>{const q=quoteRowsCache.find(x=>String(x.id)===String(b.dataset.qdelete));if(!q||q.status!=='Borrador')return;if(!confirm('¿Eliminar esta cotización en borrador? Esta acción no se puede deshacer.'))return;const ok=await CRMStore.deleteQuote?.(q.id);if(!ok){alert('No fue posible eliminar la cotización.');return}await renderQuotes()});}
 function fillQuoteLeads(selected=''){const el=$('#quoteLead');if(!el)return;el.innerHTML='<option value="">Sin lead asociado</option>'+leads.map(l=>`<option value="${esc(l.id)}" ${String(l.id)===String(selected)?'selected':''}>${esc(l.name)}${l.business?' · '+esc(l.business):''}</option>`).join('')}
 async function openQuoteModal(id=''){quoteEditingId=id||null;const f=$('#quoteForm');f.reset();quoteItems=[];fillQuoteLeads('');$('#quoteModalTitle').textContent=id?'Editar cotización':'Nueva cotización';if(id){const q=quoteRowsCache.find(x=>String(x.id)===String(id))||await CRMStore.getQuote?.(id);if(!q)return;for(const k of ['quote_number','status','customer_name','customer_business','customer_email','customer_phone','issue_date','valid_until','lead_id','notes','discount','tax_rate','terms'])if(f.elements[k])f.elements[k].value=q[k]??'';quoteItems=Array.isArray(q.items)?q.items.map(x=>({...x})):[];fillQuoteLeads(q.lead_id||'')}else{f.elements.quote_number.value=quoteNumber();f.elements.status.value='Borrador';f.elements.issue_date.value=new Date().toISOString().slice(0,10);f.elements.valid_until.value=new Date(Date.now()+15*86400000).toISOString().slice(0,10);f.elements.discount.value=0;f.elements.tax_rate.value=19;f.elements.terms.value='50% al iniciar · 50% contra entrega';quoteItems=[{name:'',qty:1,price:0,description:''}]}renderQuoteItems();renderQuoteSummary();$('#quoteModal').classList.add('open')}
 function closeQuoteModal(){$('#quoteModal')?.classList.remove('open')}
 function quotePayload(){const f=$('#quoteForm'),x=quoteCalc();return{quote_number:f.elements.quote_number.value.trim()||quoteNumber(),status:f.elements.status.value,customer_name:f.elements.customer_name.value.trim(),customer_business:f.elements.customer_business.value.trim()||null,customer_email:f.elements.customer_email.value.trim()||null,customer_phone:f.elements.customer_phone.value.trim()||null,issue_date:f.elements.issue_date.value||new Date().toISOString().slice(0,10),valid_until:f.elements.valid_until.value||null,lead_id:f.elements.lead_id.value||null,notes:f.elements.notes.value.trim()||null,terms:f.elements.terms.value.trim()||null,items:quoteItems.filter(x=>x.name&&Number(x.qty)>0),subtotal:x.subtotal,discount:x.discount,taxable:x.taxable,tax_rate:x.rate,tax:x.tax,total:x.total}}
 async function saveQuote(e){e.preventDefault();const p=quotePayload();if(!p.customer_name){alert('Ingresa el nombre del cliente.');return}if(!p.items.length){alert('Agrega al menos un ítem.');return}const saved=quoteEditingId?await CRMStore.updateQuote?.(quoteEditingId,p):await CRMStore.saveQuote?.(p);if(!saved){alert('No fue posible guardar la cotización. Si Supabase no tiene el esquema B10.9, ejecuta quote-schema-B10.9.sql o usa el modo local.');return}closeQuoteModal();await renderQuotes()}
-function openQuoteDetail(id){const q=quoteRowsCache.find(x=>String(x.id)===String(id));if(!q)return;quoteDetailId=id;const items=Array.isArray(q.items)?q.items:[];$('#quoteDetailBody').innerHTML=`<div class="quote-detail-head"><div><div class="module-kicker">${esc(q.quote_number)}</div><h2 style="margin:4px 0">${esc(q.customer_name)}</h2><div class="module-note">${esc(q.customer_business||'')} ${q.customer_email?'· '+esc(q.customer_email):''}</div></div><div><div class="quote-detail-total">${quoteMoney(q.total)}</div><div style="text-align:right;margin-top:4px">${quoteStatusClass(q.status)}</div></div></div><div class="quote-detail-meta"><div><span>Emisión</span><b>${quoteDate(q.issue_date)}</b></div><div><span>Vigencia</span><b>${quoteDate(q.valid_until)}</b></div><div><span>IVA</span><b>${Number(q.tax_rate||19)}%</b></div></div><div class="quote-detail-items"><table><thead><tr><th>Producto / servicio</th><th>Cant.</th><th>Precio</th><th>Total</th></tr></thead><tbody>${items.map(i=>`<tr><td><b>${esc(i.name)}</b><br><span style="color:#718095">${esc(i.description||'')}</span></td><td>${Number(i.qty||0)}</td><td>${quoteMoney(i.price)}</td><td>${quoteMoney(Number(i.qty||0)*Number(i.price||0))}</td></tr>`).join('')}</tbody></table></div><div class="quote-summary" style="margin-top:12px"><div class="quote-summary-grid"><div><span>Subtotal</span><b>${quoteMoney(q.subtotal)}</b></div><div><span>Descuento</span><b>-${quoteMoney(q.discount)}</b></div><div><span>IVA</span><b>${quoteMoney(q.tax)}</b></div><div><span>Total</span><b>${quoteMoney(q.total)}</b></div></div></div><p class="module-note">${esc(q.notes||'')}</p><p class="module-note">${esc(q.terms||'')}</p>`;$('#quoteDetailModal').classList.add('open');$('#quoteAccept').style.display=q.status==='Aceptada'?'none':'inline-block'}
+function openQuoteDetail(id){const q=quoteRowsCache.find(x=>String(x.id)===String(id));if(!q)return;quoteDetailId=id;const items=Array.isArray(q.items)?q.items:[];$('#quoteDetailBody').innerHTML=`<div class="quote-detail-head"><div><div class="module-kicker">${esc(q.quote_number)}</div><h2 style="margin:4px 0">${esc(q.customer_name)}</h2><div class="module-note">${esc(q.customer_business||'')} ${q.customer_email?'· '+esc(q.customer_email):''}</div></div><div><div class="quote-detail-total">${quoteMoney(q.total)}</div><div style="text-align:right;margin-top:4px">${quoteStatusClass(q.status)}</div></div></div><div class="quote-detail-meta"><div><span>Emisión</span><b>${quoteDate(q.issue_date)}</b></div><div><span>Vigencia</span><b>${quoteDate(q.valid_until)}</b></div><div><span>IVA</span><b>${Number(q.tax_rate||19)}%</b></div></div><div class="quote-detail-items"><table><thead><tr><th>Producto / servicio</th><th>Cant.</th><th>Precio</th><th>Total</th></tr></thead><tbody>${items.map(i=>`<tr><td><b>${esc(i.name)}</b><br><span style="color:#718095">${esc(i.description||'')}</span></td><td>${Number(i.qty||0)}</td><td>${quoteMoney(i.price)}</td><td>${quoteMoney(Number(i.qty||0)*Number(i.price||0))}</td></tr>`).join('')}</tbody></table></div><div class="quote-summary" style="margin-top:12px"><div class="quote-summary-grid"><div><span>Subtotal</span><b>${quoteMoney(q.subtotal)}</b></div><div><span>Descuento</span><b>-${quoteMoney(q.discount)}</b></div><div><span>IVA</span><b>${quoteMoney(q.tax)}</b></div><div><span>Total</span><b>${quoteMoney(q.total)}</b></div></div></div><p class="module-note">${esc(q.notes||'')}</p><p class="module-note">${esc(q.terms||'')}</p>`;$('#quoteDetailModal').classList.add('open');$('#quoteAccept').style.display=q.status==='Aceptada'?'none':'inline-block';if($('#quoteConvertSale'))$('#quoteConvertSale').style.display=q.status==='Aceptada'?'inline-block':'none'}
 function closeQuoteDetail(){$('#quoteDetailModal')?.classList.remove('open')}
 function quoteMessage(q){return `Hola ${q.customer_name}, te enviamos la cotización ${q.quote_number} por ${quoteMoney(q.total)}. Vigencia: ${quoteDate(q.valid_until)}. Si tienes consultas, quedamos atentos. — Somos Software`}
 function printQuote(){const q=quoteRowsCache.find(x=>String(x.id)===String(quoteDetailId));if(!q)return;const w=window.open('','_blank');if(!w){alert('El navegador bloqueó la ventana de impresión.');return}w.document.write(`<html><head><title>${esc(q.quote_number)}</title><style>body{font-family:Arial,sans-serif;padding:40px;color:#111}h1{margin:0 0 6px}table{width:100%;border-collapse:collapse;margin-top:25px}th,td{padding:10px;border-bottom:1px solid #ddd;text-align:left}tfoot td{font-weight:bold}.total{font-size:24px;text-align:right;margin-top:20px}</style></head><body><h1>Somos Software</h1><p>Cotización <b>${esc(q.quote_number)}</b></p><h2>${esc(q.customer_name)}</h2><p>${esc(q.customer_business||'')}</p><table><thead><tr><th>Producto / servicio</th><th>Cantidad</th><th>Precio</th><th>Total</th></tr></thead><tbody>${(q.items||[]).map(i=>`<tr><td>${esc(i.name)}<br><small>${esc(i.description||'')}</small></td><td>${i.qty}</td><td>${quoteMoney(i.price)}</td><td>${quoteMoney(Number(i.qty)*Number(i.price))}</td></tr>`).join('')}</tbody></table><p>Subtotal: ${quoteMoney(q.subtotal)}</p><p>Descuento: ${quoteMoney(q.discount)}</p><p>IVA: ${quoteMoney(q.tax)}</p><div class="total">TOTAL ${quoteMoney(q.total)}</div><p>${esc(q.terms||'')}</p><script>window.onload=()=>window.print()<\/script></body></html>`);w.document.close()}
@@ -732,7 +1002,7 @@ async function activateTab(tab){
   $$('[data-tab]').forEach(x=>x.classList.toggle('active',x===desktopBtn));
   $$('[data-mobile-tab]').forEach(x=>x.classList.toggle('active',x.dataset.mobileTab===tab));
   $$('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+tab));
-  const labelMap={executive:'CENTRO EJECUTIVO',commercial:'COMERCIAL',intelligence:'INTELIGENCIA',social:'REDES & CANALES',contacts:'CONTACTOS',calendar:'CALENDARIO',reports:'REPORTES',activities:'ACTIVIDADES',quotes:'COTIZACIONES',attribution:'ATRIBUCIÓN'};
+  const labelMap={executive:'CENTRO EJECUTIVO',commercial:'COMERCIAL',intelligence:'INTELIGENCIA',social:'REDES & CANALES',contacts:'CONTACTOS',calendar:'CALENDARIO',reports:'REPORTES',activities:'ACTIVIDADES',quotes:'COTIZACIONES',sales:'VENTAS',attribution:'ATRIBUCIÓN'};
   if($('#mobileModuleLabel'))$('#mobileModuleLabel').textContent=labelMap[tab]||tab.toUpperCase();
   if(tab==='executive')await renderExecutive();
   if(tab==='intelligence')renderIntelligence();
@@ -742,6 +1012,7 @@ async function activateTab(tab){
   if(tab==='reports')await renderReports();
   if(tab==='activities')await renderActivities();
   if(tab==='quotes')await renderQuotes();
+  if(tab==='sales'){salesRowsCache=await listSales();renderSales();}
   if(tab==='attribution')await renderAttribution();
 }
 $$('[data-tab]').forEach(btn=>btn.onclick=()=>activateTab(btn.dataset.tab));
@@ -851,8 +1122,8 @@ document.getElementById('createAccount').addEventListener('click',ev=>{ev.preven
 $('#backToLogin').onclick=ev=>{ev.preventDefault();$('#signup').style.setProperty('display','none','important');$('#signup').classList.remove('open');$('#signupError').classList.remove('show')};
 $('#signupForm').onsubmit=async e=>{e.preventDefault();const email=$('#signupEmail').value.trim(),password=$('#signupPassword').value,password2=$('#signupPassword2').value,err=$('#signupError');err.classList.remove('show');err.textContent='';if(!email){err.textContent='Ingresa un correo válido.';err.classList.add('show');return}if(password.length<6){err.textContent='La contraseña debe tener al menos 6 caracteres.';err.classList.add('show');return}if(password!==password2){err.textContent='Las contraseñas no coinciden.';err.classList.add('show');return}const btn=e.currentTarget.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Creando cuenta…';try{const r=await CRMStore.signUp(email,password);if(!r.ok){err.textContent=r.error||'No fue posible crear la cuenta.';err.classList.add('show');return}if(r.confirmed){$('#signup').style.display='none';$('#login').classList.remove('open');await load();alert('Cuenta creada y sesión iniciada correctamente.')}else{$('#signupNote').textContent='Cuenta creada. Revisa tu correo y confirma la cuenta antes de iniciar sesión.';err.textContent='Te enviamos el correo de confirmación. Revisa bandeja de entrada y spam.';err.classList.add('show')}}catch(errx){err.textContent=errx?.message||'Error inesperado al crear la cuenta.';err.classList.add('show')}finally{btn.disabled=false;btn.textContent='Crear cuenta'}};
 $('#resetPassword').onclick=async()=>{clearAuthError();const email=$('#loginForm input[name=email]').value.trim();if(!email){showAuthError('Escribe primero tu correo para recuperar la contraseña.');return}try{const client=window.__SOMOS_SUPABASE_CLIENT__;if(!client){showAuthError('El motor de Supabase todavía no está disponible.');return}const{error}=await client.auth.resetPasswordForEmail(email,{redirectTo:window.location.href.split('#')[0]});if(error)showAuthError(error.message);else showAuthError('Te enviamos un enlace para restablecer la contraseña. Revisa tu correo y spam.')}catch(err){showAuthError(err?.message||'No fue posible solicitar la recuperación.')}};
-async function load(){const remote=await CRMStore.list();leads=(remote?.length?remote:localLeads()).map(normalize);render();if(CRMStore.authenticated){await renderSocial();await renderExecutive();await renderAttribution()}}
-let realtimeChannel=null;async function startRealtime(){if(!CRMStore.authenticated||realtimeChannel)return;realtimeChannel=await CRMStore.subscribeRealtime?.(async({table})=>{if(table==='contacts'||table==='contact_activities')await renderContacts();if(table==='social_publication_calendar')await renderCalendar();if(table==='social_posts'||table==='social_metrics')await renderSocial();if(table==='crm_quotes'&&document.getElementById('view-quotes')?.classList.contains('active'))await renderQuotes();});}
+async function load(){const remote=await CRMStore.list();leads=(remote?.length?remote:localLeads()).map(normalize);render();if(CRMStore.authenticated){await renderSocial();await renderExecutive();await renderAttribution();quoteRowsCache=await listQuotes();salesRowsCache=await listSales();if(document.getElementById('view-sales')?.classList.contains('active'))renderSales()}}
+let realtimeChannel=null;async function startRealtime(){if(!CRMStore.authenticated||realtimeChannel)return;realtimeChannel=await CRMStore.subscribeRealtime?.(async({table})=>{if(table==='contacts'||table==='contact_activities')await renderContacts();if(table==='social_publication_calendar')await renderCalendar();if(table==='social_posts'||table==='social_metrics')await renderSocial();if(table==='crm_quotes'&&document.getElementById('view-quotes')?.classList.contains('active'))await renderQuotes();if(table==='crm_sales'&&document.getElementById('view-sales')?.classList.contains('active')){salesRowsCache=await listSales();renderSales()}});}
 try{await CRMStore.init();if(CRMStore.authenticated){$('#login').classList.remove('open');$('#signup').style.display='none'}else{$('#login').classList.add('open');$('#signup').style.display='none'}if(!CRMStore.requiresLogin)showAuthError('No se pudo conectar con Supabase. Revisa la URL, la publishable key y la conexión a Internet.')}catch(initErr){console.error(initErr);$('#login').classList.add('open');showAuthError('No se pudo inicializar Supabase: '+(initErr?.message||'error desconocido'))}await load();
 if(CRMStore.authenticated)await startRealtime();
 </script>
