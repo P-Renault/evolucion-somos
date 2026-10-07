@@ -1,0 +1,10 @@
+B10.6.2
+
+1. Ejecutar contacts-social-calendar-schema.sql completo.
+2. Reemplazar en GitHub Pages: crm.html, crm-data.js, supabase-config.js.
+3. No reemplazar whatsapp-api ni whatsapp-webhook.
+4. Hacer commit y esperar GitHub Pages.
+5. Probar CONTACTOS: crear, editar, ficha, actividad y abrir WhatsApp.
+6. Probar CALENDARIO: filtros, duplicar, publicar, editar y eliminar.
+7. Probar REPORTES.
+8. Si Realtime queda activo, los cambios de contactos/calendario/publicaciones/métricas se reflejan sin refresco.

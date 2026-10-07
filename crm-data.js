@@ -37,6 +37,16 @@ export const CRMStore={
  async listSocialSyncLogs(limit=20){if(!sb||!authUser)return[];const{data,error}=await sb.from('social_sync_logs').select('*').order('started_at',{ascending:false}).limit(limit);if(error){console.warn('social_sync_logs:',error);return[]}return data||[]},
 
  async listSocialPosts(limit=50){if(!sb||!authUser)return[];const{data,error}=await sb.from('social_posts').select('*').order('published_at',{ascending:false}).limit(limit);if(error){console.warn('social_posts:',error);return[]}return data||[]},
+ async listContacts(query=''){if(!sb||!authUser)return[];let q=sb.from('contacts').select('*').order('updated_at',{ascending:false});if(query){const x=query.replace(/[,()]/g,' ');q=q.or(`name.ilike.%${x}%,phone.ilike.%${x}%,email.ilike.%${x}%,business.ilike.%${x}%`)}const{data,error}=await q.limit(200);if(error){console.warn('contacts:',error);return[]}return data||[]},
+ async saveContact(contact){if(!sb||!authUser)return null;const payload={...contact};delete payload.id;const{data,error}=await sb.from('contacts').upsert(payload,{onConflict:'phone'}).select().single();if(error){console.warn('contacts save:',error);return null}return data},
+ async updateContact(id,patch){if(!sb||!authUser||!id)return null;const{data,error}=await sb.from('contacts').update(patch).eq('id',id).select().single();if(error){console.warn('contacts update:',error);return null}return data},
+ async deleteContact(id){if(!sb||!authUser||!id)return false;const{error}=await sb.from('contacts').delete().eq('id',id);if(error){console.warn('contacts delete:',error);return false}return true},
+ async listContactActivities(contactId){if(!sb||!authUser||!contactId)return[];const{data,error}=await sb.from('contact_activities').select('*').eq('contact_id',contactId).order('activity_at',{ascending:false}).limit(100);if(error){console.warn('contact_activities:',error);return[]}return data||[]},
+ async saveContactActivity(activity){if(!sb||!authUser)return null;const payload={...activity};delete payload.id;const{data,error}=await sb.from('contact_activities').insert(payload).select().single();if(error){console.warn('contact_activities save:',error);return null}return data},
+ async listPublicationCalendar(month){if(!sb||!authUser)return[];const start=`${month}-01`;const d=new Date(`${month}-01T00:00:00`);d.setMonth(d.getMonth()+1);const end=d.toISOString().slice(0,10);const{data,error}=await sb.from('social_publication_calendar').select('*').gte('scheduled_at',start).lt('scheduled_at',end).order('scheduled_at',{ascending:true});if(error){console.warn('social_publication_calendar:',error);return[]}return data||[]},
+ async savePublication(item){if(!sb||!authUser)return null;const payload={...item};delete payload.id;const{data,error}=await sb.from('social_publication_calendar').insert(payload).select().single();if(error){console.warn('publication calendar:',error);return null}return data},
+ async updatePublication(id,patch){if(!sb||!authUser||!id)return null;const{data,error}=await sb.from('social_publication_calendar').update(patch).eq('id',id).select().single();if(error){console.warn('publication calendar update:',error);return null}return data},
+ async deletePublication(id){if(!sb||!authUser||!id)return false;const{error}=await sb.from('social_publication_calendar').delete().eq('id',id);if(error){console.warn('publication calendar delete:',error);return false}return true},
  async syncSocialPosts(){
   if(!sb||!authUser)return{ok:false,error:'Debes iniciar sesión en el CRM.'};
   try{
@@ -52,6 +62,17 @@ export const CRMStore={
    if(error)return{ok:false,error:error.message||'No fue posible ejecutar la sincronización Meta.'};
    return data||{ok:false,error:'La función Meta no devolvió datos.'};
   }catch(e){return{ok:false,error:e?.message||String(e)}}
+ },
+ async subscribeRealtime(callback){
+  if(!sb||!authUser||typeof callback!=='function')return null;
+  const channel=sb.channel('somos-crm-b1062')
+    .on('postgres_changes',{event:'*',schema:'public',table:'contacts'},payload=>callback({table:'contacts',payload}))
+    .on('postgres_changes',{event:'*',schema:'public',table:'contact_activities'},payload=>callback({table:'contact_activities',payload}))
+    .on('postgres_changes',{event:'*',schema:'public',table:'social_publication_calendar'},payload=>callback({table:'social_publication_calendar',payload}))
+    .on('postgres_changes',{event:'*',schema:'public',table:'social_posts'},payload=>callback({table:'social_posts',payload}))
+    .on('postgres_changes',{event:'*',schema:'public',table:'social_metrics'},payload=>callback({table:'social_metrics',payload}))
+    .subscribe((status,error)=>{if(status==='CHANNEL_ERROR'||status==='TIMED_OUT')console.warn('CRM Realtime:',status,error)});
+  return channel;
  },
  get authenticated(){return!!authUser},get requiresLogin(){return!!sb},mode:'local',get ready(){return authReady},onStateChange:null
 };
