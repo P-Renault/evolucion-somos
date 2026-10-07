@@ -27,6 +27,7 @@ export const CRMStore={
  async logout(){if(sb){const{error}=await sb.auth.signOut({scope:'local'});if(error)console.warn('Supabase signOut:',error)}authUser=null;notify()},
  async list(){if(!sb||!authUser)return[];const{data,error}=await sb.from('leads').select('*').order('created_at',{ascending:false});if(error){console.error('Supabase leads:',error);return[]}return data||[]},
  async upsert(lead){if(!sb||!authUser)return null;const payload={...lead,external_id:lead.external_id||lead.id,state:lead.state||lead.status||'Nuevo',next_date:lead.next_date||lead.next_action_date||null};delete payload.id;delete payload.status;delete payload.next_action_date;const{data,error}=await sb.from('leads').upsert(payload,{onConflict:'external_id'}).select().single();if(error){console.error(error);alert('No fue posible guardar en Supabase: '+error.message);return null}return data},
+ async updateLead(id,patch){if(!sb||!authUser||!id)return null;const {data,error}=await sb.from('leads').update(patch).eq('id',id).select().single();if(error){console.warn('leads update:',error);return null}return data},
  async importMany(items){if(!sb||!authUser)return false;const payload=items.map(x=>{const y={...x,external_id:x.external_id||x.id,state:x.state||x.status||'Nuevo',next_date:x.next_date||x.next_action_date||null};delete y.id;delete y.status;delete y.next_action_date;return y});const{error}=await sb.from('leads').upsert(payload,{onConflict:'external_id'});if(error){console.error(error);return false}return true},
  async saveLeadIntelligence(rows){if(!sb||!authUser||!rows?.length)return false;const payload=rows.map(x=>({...x,calculated_at:new Date().toISOString()}));const{error}=await sb.from('lead_intelligence').upsert(payload,{onConflict:'lead_id'});if(error){console.warn('lead_intelligence:',error);return false}return true},
  async listLeadIntelligence(){if(!sb||!authUser)return[];const{data,error}=await sb.from('lead_intelligence').select('*');if(error){console.warn('lead_intelligence:',error);return[]}return data||[]},
@@ -102,7 +103,8 @@ export const CRMStore={
  },
  async subscribeRealtime(callback){
   if(!sb||!authUser||typeof callback!=='function')return null;
-  const channel=sb.channel('somos-crm-b1062')
+  const channel=sb.channel('somos-crm-b108')
+    .on('postgres_changes',{event:'*',schema:'public',table:'leads'},payload=>callback({table:'leads',payload}))
     .on('postgres_changes',{event:'*',schema:'public',table:'contacts'},payload=>callback({table:'contacts',payload}))
     .on('postgres_changes',{event:'*',schema:'public',table:'contact_activities'},payload=>callback({table:'contact_activities',payload}))
     .on('postgres_changes',{event:'*',schema:'public',table:'social_publication_calendar'},payload=>callback({table:'social_publication_calendar',payload}))

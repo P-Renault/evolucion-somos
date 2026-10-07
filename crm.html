@@ -101,6 +101,16 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 .report-post-compare b{display:block;font-size:20px}.report-post-compare span{display:block;color:#8190a4;font-size:7px;margin-top:3px}
 .campaign-banner{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;border:1px solid var(--crm-line);border-radius:12px;background:#091520}
 .campaign-banner b{display:block;font-size:10px}.campaign-banner span{display:block;color:#8190a4;font-size:7px;line-height:1.5;margin-top:3px}
+
+.activity-center-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:10px;margin-top:10px}
+.activity-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.activity-kpi{border:1px solid var(--crm-line);border-radius:13px;background:#07101a;padding:12px}
+.activity-kpi b{display:block;font-size:21px}.activity-kpi span{display:block;color:#8190a4;font-size:7px;margin-top:4px}
+.activity-toolbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:10px 0}.activity-toolbar select,.activity-toolbar input{border:1px solid var(--crm-line);border-radius:9px;background:#07111d;color:#dff9ff;padding:9px;font-size:8px}
+.activity-list-grid{display:grid;gap:7px}.activity-task{display:grid;grid-template-columns:72px 1fr auto;gap:9px;align-items:center;padding:10px;border:1px solid var(--crm-line);border-radius:11px;background:#091520}
+.activity-task.overdue{border-color:#7b3944}.activity-task.today{border-color:#18c8f4}.activity-task .datebox{text-align:center;border:1px solid var(--crm-line);border-radius:9px;padding:7px;background:#07101a}.activity-task .datebox b{display:block;font-size:15px}.activity-task .datebox span{font-size:7px;color:#8190a4}.activity-task h4{margin:0;font-size:9px}.activity-task p{margin:4px 0 0;color:#8190a4;font-size:7px}.activity-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.activity-actions .btnx{font-size:7px;padding:7px 8px}.activity-empty{padding:18px;text-align:center;color:#8190a4;border:1px dashed var(--crm-line);border-radius:11px}
+@media(max-width:900px){.activity-center-grid{grid-template-columns:1fr}.activity-kpis{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.activity-task{grid-template-columns:58px 1fr}.activity-actions{grid-column:1/-1;justify-content:flex-start}.activity-toolbar{display:grid;grid-template-columns:1fr 1fr}.activity-toolbar>*:first-child{grid-column:1/-1;width:100%}}
 @media(max-width:900px){.report-health-grid{grid-template-columns:repeat(2,1fr)}.report-channel-grid{grid-template-columns:1fr}.report-post-compare{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:700px){.report-toolbar{align-items:stretch}.report-controls{display:grid;grid-template-columns:1fr 1fr}.report-period-label{grid-column:1/-1}.report-period-label select{width:100%}.report-controls .btnx{width:100%;justify-content:center}.report-bar-row{grid-template-columns:85px 1fr 25px}.campaign-banner{align-items:flex-start;flex-direction:column}.campaign-banner .btnx{width:100%;justify-content:center}.health-card{padding:9px}}
 </style>
@@ -142,7 +152,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
 
 <main class="crm">
 <header class="top">
- <div class="brand"><img src="assets/logo-somos-software.png" alt="Somos Software"><small>CRM COMERCIAL + INTELIGENCIA · B10.7</small><div class="session" id="session"></div></div>
+ <div class="brand"><img src="assets/logo-somos-software.png" alt="Somos Software"><small>CRM COMERCIAL + INTELIGENCIA · B10.8</small><div class="session" id="session"></div></div>
  <div class="actions">
   <button class="btnx" id="export">Exportar CSV</button>
   <button class="btnx" id="importLocal">Importar locales</button>
@@ -160,6 +170,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
  <button class="tabx" data-tab="contacts">CONTACTOS</button>
  <button class="tabx" data-tab="calendar">CALENDARIO</button>
  <button class="tabx" data-tab="reports">REPORTES</button>
+ <button class="tabx" data-tab="activities">ACTIVIDADES</button>
  <button class="tabx" data-tab="attribution">ATRIBUCIÓN</button>
 </nav>
 
@@ -175,6 +186,7 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
   <button type="button" data-mobile-tab="contacts">CONTACTOS</button>
   <button type="button" data-mobile-tab="calendar">CALENDARIO</button>
   <button type="button" data-mobile-tab="reports">REPORTES</button>
+  <button type="button" data-mobile-tab="activities">ACTIVIDADES</button>
   <button type="button" data-mobile-tab="attribution">ATRIBUCIÓN</button>
  </div>
 </div>
@@ -365,6 +377,23 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
  <div class="back" data-contact-detail-close></div><div class="panel"><button class="close" data-contact-detail-close>×</button><div style="color:#18c8f4;font-size:8px;font-weight:bold;letter-spacing:.16em">CONTACTO 360°</div><h2 id="contactDetailTitle">Contacto</h2><div id="contactDetailBody"></div><div class="module-toolbar"><button class="btnx primary" id="contactDetailWhatsApp">Abrir WhatsApp</button><button class="btnx" id="contactDetailEdit">Editar</button><button class="btnx" data-contact-detail-close>Cerrar</button></div></div>
 </div>
 
+<section class="view" id="view-activities">
+ <div class="module-toolbar report-toolbar">
+  <div><div class="module-kicker">B10.8 · CENTRO DE ACTIVIDADES Y SEGUIMIENTO</div><h2>Gestión diaria comercial</h2><div class="module-note">Centraliza seguimientos, próximas acciones y actividad reciente sin modificar el esquema de Supabase ni las Edge Functions aprobadas.</div></div>
+  <div class="report-controls"><button class="btnx primary" id="activityRefresh" type="button">Actualizar</button></div>
+ </div>
+ <div class="activity-kpis" id="activityKpis"></div>
+ <div class="activity-toolbar">
+  <select id="activityFilter"><option value="all">Todos</option><option value="overdue">Vencidos</option><option value="today">Hoy</option><option value="next7">Próximos 7 días</option><option value="nodate">Sin fecha</option></select>
+  <select id="activityPriority"><option value="all">Todas las prioridades</option><option value="Alta">Alta</option><option value="Media">Media</option><option value="Baja">Baja</option></select>
+  <input id="activitySearch" placeholder="Buscar lead, empresa o próxima acción">
+ </div>
+ <div class="activity-center-grid">
+  <section class="intel-panel"><h3>Seguimientos pendientes</h3><div class="activity-list-grid" id="activityTasks"></div></section>
+  <section class="intel-panel"><h3>Actividad reciente</h3><div class="activity-list-grid" id="activityRecent"></div></section>
+ </div>
+</section>
+
 <section class="view" id="view-attribution">
  <div class="attr-grid" id="attrKpis"></div>
  <section class="intel-panel"><h3>Origen → Lead → Venta</h3><div style="overflow:auto"><table class="intel-table"><thead><tr><th>Origen</th><th>Leads</th><th>Ganados</th><th>Conversión</th><th>Pipeline</th><th>Ingresos ganados</th></tr></thead><tbody id="attrRows"></tbody></table></div></section>
@@ -400,10 +429,10 @@ body{margin:0;background:radial-gradient(circle at 80% -10%,#102c43 0,#07121f 25
  </div>
 </div>
 
-<script src="supabase-config.js?v=B10.7"></script>
+<script src="supabase-config.js?v=B10.8"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script type="module">
-import { CRMStore } from './crm-data.js?v=B10.7';
+import { CRMStore } from './crm-data.js?v=B10.8';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const states=['Nuevo','Contactado','Calificado','Diagnóstico','Agenda','Cotización enviada','Negociación','Ganado','Perdido','Postventa'];
 const cols=states.slice(0,9); let leads=[]; let editing=null; let socialMetrics=[]; let socialAccounts=[]; let commercialEvents=[]; let syncLogs=[]; let socialPosts=[];
@@ -609,12 +638,34 @@ async function renderReports(){
  $('#reportInsights').innerHTML=insights.map(x=>`<div class="alert-item"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join('');
 }
 
+
+let activitySnapshot={tasks:[],recent:[]};
+function activityDateKey(v){return v?String(v).slice(0,10):''}
+function activityDayStatus(v){const k=activityDateKey(v),today=new Date().toISOString().slice(0,10);if(!k)return'none';if(k<today)return'overdue';if(k===today)return'today';return'future'}
+function activityDateLabel(v){if(!v)return'SIN FECHA';const d=new Date(v+'T12:00:00');return d.toLocaleDateString('es-CL',{day:'2-digit',month:'short'}).replace('.','').toUpperCase()}
+function activityTaskCard(x){const l=x.l,s=activityDayStatus(l.next_date), cls=s==='overdue'?'overdue':s==='today'?'today':'';return `<article class="activity-task ${cls}"><div class="datebox"><b>${l.next_date?new Date(l.next_date+'T12:00:00').getDate():'—'}</b><span>${activityDateLabel(l.next_date)}</span></div><div><h4>${esc(l.name||'Lead sin nombre')}</h4><p>${esc(l.business||l.contact||'')} · <b>${esc(l.next_action||'Definir próxima acción')}</b> · Prioridad ${esc(l.priority||'Media')}</p></div><div class="activity-actions"><button class="btnx" data-act="today" data-id="${esc(l.id)}">Hoy</button><button class="btnx" data-act="tomorrow" data-id="${esc(l.id)}">Mañana</button><button class="btnx primary" data-act="done" data-id="${esc(l.id)}">Registrar resultado</button></div></article>`}
+async function renderActivities(){
+ const k=$('#activityKpis'),tasksEl=$('#activityTasks'),recentEl=$('#activityRecent');if(!k||!tasksEl||!recentEl)return;
+ const contacts=await CRMStore.listContacts();const acts=await CRMStore.listContactActivitiesRange(30);
+ const today=new Date().toISOString().slice(0,10), open=leads.filter(l=>!['Ganado','Perdido'].includes(l.state));
+ const overdue=open.filter(l=>l.next_date&&l.next_date<today), todayItems=open.filter(l=>l.next_date===today), noDate=open.filter(l=>!l.next_date), next7=open.filter(l=>l.next_date&&l.next_date>today&&l.next_date<=new Date(Date.now()+7*86400000).toISOString().slice(0,10));
+ k.innerHTML=[[overdue.length,'VENCIDOS'],[todayItems.length,'HOY'],[next7.length,'PRÓXIMOS 7 DÍAS'],[noDate.length,'SIN FECHA']].map(x=>`<div class="activity-kpi"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');
+ const filter=$('#activityFilter')?.value||'all',priority=$('#activityPriority')?.value||'all',q=($('#activitySearch')?.value||'').toLowerCase().trim();
+ let list=open.filter(l=>{const s=activityDayStatus(l.next_date);const ok=filter==='all'||(filter==='overdue'&&s==='overdue')||(filter==='today'&&s==='today')||(filter==='next7'&&next7.includes(l))||(filter==='nodate'&&s==='none');const p=priority==='all'||l.priority===priority;const text=[l.name,l.business,l.contact,l.next_action,l.need].join(' ').toLowerCase();return ok&&p&&(!q||text.includes(q))});
+ list.sort((a,b)=>{const da=a.next_date||'9999-12-31',db=b.next_date||'9999-12-31';if(da!==db)return da.localeCompare(db);return (b.priority==='Alta')-(a.priority==='Alta')});
+ activitySnapshot.tasks=list;tasksEl.innerHTML=list.slice(0,100).map(l=>activityTaskCard({l})).join('')||'<div class="activity-empty">No hay seguimientos con los filtros seleccionados.</div>';
+ const contactMap=new Map(contacts.map(c=>[c.id,c]));const recent=acts.slice().sort((a,b)=>new Date(b.activity_at)-new Date(a.activity_at)).slice(0,30);
+ recentEl.innerHTML=recent.map(a=>{const c=contactMap.get(a.contact_id);return `<article class="activity-task"><div class="datebox"><b>✓</b><span>${new Date(a.activity_at).toLocaleDateString('es-CL',{day:'2-digit',month:'short'}).replace('.','')}</span></div><div><h4>${esc(a.activity_type||'Actividad')}${a.subject?' · '+esc(a.subject):''}</h4><p>${esc(c?.name||'Contacto')} · ${esc(a.body||'Sin detalle')}</p></div><div class="activity-actions"><span class="tag">${new Date(a.activity_at).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})}</span></div></article>`}).join('')||'<div class="activity-empty">Sin actividad registrada en los últimos 30 días.</div>';
+ tasksEl.querySelectorAll('[data-act]').forEach(btn=>btn.onclick=async()=>{const id=btn.dataset.id,l=leads.find(x=>String(x.id)===String(id));if(!l)return;const act=btn.dataset.act;const base=new Date();if(act==='today'){l.next_date=base.toISOString().slice(0,10)}else if(act==='tomorrow'){l.next_date=new Date(base.getTime()+86400000).toISOString().slice(0,10)}else{l.next_date=base.toISOString().slice(0,10);l.next_action='Registrar resultado del seguimiento';const target=contacts.find(c=>String(c.phone||'').replace(/\D/g,'')===String(l.contact||'').replace(/\D/g,'')||String(c.email||'').toLowerCase()===String(l.email||'').toLowerCase()||String(c.name||'').toLowerCase()===String(l.name||'').toLowerCase());if(target&&CRMStore.authenticated){await CRMStore.saveContactActivity({contact_id:target.id,activity_type:'Seguimiento',subject:'Seguimiento comercial',body:'Resultado registrado desde Centro de Actividades',activity_at:new Date().toISOString()})}}
+   if(CRMStore.authenticated){const saved=await CRMStore.upsert(l);if(!saved){alert('No fue posible actualizar el seguimiento.');return}}else saveLocal();await renderActivities();renderTable();renderBoard();});
+}
+
 async function activateTab(tab){
   const desktopBtn=$$('[data-tab]').find(x=>x.dataset.tab===tab);
   $$('[data-tab]').forEach(x=>x.classList.toggle('active',x===desktopBtn));
   $$('[data-mobile-tab]').forEach(x=>x.classList.toggle('active',x.dataset.mobileTab===tab));
   $$('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+tab));
-  const labelMap={executive:'CENTRO EJECUTIVO',commercial:'COMERCIAL',intelligence:'INTELIGENCIA',social:'REDES & CANALES',contacts:'CONTACTOS',calendar:'CALENDARIO',reports:'REPORTES',attribution:'ATRIBUCIÓN'};
+  const labelMap={executive:'CENTRO EJECUTIVO',commercial:'COMERCIAL',intelligence:'INTELIGENCIA',social:'REDES & CANALES',contacts:'CONTACTOS',calendar:'CALENDARIO',reports:'REPORTES',activities:'ACTIVIDADES',attribution:'ATRIBUCIÓN'};
   if($('#mobileModuleLabel'))$('#mobileModuleLabel').textContent=labelMap[tab]||tab.toUpperCase();
   if(tab==='executive')await renderExecutive();
   if(tab==='intelligence')renderIntelligence();
@@ -622,6 +673,7 @@ async function activateTab(tab){
   if(tab==='contacts')await renderContacts();
   if(tab==='calendar')await renderCalendar();
   if(tab==='reports')await renderReports();
+  if(tab==='activities')await renderActivities();
   if(tab==='attribution')await renderAttribution();
 }
 $$('[data-tab]').forEach(btn=>btn.onclick=()=>activateTab(btn.dataset.tab));
@@ -632,6 +684,10 @@ activateTab('commercial');
 if($('#reportRefresh')) $('#reportRefresh').onclick=renderReports;
 if($('#reportPeriod')) $('#reportPeriod').onchange=renderReports;
 if($('#reportExport')) $('#reportExport').onclick=downloadReportCSV;
+if($('#activityRefresh')) $('#activityRefresh').onclick=renderActivities;
+if($('#activityFilter')) $('#activityFilter').onchange=renderActivities;
+if($('#activityPriority')) $('#activityPriority').onchange=renderActivities;
+if($('#activitySearch')) $('#activitySearch').oninput=renderActivities;
 if($('#socialRefresh')) $('#socialRefresh').onclick=renderSocial;
 if($('#socialPostsSync')) $('#socialPostsSync').onclick=async()=>{const b=$('#socialPostsSync');const s=$('#socialSyncStatus');b.disabled=true;b.textContent='Sincronizando Redes…';s.textContent='Sincronizando métricas + publicaciones…';try{const results=await Promise.all([CRMStore.syncMeta(),CRMStore.syncSocialPosts()]);const metrics=results[0]||{};const posts=results[1]||{};await renderSocial();const metricsOk=!!metrics.ok;const postsOk=!!posts.ok;const fb=posts.facebook??posts.data?.facebook??0;const ig=posts.instagram??posts.data?.instagram??0;const total=posts.total??posts.data?.total??0;const lines=[metricsOk?'Métricas Meta: OK':`Métricas Meta: ERROR — ${metrics.error||'sin detalle'}`,postsOk?`Publicaciones: OK · FB ${fb} · IG ${ig}`:`Publicaciones: ERROR — ${posts.error||'sin detalle'}`];if(metricsOk&&postsOk){s.textContent=`Redes sincronizadas · FB ${fb} · IG ${ig} · ${total} publicaciones`;alert(`Sincronización integral completada.\n\n${lines.join('\n')}\nTotal publicaciones: ${total}`)}else if(metricsOk||postsOk){s.textContent='Sincronización parcial';alert(`Sincronización parcial.\n\n${lines.join('\n')}`)}else{s.textContent='Error de sincronización';alert(`No fue posible completar la sincronización.\n\n${lines.join('\n')}`)}}catch(e){s.textContent='Error de sincronización';alert(e?.message||'Error inesperado durante la sincronización.')}finally{b.disabled=false;b.textContent='Sincronizar Redes'}};
 if($('#socialSync')) $('#socialSync').onclick=async()=>{const b=$('#socialSync');const s=$('#socialSyncStatus');b.disabled=true;b.textContent='Sincronizando…';s.textContent='Consultando métricas reales…';try{const r=await CRMStore.syncMeta();await renderSocial();const fb=r?.facebook||{};const ig=r?.instagram||{};const fbd=fb?.diagnostic||{};const igd=ig?.diagnostic||{};const fbLine=fb?.ok?`Facebook: ${fb.followers ?? '—'} seguidores · ${fbd.status||'SIN DIAGNÓSTICO'}`:`Facebook: ERROR · ${fb?.error||'sin detalle'}`;const igLine=ig?.ok?`Instagram: ${ig.followers ?? '—'} seguidores · ${igd.status||'SIN DIAGNÓSTICO'}`:`Instagram: ERROR · ${ig?.error||'sin detalle'}`;const fbFields=(fbd.fields_received||[]).join(', ')||'ninguno';const igFields=(igd.fields_received||[]).join(', ')||'ninguno';if(r?.ok){s.textContent='Métricas Meta actualizadas';alert(`Diagnóstico de métricas Meta\n\n${fbLine}\nCampos recibidos: ${fbFields}\n\n${igLine}\nCampos recibidos: ${igFields}`)}else{s.textContent=r?.partial?'Sincronización parcial':'Error de sincronización';alert(`Diagnóstico de métricas Meta\n\n${fbLine}\nCampos recibidos: ${fbFields}\n\n${igLine}\nCampos recibidos: ${igFields}`)}}catch(e){s.textContent='Error de sincronización';alert(e?.message||'Error inesperado durante la sincronización.')}finally{b.disabled=false;b.textContent='Sincronizar Meta'}};
