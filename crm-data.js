@@ -101,6 +101,10 @@ export const CRMStore={
    return data||{ok:false,error:'La función Meta no devolvió datos.'};
   }catch(e){return{ok:false,error:e?.message||String(e)}}
  },
+ async listQuotes(){if(!sb||!authUser)return[];const{data,error}=await sb.from('crm_quotes').select('*').order('created_at',{ascending:false});if(error){console.warn('crm_quotes:',error);return[]};return data||[]},
+ async getQuote(id){if(!sb||!authUser||!id)return null;const{data,error}=await sb.from('crm_quotes').select('*').eq('id',id).single();if(error){console.warn('crm_quote get:',error);return null};return data},
+ async saveQuote(quote){if(!sb||!authUser)return null;const payload={...quote,created_by:authUser.id};delete payload.id;const{data,error}=await sb.from('crm_quotes').insert(payload).select().single();if(error){console.warn('crm_quote save:',error);return null};return data},
+ async updateQuote(id,patch){if(!sb||!authUser||!id)return null;const payload={...patch,updated_at:new Date().toISOString()};delete payload.id;const{data,error}=await sb.from('crm_quotes').update(payload).eq('id',id).select().single();if(error){console.warn('crm_quote update:',error);return null};return data},
  async subscribeRealtime(callback){
   if(!sb||!authUser||typeof callback!=='function')return null;
   const channel=sb.channel('somos-crm-b108')
