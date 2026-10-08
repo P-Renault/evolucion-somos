@@ -48,16 +48,31 @@
     .sya-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.45);transition:.2s}
     .sya-dot.is-active{width:21px;border-radius:5px;background:#00d9ff}
     @media(max-width:760px){
-      .sya-modal{grid-template-columns:1fr;max-height:94vh;overflow:auto;border-radius:21px}
-      .sya-visual{order:-1;min-height:220px;max-height:32vh}
-      .sya-copy{padding:25px 20px 22px}
-      .sya-title{font-size:41px}
-      .sya-sub{font-size:15px}
+      .sya-popover{padding:12px}
+      .sya-modal{width:min(420px,88vw);max-height:80vh;max-height:80dvh;grid-template-columns:1fr;overflow:auto;border-radius:18px}
+      .sya-visual{order:-1;min-height:0;height:clamp(105px,19vh,145px);max-height:none;flex:none}
+      .sya-label{left:10px;bottom:9px;padding:6px 8px;font-size:8px;border-radius:8px}
+      .sya-dots{right:11px;bottom:13px}
+      .sya-close{right:8px;top:8px;width:32px;height:32px;font-size:21px}
+      .sya-copy{padding:14px 14px 13px}
+      .sya-badge{padding:5px 9px;font-size:8px;letter-spacing:.6px}
+      .sya-title{font-size:30px;line-height:1;letter-spacing:-1.2px;margin:9px 0 6px}
+      .sya-sub{font-size:12px;line-height:1.25;margin:0 0 10px}
+      .sya-features{gap:5px;margin:9px 0 12px}
+      .sya-feature{padding:6px 3px;border-radius:9px}
+      .sya-icon{width:22px;height:22px;margin-bottom:4px;border-radius:7px;font-size:11px}
+      .sya-feature b{font-size:8px;line-height:1.12}
+      .sya-cta{padding:10px 13px;border-radius:10px;font-size:12px;gap:7px}
+      .sya-url{margin-top:5px;font-size:9px}
+      .sya-mini{display:none}
     }
     @media(max-width:430px){
-      .sya-title{font-size:36px}
-      .sya-feature b{font-size:9px}
-      .sya-visual{min-height:185px}
+      .sya-modal{width:min(390px,88vw);max-height:78vh;max-height:78dvh}
+      .sya-title{font-size:28px}
+      .sya-visual{height:clamp(95px,16vh,125px)}
+      .sya-feature b{font-size:7.5px}
+      .sya-copy{padding:12px 12px 11px}
+      .sya-features{gap:4px;margin:8px 0 10px}
     }
     @media(prefers-reduced-motion:reduce){
       .sya-popover,.sya-modal,.sya-slide{transition:none!important}
