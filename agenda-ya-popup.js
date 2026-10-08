@@ -11,7 +11,8 @@
     delay: 1400,
     sessionKey: "somos_net_agenda_ya_popup_seen_v1",
     image1: "agenda-ya-popup-01.png",
-    image2: "agenda-ya-popup-02.png"
+    image2: "agenda-ya-popup-02.png",
+    mobilePoster: "assets/agenda-ya-mobile-poster.png"
   };
 
   if (window.__SOMOS_AGENDA_YA_POPUP__) return;
@@ -49,8 +50,11 @@
     .sya-dot.is-active{width:21px;border-radius:5px;background:#00d9ff}
     @media(max-width:760px){
       .sya-popover{padding:12px}
-      .sya-modal{width:min(420px,88vw);max-height:80vh;max-height:80dvh;grid-template-columns:1fr;overflow:auto;border-radius:18px}
-      .sya-visual{order:-1;min-height:0;height:clamp(105px,19vh,145px);max-height:none;flex:none}
+      .sya-modal{width:min(520px,94vw);max-height:88vh;max-height:88dvh;grid-template-columns:1fr;overflow:hidden;border-radius:18px;display:block;background:#f5fbff}
+      .sya-copy,.sya-visual{display:none!important}
+      .sya-mobile-poster{display:block;position:relative;width:100%;line-height:0;background:#fff}
+      .sya-mobile-poster img{width:100%;height:auto;max-height:calc(88dvh - 4px);object-fit:contain}
+      .sya-mobile-web-cta{top:72.5%;}
       .sya-label{left:10px;bottom:9px;padding:6px 8px;font-size:8px;border-radius:8px}
       .sya-dots{right:11px;bottom:13px}
       .sya-close{right:8px;top:8px;width:32px;height:32px;font-size:21px}
@@ -67,13 +71,16 @@
       .sya-mini{display:none}
     }
     @media(max-width:430px){
-      .sya-modal{width:min(390px,88vw);max-height:78vh;max-height:78dvh}
-      .sya-title{font-size:28px}
-      .sya-visual{height:clamp(95px,16vh,125px)}
-      .sya-feature b{font-size:7.5px}
-      .sya-copy{padding:12px 12px 11px}
-      .sya-features{gap:4px;margin:8px 0 10px}
+      .sya-modal{width:min(520px,94vw);max-height:88vh;max-height:88dvh}
+      .sya-mobile-web-cta{font-size:clamp(7px,2.05vw,10px)}
     }
+    .sya-mobile-poster{display:none}
+    .sya-mobile-poster img{display:block;width:100%;height:auto}
+    .sya-mobile-web-cta{position:absolute;left:55%;top:72.5%;width:41%;min-height:8.2%;box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:5px;padding:5px 7px;border:1px solid rgba(0,135,255,.28);border-radius:999px;background:linear-gradient(110deg,#fff,#eef8ff);box-shadow:0 4px 12px rgba(0,72,180,.15);color:#0759bd;text-decoration:none;text-align:center;font-size:clamp(7px,2.15vw,11px);font-weight:900;line-height:1.15;z-index:4}
+    .sya-mobile-web-cta .sya-web-icon{font-size:1.35em;flex:0 0 auto}
+    .sya-mobile-web-cta .sya-web-copy{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+    .sya-mobile-web-cta small{font-size:.72em;font-weight:700;color:#42668c}
+    .sya-mobile-web-cta strong{white-space:nowrap}
     @media(prefers-reduced-motion:reduce){
       .sya-popover,.sya-modal,.sya-slide{transition:none!important}
       .sya-slide{transform:none!important}
@@ -130,6 +137,12 @@
           <div class="sya-label">Tu tiempo en el lugar correcto · En todo Chile</div>
           <div class="sya-dots"><span class="sya-dot is-active"></span><span class="sya-dot"></span></div>
         </section>
+        <section class="sya-mobile-poster" aria-label="Promoción Agenda Ya para móviles">
+          <img src="${CONFIG.mobilePoster}" alt="Agenda Ya: descubre, reserva y disfruta servicios en todo Chile. Disponible en Google Play." loading="eager">
+          <a class="sya-mobile-web-cta" href="${CONFIG.targetUrl}" target="_blank" rel="noopener noreferrer" aria-label="También puedes usar Agenda Ya en la web, www.agenda-ya.cl">
+            <span class="sya-web-icon" aria-hidden="true">◎</span><span class="sya-web-copy"><small>También puedes usarlo en la web</small><strong>www.agenda-ya.cl　↗</strong></span>
+          </a>
+        </section>
       </div>
     `;
 
@@ -154,11 +167,9 @@
       if (e.key === "Escape" && root.classList.contains("is-open")) close();
     });
 
-    root.querySelector("#syaAgendaLink").addEventListener("click", () => {
-      window.dispatchEvent(new CustomEvent("somos:agenda-ya-click", {
-        detail: { target: CONFIG.targetUrl }
-      }));
-    });
+    const dispatchAgendaClick = () => window.dispatchEvent(new CustomEvent("somos:agenda-ya-click", { detail: { target: CONFIG.targetUrl } }));
+    root.querySelector("#syaAgendaLink").addEventListener("click", dispatchAgendaClick);
+    root.querySelector(".sya-mobile-web-cta").addEventListener("click", dispatchAgendaClick);
 
     const slides = [...root.querySelectorAll(".sya-slide")];
     const dots = [...root.querySelectorAll(".sya-dot")];
