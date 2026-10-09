@@ -966,15 +966,40 @@ async function convertQuoteToSale(id){
  if(q.status!=='Aceptada'){alert('Solo una cotización Aceptada puede convertirse en venta.');return}
  const exists=salesRowsCache.find(x=>String(x.quote_id)===String(q.id));
  if(exists){openSaleDetail(exists.id);return}
- const saved=await CRMStore.saveSale?.({
+ const payload={
    sale_number:saleNumber(),quote_id:q.id,lead_id:q.lead_id||null,
    customer_name:q.customer_name,customer_business:q.customer_business||null,customer_email:q.customer_email||null,customer_phone:q.customer_phone||null,
    sale_date:new Date().toISOString().slice(0,10),due_date:q.valid_until||null,payment_method:'Transferencia',
    paid_amount:0,subtotal:Number(q.subtotal||0),discount:Number(q.discount||0),tax:Number(q.tax||0),total:Number(q.total||0),
    payment_status:'Pendiente',status:'Confirmada',notes:`Convertida desde cotización ${q.quote_number}.`
- });
+ };
+ const saved=await CRMStore.saveSale?.(payload);
  if(!saved){alert('No fue posible convertir la cotización en venta. Verifica el esquema B10.10 en Supabase.');return}
- salesRowsCache=await listSales();openSaleDetail(saved.id);renderSales();
+ // Confirmar explícitamente los valores financieros iniciales y leer la fila persistida.
+ const normalized=await CRMStore.updateSale?.(saved.id,{
+   paid_amount:0,
+   payment_status:'Pendiente',
+   status:'Confirmada',
+   updated_at:new Date().toISOString()
+ });
+ if(!normalized){
+   console.error('B10.10: la venta se creó, pero no se pudo verificar/restablecer el estado inicial.',saved);
+   alert('La venta se creó, pero no se pudo confirmar el estado inicial del cobro. No registres pagos; revisa la venta en Supabase.');
+   salesRowsCache=await listSales();renderSales();return;
+ }
+ if(Number(normalized.paid_amount)!==0 || normalized.payment_status!=='Pendiente' || normalized.status!=='Confirmada'){
+   console.error('B10.10: estado financiero inesperado después de convertir.',normalized);
+   alert('La venta se creó, pero Supabase devolvió un estado financiero inesperado. No registres pagos; revisa la fila en Supabase.');
+   salesRowsCache=await listSales();renderSales();return;
+ }
+ salesRowsCache=await listSales();
+ const persisted=salesRowsCache.find(x=>String(x.id)===String(normalized.id));
+ if(!persisted || Number(persisted.paid_amount)!==0 || persisted.payment_status!=='Pendiente' || persisted.status!=='Confirmada'){
+   console.error('B10.10: la lectura posterior no coincide con el estado inicial esperado.',persisted);
+   alert('La venta se creó, pero la lectura posterior no coincide con el estado esperado. No registres pagos; revisa la fila en Supabase.');
+   renderSales();return;
+ }
+ openSaleDetail(persisted.id);renderSales();
 }
 
 let quoteRowsCache=[];let quoteEditingId=null;let quoteDetailId=null;let quoteItems=[];
