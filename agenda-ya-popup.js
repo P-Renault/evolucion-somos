@@ -9,7 +9,7 @@
   const CONFIG = {
     targetUrl: "https://www.agenda-ya.cl",
     delay: 1400,
-    sessionKey: "somos_net_agenda_ya_popup_seen_v1",
+    sessionKey: "somos_net_agenda_ya_popup_seen_v2",
     image1: "agenda-ya-popup-01.png",
     image2: "agenda-ya-popup-02.png",
     mobilePoster: "assets/agenda-ya-mobile-poster.png"
@@ -75,6 +75,7 @@
       .sya-mobile-web-cta{font-size:clamp(7px,2.05vw,10px)}
     }
     .sya-mobile-poster{display:none}
+    @media(max-width:760px){.sya-mobile-poster{display:block!important}.sya-copy,.sya-visual{display:none!important}}
     .sya-mobile-poster img{display:block;width:100%;height:auto}
     .sya-mobile-web-cta{position:absolute;left:55%;top:72.5%;width:41%;min-height:8.2%;box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:5px;padding:5px 7px;border:1px solid rgba(0,135,255,.28);border-radius:999px;background:linear-gradient(110deg,#fff,#eef8ff);box-shadow:0 4px 12px rgba(0,72,180,.15);color:#0759bd;text-decoration:none;text-align:center;font-size:clamp(7px,2.15vw,11px);font-weight:900;line-height:1.15;z-index:4}
     .sya-mobile-web-cta .sya-web-icon{font-size:1.35em;flex:0 0 auto}
