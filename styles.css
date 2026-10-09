@@ -373,3 +373,24 @@ footer{display:grid!important;grid-template-columns:1.4fr .7fr .9fr auto auto;ga
 @media(max-width:1000px){.solutions-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.solution-card{min-height:265px}.solutions-heading{gap:24px}}
 @media(max-width:600px){.solutions-section{padding-top:48px;padding-bottom:50px}.solutions-heading{grid-template-columns:1fr;gap:12px;margin-bottom:24px}.solutions-heading h2{font-size:32px;letter-spacing:-1.1px}.solutions-heading>p{justify-self:start;font-size:15px;line-height:1.5}.solutions-eyebrow{font-size:9px;letter-spacing:2px;margin-bottom:12px}.solutions-grid{grid-template-columns:1fr 1fr;gap:10px}.solution-card{padding:17px 14px 16px;border-radius:16px;min-height:260px}.solution-icon{height:42px;width:42px;margin-bottom:14px}.solution-card h3{font-size:16px;line-height:1.25;margin-bottom:9px}.solution-card p{font-size:12px;line-height:1.55;margin-bottom:16px}.solution-link{font-size:12px;min-height:32px}.solution-status{font-size:9px;padding:0 9px;letter-spacing:.65px;min-height:30px}.solutions-desktop-break{display:none}}
 @media(max-width:360px){.solutions-grid{grid-template-columns:1fr}.solution-card{min-height:0}.solution-card p{font-size:13px}}
+
+
+/* Nuestras soluciones · escritorio: cuatro tarjetas horizontales, proporción de referencia */
+@media (min-width: 1101px) {
+  .solutions-section { padding-top: 76px; padding-bottom: 76px; }
+  .solutions-heading { grid-template-columns: 1.1fr .9fr; gap: 52px; margin-bottom: 42px; }
+  .solutions-heading h2 { font-size: clamp(38px, 3.2vw, 52px); max-width: 720px; }
+  .solutions-heading > p { max-width: 600px; font-size: 18px; }
+  .solutions-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
+  .solution-card { min-width: 0; min-height: 360px; padding: 34px 32px 28px; border-radius: 22px; }
+  .solution-icon { width: 46px; height: 46px; margin-bottom: 22px; }
+  .solution-card h3 { font-size: clamp(20px, 1.35vw, 25px); line-height: 1.25; margin-bottom: 14px; }
+  .solution-card p { font-size: 16px; line-height: 1.7; margin-bottom: 28px; }
+  .solution-link, .solution-status { min-height: 40px; font-size: 14px; }
+}
+@media (min-width: 1001px) and (max-width: 1100px) {
+  .solutions-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .solution-card { padding: 24px 18px 22px; min-height: 320px; }
+  .solution-card h3 { font-size: 18px; }
+  .solution-card p { font-size: 13px; }
+}
