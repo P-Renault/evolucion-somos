@@ -1,0 +1,30 @@
+SOMOS SOFTWARE CRM · DESPLIEGUE FINAL B10.10.1
+
+1. Respaldar la versión desplegada y la base de datos antes de cambios.
+2. En Supabase SQL Editor, ejecutar completo: DEPLOY-B10.10.1-FINAL.sql.
+3. Si SQL informa duplicados de quote_id en crm_sales, detenerse y revisar:
+   select quote_id, count(*) from public.crm_sales
+   where quote_id is not null group by quote_id having count(*) > 1;
+   No eliminar ventas sin confirmar cuál es la venta válida.
+4. Publicar el contenido del ZIP en la raíz del repositorio, conservando carpetas y assets.
+5. No sustituir las Edge Functions whatsapp-api ni whatsapp-webhook.
+6. Esperar el despliegue del hosting y comprobar que crm.html abre y permite iniciar sesión.
+7. Validación de cotizaciones:
+   - Crear cotización con dos ítems.
+   - Comprobar subtotal, descuento, neto, IVA y total.
+   - Probar descuento mayor al subtotal y comprobar que no se guarde un total inconsistente.
+   - Guardar, refrescar, volver a abrir y editar.
+   - Probar número duplicado y comprobar que se informe el error sin perder datos.
+   - Imprimir/PDF, WhatsApp y correo.
+   - Aceptar cotización con lead asociado y comprobar que se actualice el lead existente.
+   - Confirmar registro en crm_quote_audit.
+8. Validación de ventas:
+   - Convertir una cotización aceptada en venta.
+   - Repetir la conversión y comprobar que no se genere una segunda venta.
+   - Confirmar total, pago inicial $0, estado Pendiente y saldo correcto.
+   - Registrar un pago parcial y luego el pago total.
+9. Regresión: login/logout, leads, contactos, calendario, actividades, reportes, redes, WhatsApp y landing /somos-impulsa/.
+10. Si alguna validación falla, no declarar producción aprobada; registrar error y revisar logs/RLS.
+
+Cambios SQL: crm_quotes, crm_quote_audit y crm_sales; RLS, índices, triggers de auditoría/updated_at y publicación Realtime cuando exista supabase_realtime.
+No modifica las Edge Functions whatsapp-api ni whatsapp-webhook.

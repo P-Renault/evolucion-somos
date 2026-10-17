@@ -145,6 +145,7 @@ export const CRMStore={
     .on('postgres_changes',{event:'*',schema:'public',table:'social_publication_calendar'},payload=>callback({table:'social_publication_calendar',payload}))
     .on('postgres_changes',{event:'*',schema:'public',table:'social_posts'},payload=>callback({table:'social_posts',payload}))
     .on('postgres_changes',{event:'*',schema:'public',table:'social_metrics'},payload=>callback({table:'social_metrics',payload}))
+    .on('postgres_changes',{event:'*',schema:'public',table:'crm_quotes'},payload=>callback({table:'crm_quotes',payload}))
     .on('postgres_changes',{event:'*',schema:'public',table:'crm_sales'},payload=>callback({table:'crm_sales',payload}))
     .subscribe((status,error)=>{if(status==='CHANNEL_ERROR'||status==='TIMED_OUT')console.warn('CRM Realtime:',status,error)});
   return channel;
