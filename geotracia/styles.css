@@ -482,3 +482,30 @@ h1{font-size:clamp(2.55rem,4.1vw,4.25rem);line-height:1.02;font-weight:800;margi
   .mobile-hero-cta{left:20%;right:20%;bottom:4.7%}
   .mobile-hero-assurances{font-size:5px}
 }
+
+
+/* Mobile polish 07: preserve the top treatment while keeping the two lower phone screens crisp */
+@media(max-width:700px){
+  .hero:after{
+    height:43% !important;
+    background:
+      linear-gradient(180deg,
+        rgba(255,255,255,.16) 0%,
+        rgba(255,255,255,.09) 58%,
+        rgba(255,255,255,.025) 84%,
+        rgba(255,255,255,0) 100%),
+      linear-gradient(90deg,
+        rgba(255,255,255,.76) 0%,
+        rgba(255,255,255,.57) 27%,
+        rgba(255,255,255,.22) 43%,
+        rgba(255,255,255,.025) 58%,
+        rgba(255,255,255,0) 68%) !important;
+  }
+  .hero-picture,
+  .hero-picture img{
+    opacity:1 !important;
+    filter:none !important;
+    -webkit-filter:none !important;
+    mix-blend-mode:normal !important;
+  }
+}
