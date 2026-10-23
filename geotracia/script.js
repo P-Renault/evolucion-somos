@@ -23,21 +23,20 @@ nav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
   if (reduceMotion || !('IntersectionObserver' in window)) return;
   document.body.classList.add('motion-ready');
 
-  const addReveal = (elements, baseDelay = 0, stepDelay = 95) => {
+  const addReveal = (elements, baseDelay = 0, stepDelay = 145) => {
     elements.forEach((element, index) => {
       element.classList.add('js-reveal');
       element.style.setProperty('--reveal-delay', `${baseDelay + index * stepDelay}ms`);
     });
   };
 
-  addReveal([...document.querySelectorAll('.desktop-highlights article')], 0, 100);
-  addReveal([...document.querySelectorAll('.feature-card')], 0, 115);
-  addReveal([...document.querySelectorAll('.workflow-copy > .kicker, .workflow-copy h2, .workflow-copy > p, .workflow-copy li')], 0, 80);
-  addReveal([...document.querySelectorAll('.step')], 0, 105);
-  addReveal([...document.querySelectorAll('.trust-inner > div, .trust-list article')], 0, 95);
-  addReveal([...document.querySelectorAll('.contact-copy > *')], 0, 100);
-  addReveal([...document.querySelectorAll('.sectors > .kicker, .sectors > h2, .sectors > .sectors-intro, .sector-list article')], 0, 90);
-  addReveal([...document.querySelectorAll('.footer > *')], 0, 70);
+  addReveal([...document.querySelectorAll('.desktop-highlights article')], 100, 150);
+  addReveal([...document.querySelectorAll('.feature-card')], 100, 165);
+  addReveal([...document.querySelectorAll('.workflow-copy > .kicker, .workflow-copy h2, .workflow-copy > p, .workflow-copy li')], 100, 125);
+  addReveal([...document.querySelectorAll('.step')], 120, 175);
+  addReveal([...document.querySelectorAll('.trust-inner > div, .trust-list article')], 100, 145);
+  addReveal([...document.querySelectorAll('.contact-copy > *')], 120, 150);
+  addReveal([...document.querySelectorAll('.sectors > .kicker, .sectors > h2, .sectors > .sectors-intro, .sector-list article')], 100, 145);
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {

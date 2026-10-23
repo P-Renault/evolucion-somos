@@ -1127,3 +1127,67 @@ body { overflow-x: clip; }
   *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
   .motion-ready .js-reveal { opacity:1 !important; transform:none !important; filter:none !important; }
 }
+
+
+/* Footer de sitio: conservar visible en todas las resoluciones y con animaciones activas. */
+.footer, .footer > * {
+  opacity: 1;
+  visibility: visible;
+  filter: none;
+  transform: none;
+}
+
+
+/* v22 — ritmo cinematográfico más pausado, manteniendo el footer institucional. */
+:root {
+  --motion-ease: cubic-bezier(.2,.72,.22,1);
+}
+.motion-ready .hero-copy > .kicker,
+.motion-ready .hero-copy > h1,
+.motion-ready .hero-copy > .intro,
+.motion-ready .hero-copy > .benefits,
+.motion-ready .hero-copy > .primary-button {
+  animation-duration: 1.35s;
+}
+.motion-ready .hero-copy > .kicker { animation-delay: .18s; }
+.motion-ready .hero-copy > h1 { animation-delay: .34s; }
+.motion-ready .hero-copy > .intro { animation-delay: .56s; }
+.motion-ready .hero-copy > .benefits { animation-delay: .76s; }
+.motion-ready .hero-copy > .primary-button { animation-delay: .96s; }
+.motion-ready .hero-picture {
+  animation-duration: 1.75s;
+  animation-delay: .28s;
+}
+.motion-ready .js-reveal {
+  transition-duration: 1.08s;
+}
+.steps.is-in-view::after {
+  animation-duration: 1.9s;
+}
+.step.is-in-view .step-num {
+  animation-duration: .85s;
+}
+.step.is-in-view .step-content {
+  animation-duration: 1.0s;
+}
+.step.is-in-view .step-illustration {
+  animation-duration: 1.15s;
+}
+.steps.is-in-view .step:not(:last-child) .step-arrow {
+  animation-duration: 1.25s;
+}
+.feature-card {
+  transition-duration: .65s;
+}
+.feature-device img {
+  transition-duration: .95s;
+}
+.step-content {
+  transition-duration: .65s;
+}
+.footer, .footer > * {
+  opacity: 1;
+  visibility: visible;
+  filter: none;
+  transform: none;
+}
