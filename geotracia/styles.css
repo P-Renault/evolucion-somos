@@ -509,3 +509,25 @@ h1{font-size:clamp(2.55rem,4.1vw,4.25rem);line-height:1.02;font-weight:800;margi
     mix-blend-mode:normal !important;
   }
 }
+
+
+/* Mobile polish 08: fade the white overlay smoothly so there is no visible horizontal edge */
+@media(max-width:700px){
+  .hero:after{
+    height:62% !important;
+    background:
+      linear-gradient(180deg,
+        rgba(255,255,255,.13) 0%,
+        rgba(255,255,255,.09) 42%,
+        rgba(255,255,255,.035) 72%,
+        rgba(255,255,255,0) 100%),
+      linear-gradient(90deg,
+        rgba(255,255,255,.76) 0%,
+        rgba(255,255,255,.57) 27%,
+        rgba(255,255,255,.22) 43%,
+        rgba(255,255,255,.025) 58%,
+        rgba(255,255,255,0) 68%) !important;
+    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 48%,rgba(0,0,0,.86) 62%,rgba(0,0,0,.48) 78%,transparent 100%) !important;
+    mask-image:linear-gradient(to bottom,#000 0%,#000 48%,rgba(0,0,0,.86) 62%,rgba(0,0,0,.48) 78%,transparent 100%) !important;
+  }
+}
