@@ -1,24 +1,12 @@
-const toggle = document.querySelector('.menu-toggle');
-const nav = document.querySelector('.main-nav');
-toggle?.addEventListener('click', () => {
+const menuButton = document.querySelector('.hamburger');
+const nav = document.querySelector('.nav');
+menuButton?.addEventListener('click', () => {
   const open = nav.classList.toggle('open');
-  toggle.setAttribute('aria-expanded', String(open));
-  toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  menuButton.setAttribute('aria-expanded', String(open));
+  menuButton.setAttribute('aria-label', open ? 'Cerrar navegación' : 'Abrir navegación');
 });
-nav?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+nav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
   nav.classList.remove('open');
-  toggle?.setAttribute('aria-expanded', 'false');
-  toggle?.setAttribute('aria-label', 'Abrir menú');
+  menuButton?.setAttribute('aria-expanded', 'false');
+  menuButton?.setAttribute('aria-label', 'Abrir navegación');
 }));
-// Reveal elements progressively without hiding content when JS is unavailable.
-const revealItems = document.querySelectorAll('.device-card, .step, .trust-items article, .sector-list article');
-if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  revealItems.forEach(el => el.classList.add('reveal'));
-  const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('is-visible');
-      observer.unobserve(entry.target);
-    }
-  }), { threshold: 0.12 });
-  revealItems.forEach(el => observer.observe(el));
-}
