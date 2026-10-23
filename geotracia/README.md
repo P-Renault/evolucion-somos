@@ -1,11 +1,19 @@
-# GEOTRACIA v18 — Reorganización de la sección de proceso
+# GEOTRACIA — v20 Animación premium
 
-## Cambios
-- Reorganización de la sección «Tu territorio, en una nueva dimensión» para escritorio.
-- Columna izquierda con título en dos líneas («De los datos aislados» / «a una visión integrada.»), descripción y cuatro beneficios.
-- Columna derecha con las cinco etapas del proceso en una sola fila, numeración, flechas, ilustraciones y tarjetas con fondo/borde turquesa.
-- Ajustes de ancho, tipografía y altura para mantener las cinco tarjetas alineadas y legibles en escritorio.
-- Las reglas nuevas se limitan a pantallas de 1001 px o más. La presentación móvil existente se conserva sin cambios.
+Versión basada en `geotracia-v19-proceso-horizontal-corregido.zip`. Conserva la composición aprobada para móvil y escritorio y agrega un sistema de movimiento premium sin librerías externas.
 
-## Verificación
-El ZIP contiene los archivos originales del proyecto con los estilos de escritorio actualizados. Se recomienda abrir `index.html` o desplegar una vista previa para validar visualmente en el navegador antes de publicar.
+## Animaciones incluidas
+- Entrada escalonada del contenido del hero y llegada suave de la imagen principal.
+- Aparición progresiva de capacidades, teléfonos, tarjetas y secciones a medida que entran en pantalla.
+- Animación secuencial de las cinco etapas del proceso, con un barrido turquesa sutil y microinteracciones.
+- Elevación y realce de tarjetas e interacciones hover solo en dispositivos compatibles.
+- Pulso ambiental del elemento de marca y brillo lento de la llamada a la acción.
+- Respeto por `prefers-reduced-motion` para usuarios que solicitan reducir movimiento.
+
+## Archivos
+- `index.html`: estructura y contenido de la landing.
+- `styles.css`: estilos originales más el bloque v20 de animaciones al final.
+- `script.js`: menú existente y lógica de animación con `IntersectionObserver` nativo.
+- `assets/`: recursos gráficos del proyecto.
+
+No requiere instalar dependencias ni compilar. Abrir `index.html` o desplegar los archivos en el alojamiento habitual.
