@@ -821,3 +821,60 @@ h1{font-size:clamp(2.55rem,4.1vw,4.25rem);line-height:1.02;font-weight:800;margi
 @media (min-width: 1200px) {
   .feature-strip .feature-card { height: clamp(430px, 37vw, 560px) !important; }
 }
+
+
+/* GEOTRACIA v16 — fila de capacidades entre notebook y teléfonos, solo escritorio.
+   La composición móvil aprobada queda sin cambios. */
+@media (min-width: 701px) {
+  .hero {
+    grid-template-rows: auto auto auto !important;
+    row-gap: 0 !important;
+  }
+  .hero-copy, .hero-art { grid-row: 1 !important; }
+  .desktop-highlights {
+    display: grid !important;
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 0 !important;
+    margin: 8px 0 10px !important;
+    padding: 0 1.1% !important;
+    position: relative !important;
+    z-index: 4 !important;
+    align-self: center;
+  }
+  .desktop-highlights article {
+    display: flex !important;
+    align-items: center !important;
+    gap: clamp(9px, 1vw, 16px) !important;
+    min-width: 0 !important;
+    padding: 8px clamp(8px, 1.2vw, 18px) !important;
+    border-right: 1px solid #d8e9eb !important;
+  }
+  .desktop-highlights article:last-child { border-right: 0 !important; }
+  .desktop-highlights .highlight-icon {
+    display: grid !important;
+    place-items: center !important;
+    width: clamp(42px, 4.2vw, 58px) !important;
+    height: clamp(42px, 4.2vw, 58px) !important;
+    flex: 0 0 clamp(42px, 4.2vw, 58px) !important;
+    border: 1px solid #a4e8e4 !important;
+    border-radius: 50% !important;
+    background: #dffbf8 !important;
+    color: #07999c !important;
+    font-size: 25px !important;
+  }
+  .desktop-highlights .highlight-icon svg {
+    display: block; width: 55%; height: 55%; fill: none;
+    stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .desktop-highlights b {
+    display: block !important; font-size: clamp(11px, 1.02vw, 16px) !important;
+    line-height: 1.2 !important; margin: 0 0 4px !important; color: #142e45;
+  }
+  .desktop-highlights p {
+    margin: 0 !important; color: #718391 !important;
+    font-size: clamp(9px, .86vw, 13px) !important; line-height: 1.32 !important;
+  }
+  .feature-strip { grid-row: 3 !important; margin-top: 0 !important; }
+}
