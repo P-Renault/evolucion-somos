@@ -270,21 +270,24 @@ h1{font-size:clamp(2.55rem,4.1vw,4.25rem);line-height:1.02;font-weight:800;margi
     content:"";
     position:absolute;
     z-index:2;
-    inset:0;
+    top:0;
+    left:0;
+    right:0;
+    height:48%;
     pointer-events:none;
-    /* Degradado solo en la zona superior y detrás del texto: no blanquear los teléfonos */
+    /* Degradado restringido al encabezado; no se dibuja sobre ninguno de los teléfonos inferiores. */
     background:
       linear-gradient(180deg,
-        rgba(255,255,255,.34) 0%,
-        rgba(255,255,255,.22) 23%,
-        rgba(255,255,255,.08) 39%,
-        rgba(255,255,255,0) 53%),
+        rgba(255,255,255,.18) 0%,
+        rgba(255,255,255,.10) 56%,
+        rgba(255,255,255,.035) 82%,
+        rgba(255,255,255,0) 100%),
       linear-gradient(90deg,
-        rgba(255,255,255,.91) 0%,
-        rgba(255,255,255,.78) 28%,
-        rgba(255,255,255,.47) 43%,
-        rgba(255,255,255,.12) 57%,
-        rgba(255,255,255,0) 70%);
+        rgba(255,255,255,.82) 0%,
+        rgba(255,255,255,.66) 28%,
+        rgba(255,255,255,.28) 44%,
+        rgba(255,255,255,.04) 58%,
+        rgba(255,255,255,0) 68%);
   }
   .hero-copy .benefit-symbol svg{
     display:block;
