@@ -1,18 +1,17 @@
-# GEOTRACIA — Landing page
+# GEOTRACIA — Landing responsive
 
-Landing page estática, responsive y animada para presentar GEOTRACIA a profesionales de ingeniería, empresas constructoras e instituciones.
+Landing page estática en HTML, CSS y JavaScript, con composiciones diferenciadas para escritorio y móvil y recursos gráficos incluidos en `assets/`.
 
 ## Archivos
-- `index.html`: estructura y contenido de la página.
-- `styles.css`: diseño visual responsive, componentes y animaciones CSS.
-- `script.js`: navegación móvil, animaciones de entrada, contadores y controles interactivos del mapa ilustrativo.
-- `assets/geotracia-logo.jpg`: logotipo suministrado para esta propuesta.
+- `index.html`: estructura y contenido.
+- `styles.css`: diseño responsive y estilos.
+- `script.js`: menú móvil y aparición progresiva de secciones.
+- `assets/`: logotipo y gráficos de la plataforma.
 
-## Cómo visualizar
-Abre `index.html` en un navegador moderno. Para probarla localmente con un servidor, desde esta carpeta ejecuta `python -m http.server 8000` y visita `http://localhost:8000`.
+## Vista previa local
+Abre `index.html` en un navegador. Para publicar en GitHub Pages, sube el contenido de esta carpeta a la rama y directorio publicados por el repositorio.
 
-## Notas de integración
-- Es solo la landing page; no incluye panel de administración, backend ni aplicación geoespacial funcional.
-- El visor de mapa es una ilustración interactiva de demostración, no un mapa GIS conectado a datos reales.
-- El CTA de contacto utiliza un enlace `mailto:` de ejemplo (`contacto@geotracia.cl`); reemplázalo por el correo oficial antes de publicar.
-- Las fuentes se cargan desde Google Fonts; si no hay conexión, se usan fuentes de respaldo.
+## Personalización pendiente antes de producción
+- Confirmar correo real para solicitudes de demostración (actualmente `contacto@geotracia.cl`).
+- Reemplazar enlaces de contacto si se dispone de formulario o CRM.
+- Validar las capturas de pantalla finales con las versiones reales de escritorio y móvil.
