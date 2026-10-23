@@ -587,3 +587,44 @@ h1{font-size:clamp(2.55rem,4.1vw,4.25rem);line-height:1.02;font-weight:800;margi
   .feature-strip{gap:26px}
   .feature-card>img{height:clamp(420px,39vw,560px)}
 }
+
+/* Iteración escritorio 12: composición superior con notebook, capacidades y cuatro dispositivos.
+   Los ajustes quedan limitados a escritorio; las reglas móviles aprobadas permanecen intactas. */
+@media(min-width:701px){
+  .hero{
+    padding:24px 4.2% 0;
+    grid-template-columns:minmax(300px,28%) minmax(0,72%);
+    grid-template-rows:auto auto auto;
+    column-gap:1.1%;
+    row-gap:0;
+  }
+  .hero-copy{grid-column:1;grid-row:1;padding:34px 0 16px;align-self:center;max-width:470px}
+  .hero-copy .headline-desktop{display:block}
+  .hero-copy .intro{max-width:420px;margin-bottom:20px}
+  .hero-copy .primary-button{min-width:260px}
+  .hero-art{grid-column:2;grid-row:1;align-self:center;align-items:center;margin:0 -2.8% 0 -4%;width:106%;transform:translateY(10px)}
+  .hero-picture{width:100%}
+  .hero-picture img{width:100%;height:auto;max-height:540px;object-fit:contain;object-position:center center}
+  .desktop-highlights{grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:7px 0 14px;padding:0 1.1%;position:relative;z-index:4}
+  .desktop-highlights article{display:flex;align-items:center;gap:12px;padding:10px 16px;border-right:1px solid #d8e9eb;min-width:0}
+  .desktop-highlights article:last-child{border-right:0}
+  .highlight-icon{width:52px;height:52px;flex:0 0 52px;border:1px solid #a4e8e4;border-radius:50%;background:#dffbf8;color:#07999c;display:grid;place-items:center;font-size:27px;font-weight:700}
+  .desktop-highlights b{display:block;font-size:clamp(12px,1vw,16px);line-height:1.2;margin-bottom:4px}
+  .desktop-highlights p{font-size:clamp(10px,.85vw,13px);line-height:1.35;color:#6a8190;margin:0}
+  .feature-strip{grid-column:1/-1;grid-row:3;margin:0 -1.5% -1px;gap:18px;align-items:end}
+  .feature-card{min-width:0;display:grid;grid-template-rows:auto auto;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible;position:relative;padding-top:0}
+  .feature-card>img{width:100%;height:clamp(300px,31vw,440px);object-fit:contain;object-position:center bottom;background:transparent;padding:0 4px;display:block}
+  .feature-caption{min-height:91px;padding:14px 13px;gap:10px;align-items:flex-start;background:#fff;border:1px solid #e0eff0;border-radius:18px;box-shadow:0 7px 22px #00374b0d;margin-top:-1px}
+  .feature-icon{width:42px;height:42px;flex:0 0 42px;font-size:22px}
+  .feature-caption b{font-size:13px;line-height:1.25;margin:2px 0 5px}
+  .feature-caption p{font-size:11px;line-height:1.4}
+  .feature-card-wide{display:grid}
+}
+@media(min-width:1200px){
+  .hero{padding-top:28px}
+  .hero-copy{padding-top:28px}
+  .hero-picture img{max-height:550px}
+  .desktop-highlights{margin-top:5px;margin-bottom:13px}
+  .feature-strip{gap:20px}
+  .feature-card>img{height:clamp(360px,31vw,470px)}
+}
