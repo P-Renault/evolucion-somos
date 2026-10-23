@@ -978,3 +978,50 @@ h1{font-size:clamp(2.55rem,4.1vw,4.25rem);line-height:1.02;font-weight:800;margi
   }
   .step-arrow { right: calc(clamp(6px, .65vw, 11px) * -1 - 2px); top: 43%; font-size: 25px; }
 }
+
+/* GEOTRACIA v19 — la sección de proceso también adopta la composición horizontal
+   de referencia en tablet y pantallas compactas; no altera el hero ni otras secciones. */
+@media (min-width: 601px) and (max-width: 1000px) {
+  .workflow { padding: 30px 4% 28px; }
+  .workflow-inner {
+    display: grid;
+    grid-template-columns: minmax(0, .78fr) minmax(0, 1.32fr);
+    gap: 18px;
+    align-items: center;
+  }
+  .workflow-copy { max-width: none; min-width: 0; }
+  .workflow-copy .kicker { font-size: 7px; letter-spacing: .12em; gap: 7px; margin-bottom: 10px; }
+  .workflow-copy .kicker > span { width: 18px; }
+  .workflow-copy h2 { font-size: clamp(19px, 3.2vw, 30px); line-height: 1.04; margin: 0 0 10px; }
+  .workflow-copy h2 br { display: block; }
+  .workflow-copy > p { font-size: clamp(9px, 1.2vw, 12px); line-height: 1.4; margin-bottom: 11px; }
+  .workflow-copy ul { display: grid; gap: 6px; }
+  .workflow-copy li { font-size: clamp(8px, 1vw, 10px); gap: 6px; line-height: 1.25; }
+  .workflow-copy li:before { width: 18px; height: 18px; flex-basis: 18px; font-size: 10px; }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 5px;
+    min-width: 0;
+    width: 100%;
+    padding: 9px 7px 8px;
+    border: 1px solid #167e8a;
+    border-radius: 13px;
+    background: #052a43b8;
+  }
+  .step { display: block; min-width: 0; }
+  .step-num { width: 25px; height: 25px; font-size: 9px; margin: 0 auto 7px; box-shadow: 0 0 0 3px #0bb8b922; }
+  .step-content {
+    height: clamp(175px, 27vw, 230px);
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 6px 6px;
+    border-radius: 9px;
+    overflow: hidden;
+  }
+  .step h3 { font-size: clamp(8px, 1.05vw, 11px); line-height: 1.15; min-height: 2.3em; margin: 0 0 6px; }
+  .step p { font-size: clamp(6px, .78vw, 8px); line-height: 1.3; margin: 0 0 6px; flex: 0 0 auto; }
+  .step img.step-illustration, .step img { display: block; width: 100%; height: clamp(48px, 8vw, 70px); object-fit: contain; object-position: center bottom; margin-top: auto; border-radius: 0; background: transparent; }
+  .step-arrow { display: block; right: -6px; top: 42%; font-size: 17px; }
+}
