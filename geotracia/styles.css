@@ -898,3 +898,83 @@ h1{font-size:clamp(2.55rem,4.1vw,4.25rem);line-height:1.02;font-weight:800;margi
   }
   .feature-strip { grid-row: 3 !important; margin-top: 0 !important; }
 }
+
+/* GEOTRACIA v18 — reorganización definitiva de la sección de proceso en escritorio.
+   En móvil se mantienen las reglas aprobadas de presentación vertical. */
+@media (min-width: 1001px) {
+  .workflow { padding: clamp(42px, 4.2vw, 66px) clamp(28px, 5.2vw, 84px); }
+  .workflow-inner {
+    display: grid;
+    grid-template-columns: minmax(0, .82fr) minmax(0, 1.28fr);
+    gap: clamp(22px, 2.6vw, 42px);
+    align-items: center;
+    max-width: 1680px;
+    margin: 0 auto;
+  }
+  .workflow-copy { min-width: 0; }
+  .workflow-copy .kicker { margin-bottom: 20px; }
+  .workflow-copy h2 {
+    max-width: 620px;
+    font-size: clamp(2.2rem, 3.2vw, 3.55rem);
+    line-height: 1.06;
+    margin: 0 0 20px;
+    text-wrap: balance;
+  }
+  .workflow-copy h2 br { display: block; }
+  .workflow-copy > p {
+    max-width: 540px;
+    font-size: clamp(13px, 1.08vw, 16px);
+    line-height: 1.55;
+    margin-bottom: 24px;
+  }
+  .workflow-copy ul { gap: 12px; }
+  .workflow-copy li { font-size: clamp(12px, .95vw, 15px); gap: 12px; }
+  .workflow-copy li:before { width: 30px; height: 30px; flex-basis: 30px; }
+  .steps {
+    width: 100%;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(6px, .65vw, 11px);
+    padding: clamp(12px, 1.15vw, 18px);
+    border: 1px solid #167e8a;
+    border-radius: 20px;
+    background: #052a43b8;
+  }
+  .step { min-width: 0; }
+  .step-num {
+    width: clamp(32px, 2.55vw, 40px);
+    height: clamp(32px, 2.55vw, 40px);
+    font-size: clamp(12px, .9vw, 14px);
+    margin: 0 auto 11px;
+  }
+  .step-content {
+    height: clamp(285px, 25vw, 360px);
+    padding: clamp(10px, .9vw, 15px) clamp(8px, .75vw, 12px);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .step h3 {
+    font-size: clamp(11px, .98vw, 15px);
+    line-height: 1.22;
+    margin: 0 0 10px;
+    min-height: 2.35em;
+  }
+  .step p {
+    font-size: clamp(9px, .72vw, 11px);
+    line-height: 1.42;
+    margin: 0 0 12px;
+    flex: 0 0 auto;
+  }
+  .step img {
+    width: 100%;
+    height: clamp(105px, 10vw, 150px);
+    margin-top: auto;
+    object-fit: contain;
+    object-position: center bottom;
+    border-radius: 8px;
+  }
+  .step-arrow { right: calc(clamp(6px, .65vw, 11px) * -1 - 2px); top: 43%; font-size: 25px; }
+}
