@@ -699,3 +699,16 @@ h1{font-size:clamp(2.55rem,4.1vw,4.25rem);line-height:1.02;font-weight:800;margi
     background: #e9f7f7;
   }
 }
+
+
+/* v14: corrección exclusiva para móvil.
+   Oculta las imágenes duplicadas de la franja de características que se superponían
+   sobre los teléfonos integrados en la imagen principal. Escritorio no cambia. */
+@media (max-width: 700px) {
+  .feature-strip .feature-device {
+    display: none !important;
+  }
+  .feature-strip .feature-card {
+    border-radius: 16px !important;
+  }
+}
