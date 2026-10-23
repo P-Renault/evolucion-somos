@@ -28,6 +28,26 @@ h1{font-size:clamp(2.55rem,4.1vw,4.25rem);line-height:1.02;font-weight:800;margi
 .contact-wrap{padding:10px 3.5% 40px;background:#fff}.contact-panel{position:relative;overflow:hidden;border-radius:19px;background:radial-gradient(circle at 88% 50%,#057b8c 0,#06445e 28%,transparent 55%),linear-gradient(110deg,#052b43,#00344d);color:white;padding:37px 4.5%;display:flex;align-items:center;justify-content:space-between;min-height:230px}.contact-copy{position:relative;z-index:2;max-width:740px}.contact-copy .kicker{margin-bottom:12px}.contact-copy h2{font-size:clamp(1.7rem,2.5vw,2.45rem);line-height:1.15;margin-bottom:10px}.contact-copy>p{font-size:13px;line-height:1.5;color:#d0e0e7;max-width:690px;margin-bottom:15px}.contact-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}.light-button{background:#fff;color:#0b2e47;min-width:230px}.contact-actions small{font-size:10px;color:#c4d9e1}.brand-orbit{position:absolute;right:7%;top:50%;transform:translateY(-50%);width:210px;height:210px;border:1px solid #10a4a75c;border-radius:50%;display:grid;place-items:center;box-shadow:0 0 0 20px #10a4a71a,0 0 0 40px #10a4a711,0 0 0 60px #10a4a709}.brand-orbit span{width:82px;height:82px;display:grid;place-items:center;border-radius:24px;background:linear-gradient(140deg,#14c6bd,#078a97);font-size:42px;font-weight:700;transform:rotate(-7deg);box-shadow:0 18px 35px #001f33a6}.brand-orbit sup{font-size:12px}
 .sectors{padding:0 5.2% 45px}.sectors h2{font-size:clamp(1.9rem,2.8vw,2.8rem);line-height:1.1;margin-bottom:10px}.sectors-intro{font-size:12px;color:#6a8292;max-width:650px;margin-bottom:20px}.sector-list{display:grid;gap:8px}.sector-list article{display:grid;grid-template-columns:38px 115px 1fr 20px;gap:13px;align-items:center;padding:12px 15px;border:1px solid #e4eef1;border-radius:12px;background:#fff;transition:border-color .2s,transform .2s}.sector-list article:hover{border-color:#a2e6e2;transform:translateX(3px)}.sector-icon{width:34px;height:34px;border-radius:9px;background:#dffaf7;color:#078e99;display:grid;place-items:center;font-size:19px}.sector-list small{font-size:8px;letter-spacing:.1em;color:#8197a5}.sector-list b{font-size:12px}.sector-list p{font-size:10px;line-height:1.4;color:#6a8292;margin:3px 0 0}.sector-list strong{font-size:23px;color:var(--teal)}
 .footer{border-top:1px solid #e6eef1;padding:16px 5.2% 13px;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;gap:13px}.footer-logo{width:165px}.footer>p{font-size:11px;color:#6b8291;text-align:center;margin:0}.footer nav{display:flex;justify-content:flex-end;gap:22px}.footer nav a{font-size:11px}.footer small{font-size:9px;color:#8ba0ab}.footer small:last-child{text-align:right}
+/* Composición escritorio de la sección de proceso: texto a la izquierda y cinco etapas en una sola fila. La vista móvil conserva sus reglas existentes. */
+@media(min-width:1001px){
+  .workflow{padding:58px 5.2% 52px}
+  .workflow-inner{grid-template-columns:minmax(0, .88fr) minmax(0, 1.42fr);gap:3.2%;align-items:center}
+  .workflow-copy{min-width:0}
+  .workflow-copy h2{font-size:clamp(2.15rem,3.15vw,3.35rem);line-height:1.04;max-width:540px;margin-bottom:18px}
+  .workflow-copy h2 br{display:block}
+  .workflow-copy>p{font-size:clamp(13px,1.05vw,16px);line-height:1.5;max-width:500px;margin-bottom:22px}
+  .workflow-copy ul{gap:12px}
+  .workflow-copy li{font-size:clamp(12px,.95vw,15px);gap:12px}
+  .workflow-copy li:before{width:30px;height:30px;flex-basis:30px}
+  .steps{min-width:0;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:14px 12px 13px;border-radius:20px}
+  .step-num{width:38px;height:38px;font-size:14px;margin-bottom:10px}
+  .step-content{height:clamp(270px,24vw,340px);padding:15px 11px 12px;border-radius:14px}
+  .step h3{font-size:clamp(12px,1.05vw,16px);line-height:1.2;margin-bottom:10px}
+  .step p{font-size:clamp(10px,.78vw,12px);line-height:1.45;margin-bottom:14px}
+  .step img{height:clamp(100px,10vw,145px);object-fit:contain;object-position:center bottom}
+  .step-arrow{right:-10px;top:43%;font-size:26px}
+}
+
 @media(min-width:1400px){.hero{padding-top:60px}.hero-copy{padding-top:20px}.intro{font-size:16px}.benefits{grid-template-columns:repeat(3,1fr);gap:9px}.benefits>div{font-size:11px;gap:7px}.benefit-symbol{width:32px;height:32px;flex-basis:32px}.feature-card>img{height:220px}.feature-caption{min-height:76px}}
 @media(max-width:1000px){.header{padding:0 3.5%}.logo{width:190px}.nav{gap:15px}.nav a{font-size:11px}.nav .nav-button{padding:12px 14px}.hero{padding:35px 4% 0;grid-template-columns:38% 62%}.hero-copy{padding-top:14px}.intro{font-size:13px}.benefits{gap:8px}.workflow{padding-inline:4%}.workflow-inner{grid-template-columns:1fr;gap:28px}.workflow-copy{max-width:700px}.workflow-copy h2 br{display:none}.steps{max-width:100%}.step-content{height:210px}.trust{padding-inline:4%}.contact-copy{max-width:78%}.brand-orbit{right:-2%;opacity:.6}}
 @media(max-width:700px){

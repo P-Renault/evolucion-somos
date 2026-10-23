@@ -1,23 +1,11 @@
-# GEOTRACIA — landing desde cero
+# GEOTRACIA — v17 ajuste de sección de proceso
 
-Landing estática en HTML, CSS y JavaScript, implementada desde cero con estructura y composición responsive para escritorio y móvil. Los recursos gráficos adjuntos están incluidos en `assets/`.
+## Cambios
+- Reorganizada la sección “Tu territorio, en una nueva dimensión” para escritorio: texto y lista de beneficios en la columna izquierda, cinco etapas del proceso en una fila a la derecha.
+- El título se presenta en dos líneas: “De los datos aislados” / “a una visión integrada.”
+- Ampliadas las tarjetas, números e ilustraciones del proceso para aproximarse a la referencia visual entregada.
+- Los cambios se aplican únicamente desde 1001 px de ancho. Las reglas de móvil (hasta 700 px) se conservan y el comportamiento intermedio existente se mantiene.
 
-## Archivos
-- `index.html`: estructura de la landing y textos.
-- `styles.css`: composición, estilos y breakpoints para móvil/tablet/escritorio.
-- `script.js`: navegación móvil accesible.
-- `assets/`: logotipo y recursos gráficos.
-
-## Ejecutar
-Abre `index.html` en un navegador. No requiere compilación ni dependencias de npm.
-
-## Antes de producción
-- Confirmar el correo de contacto `contacto@geotracia.cl`.
-- Validar en navegadores móviles reales y comparar visualmente con los diseños aprobados.
-- Conectar el CTA a un formulario real o CRM si corresponde.
-
-
-## v16 — fila de capacidades de escritorio
-- Restaurada la fila de cuatro capacidades con iconos SVG, títulos y descripciones.
-- Ubicación: debajo del notebook y encima de los cuatro dispositivos.
-- Los cambios de composición están limitados a pantallas de 701px o más; móvil no se altera.
+## Validación
+- HTML, CSS y recursos incluidos en el paquete.
+- Pendiente validar el renderizado final en navegador real antes de publicar.
